@@ -1,3 +1,3 @@
-package Enums;
+package SalesControlSystem.enums;
 
 public enum Size { XS, S, M, L, XL, XXL }
