@@ -8,31 +8,31 @@ import SalesControlSystem.structure.Company;
 
 public class Administrator extends User {
 
-	public Administrator(String name, int age, Gender gender) {
+	private Company company;
+
+	public Administrator(String name, int age, Gender gender, Company company) {
 		super(name, age, gender);
+		this.company = company;
+		this.company.setAdministrator(this);
 	}
 
-	public void addBranch(Company company, Branch branch) {
+	public void addBranch(Branch branch) {
 		List<Branch> branches = company.getBranches();
-
-		if (this.equals(company.getAdministrator()))
-			branches.add(branch);
+		branches.add(branch);
 
 		// if elements are unique, insert search operation
 	}
 
-	public Branch removeBranch(Company company, Branch branch) {
+	public Branch removeBranch(Branch branch) {
 		List<Branch> branches = company.getBranches();
-
-		if (this.equals(company.getAdministrator()))		
-			branches.remove(branch);
+		branches.remove(branch);
 
 		// insert: return value.
 		// return deleted, if remove successful, otherwise null	
 		return null;
 	}
 
-	public BranchManager setBranchManager(Company company, Branch branch, BranchManager branchManager) {
+	public BranchManager setBranchManager(Branch branch, BranchManager branchManager) {
 		
 		// insert: search and set operation
 		// insert: return value
@@ -40,20 +40,20 @@ public class Administrator extends User {
 		return null;
 	}
 
-	public void printBranches(Company company) {
+	public void printBranches() {
 		List<Branch> branches = company.getBranches();
 		
 		// insert: check admin
 		// insert: search and print branches
 	}
 
-	public void printBranchManagers(Company company) {
+	public void printBranchManagers() {
 		List<Branch> branches = company.getBranches();
 		// insert: check admin
 		// insert: search and print branchManagers for each branch
 	}
 
-	public void printCustomers(Company company) {
+	public void printCustomers() {
 		List<Branch> branches = company.getBranches();
 		// insert: check admin
 		// insert: get all customers for each branch 
@@ -62,9 +62,8 @@ public class Administrator extends User {
 		// insert: search and print customers
 	}
 
-	public void printEmployees(Company company) {
+	public void printEmployees() {
 		List <Branch> branches = company.getBranches();
-		// insert: check admin
 		// insert: search and print employees for each brand
 	}
 

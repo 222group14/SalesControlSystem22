@@ -11,8 +11,7 @@ public class Company {
 	private Administrator admin;
 	private List<Branch> branches = new ArrayList<Branch>(); 			// list?
 
-	public Company(Administrator admin, String companyName) {
-		this.admin = admin;
+	public Company(String companyName) {
 		this.companyName = companyName;
 	}
 
@@ -22,6 +21,10 @@ public class Company {
 
 	public Administrator getAdministrator() {
 		return admin;
+	}
+
+	public void setAdministrator(Administrator admin) {
+		this.admin = admin;
 	}
 
 	public String getCompanyName() {

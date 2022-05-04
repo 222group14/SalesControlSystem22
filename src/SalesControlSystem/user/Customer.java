@@ -9,35 +9,34 @@ import SalesControlSystem.structure.Branch;
 
 public class Customer extends User {
 
+	private Branch branch;
     private List<Product> basket = new ArrayList<Product>();
 	private List<String> orderHistory = new ArrayList<String>(); // stack?
 
-	public Customer(String name, int age, Gender gender) {
+	public Customer(String name, int age, Gender gender, Branch branch) {
 		super(name, age, gender);
+		this.branch = branch;
+		List<Customer> customers = this.branch.getCustomers();
+		customers.add(this);
 	}
 
-	public void addProduct(Branch branch, Product product ) {
-		// insert: check
+	public void addProduct(Product product ) {
 		// insert: update order history
 		basket.add(product);
 	}
 
-	public Product removeProduct(Branch branch, Product product) {
-		// insert: check
-		basket.remove(product);
-		
+	public Product removeProduct(Product product) {
+		basket.remove(product);		
 		// insert: update order history
-
+		
 		// insert: return value
 		// return deleted if remove is successful, otherwise null	
 		return null;				
 	}
 
-	public boolean requestProduct(Branch branch, Product product) {
+	public boolean requestProduct(Product product) {
 		
 		List<Customer> customers = branch.getCustomers();
-		// insert: check if customer is part of the branch
-		
 		List<Product> products = branch.getProducts();
 		// insert: check if product is already exist or not.
 
@@ -47,11 +46,9 @@ public class Customer extends User {
 		// insert rest
 	}
 
-	public void displayProducts(Branch branch) {
+	public void displayProducts() {
 
 		List<Customer> customers = branch.getCustomers();
-		// insert: check if customer is part of the branch
-
 		// insert: print products
 	}
 

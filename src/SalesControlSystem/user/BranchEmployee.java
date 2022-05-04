@@ -8,12 +8,16 @@ import SalesControlSystem.structure.Branch;
 
 public class BranchEmployee extends User {
 
-	public BranchEmployee(String name, int age, Gender gender) {
+	private Branch branch;
+
+	public BranchEmployee(String name, int age, Gender gender, Branch branch) {
 		super(name, age, gender);
+		this.branch = branch;
+		List<BranchEmployee> employees = branch.getBranchEmployees();
+		employees.add(this);
 	}
 
-	public void addProduct(Branch branch, Product product ) {
-		// insert: check if this employee is part of the branch.
+	public void addProduct(Product product) {
 
 		List<Product> products = branch.getProducts();
 		products.add(product);
@@ -21,8 +25,7 @@ public class BranchEmployee extends User {
 		// if elements are unique, insert search operation		 
 	}
 
-	public Product removeProduct(Branch branch, Product product) {
-		// insert: check if this employee is part of the branch.
+	public Product removeProduct(Product product) {
 
 		List<Product> products = branch.getProducts();
 		products.remove(product);
@@ -32,7 +35,7 @@ public class BranchEmployee extends User {
 		return null;
 	}
 
-	public void printProducts(Branch branch) {
+	public void printProducts() {
 		// insert: check if this employee is part of the branch.
 		List<Product> products = branch.getProducts();
 		// insert: print products				

@@ -8,8 +8,12 @@ import SalesControlSystem.structure.Company;
 
 public class BranchManager extends User {
 
-	public BranchManager(String name, int age, Gender gender) {
+	private Branch branch;
+
+	public BranchManager(String name, int age, Gender gender, Branch branch) {
 		super(name, age, gender);
+		this.branch = branch;
+		this.branch.setBranchManager(this);
 	}
 
 	public void printBranches(Company company) {
@@ -19,48 +23,41 @@ public class BranchManager extends User {
 		// insert: if true, print all branches.
 	}
 
-	public void printBranchEmployees(Branch branch) {
+	public void printBranchEmployees() {
 		List<BranchEmployee> employees = branch.getBranchEmployees();
 
-		// insert: check branch manager -> this.equals(branch.getBranchManager())
 		// insert: if true, print employees
 	}
 
-	public void printProducts(Branch branch) {
-			// if ( this.equals(branch.getBranchManager()) )
-			// insert: if true, print products	
+	public void printProducts() {
+		// insert: print products	
 	}
 
-	public void addCustomer(Branch branch, Customer customer) {
+	public void addCustomer(Customer customer) {
 		List<Customer> customers = branch.getCustomers();
 
-		if ( this.equals(branch.getBranchManager()) )
-			customers.add(customer);
+		customers.add(customer);
 
 		// if elements are unique, insert search operation
 	}
 
-	public Customer removeCustomer(Branch branch, Customer customer) {
+	public Customer removeCustomer(Customer customer) {
 		List<Customer> customers = branch.getCustomers();
-
-		if ( this.equals(branch.getBranchManager()) )		
-			customers.remove(customer);
+		customers.remove(customer);
 
 		// insert: return value.
 		// return deleted, if remove successful, otherwise null
 		return null;
 	}
 
-	public void addBranchEmployee(Branch branch, BranchEmployee employee) {
+	public void addBranchEmployee(BranchEmployee employee) {
 		List<BranchEmployee> employees = branch.getBranchEmployees();
-		if(this.equals(branch.getBranchManager()))
-			employees.add(employee);
+		employees.add(employee);
 	}
 
-	public BranchEmployee removeBranchEmployee(Branch branch, BranchEmployee employee) {
+	public BranchEmployee removeBranchEmployee(BranchEmployee employee) {
 		List<BranchEmployee> employees = branch.getBranchEmployees();
-		if(this.equals(branch.getBranchManager()))
-			employees.remove(employee);
+		employees.remove(employee);
 
 		// insert: return value.
 		// return deleted, if remove successful, otherwise null

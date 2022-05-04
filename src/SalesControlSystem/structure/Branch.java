@@ -17,8 +17,11 @@ public class Branch {
 	private List<Customer> customers = new ArrayList<Customer>();   	// list?
 	private List<Product> requestedProducts = new ArrayList<Product>();	// list?
 
-	public Branch(BranchManager manager, String branchName) {
+	public Branch(String branchName) {
 		this.branchName = branchName;
+	}
+
+	public void setBranchManager(BranchManager manager) {
 		this.manager = manager;
 	}
 
