@@ -12,9 +12,9 @@ public class Branch {
 
 	private String branchName;
 	private BranchManager manager;
-	private List<BranchEmployee> employees;	//! keeps in BST								
+	private List<BranchEmployee> employees;	//! keeps in BST ordered acc. to name								
 	private List<Product> products = new ArrayList<Product>();   
-	private List<Customer> customers = new ArrayList<Customer>();   	// list?
+	private List<Customer> customers = new ArrayList<Customer>(); //! keeps in BST ordered acc. to name
 	private List<Product> requestedProducts = new ArrayList<Product>();	//! Keeps in Priorty Quee (Max-heap according to request time)
 
 	public Branch(String branchName) {
