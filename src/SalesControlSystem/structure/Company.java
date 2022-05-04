@@ -23,8 +23,19 @@ public class Company {
 		return admin;
 	}
 
-	public void setAdministrator(Administrator admin) {
+	/**
+	 * Sets the given admin to administrator position of thi company
+	 * @param admin The admin
+	 * @return False if the admin has already an another company, otherwise true
+	 */
+	public boolean setAdministrator(Administrator admin) {
+		Company adminCompany = admin.getCompany();
+		// make sure admin is not owner of another company
+		if (adminCompany != null && !adminCompany.equals(this))
+			return false;
+		admin.setCompany(this);
 		this.admin = admin;
+		return true;
 	}
 
 	public String getCompanyName() {

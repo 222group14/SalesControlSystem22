@@ -16,6 +16,27 @@ public class Administrator extends User {
 		this.company.setAdministrator(this);
 	}
 
+	/**
+	 * Sets this admin to administrator position of the given company
+	 * @param company The company
+	 * @return Returns false if the company has already an another administrator,
+	 * 			otherwise true.   
+	 */
+	public boolean setCompany(Company company) {
+		// make sure company has not any admin
+		Administrator companyOwner = company.getAdministrator();
+		if (companyOwner != null && !companyOwner.equals(this)) 
+			return false;
+		// set admin to administrator position of the given company 	
+		company.setAdministrator(this);
+		this.company = company;
+		return true;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
 	public void addBranch(Branch branch) {
 		List<Branch> branches = company.getBranches();
 		branches.add(branch);
