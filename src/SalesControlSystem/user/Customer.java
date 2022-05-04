@@ -1,6 +1,8 @@
 package SalesControlSystem.user;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 import SalesControlSystem.enums.Gender;
@@ -10,8 +12,8 @@ import SalesControlSystem.structure.Branch;
 public class Customer extends User {
 
 	private Branch branch;
-    private List<Product> basket = new ArrayList<Product>();
-	private List<String> orderHistory = new ArrayList<String>(); // stack?
+    private List<Product> basket = new ArrayList<Product>(); //! another data structure can be used
+	private Deque<Product> orderHistory = new ArrayDeque<Product>(); // Stack is used 
 
 	public Customer(String name, int age, Gender gender, Branch branch) {
 		super(name, age, gender);

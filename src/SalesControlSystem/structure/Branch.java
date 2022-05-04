@@ -12,10 +12,10 @@ public class Branch {
 
 	private String branchName;
 	private BranchManager manager;
-	private List<BranchEmployee> employees = new ArrayList<BranchEmployee>(); 									
+	private List<BranchEmployee> employees;	//! keeps in BST								
 	private List<Product> products = new ArrayList<Product>();   
 	private List<Customer> customers = new ArrayList<Customer>();   	// list?
-	private List<Product> requestedProducts = new ArrayList<Product>();	// list?
+	private List<Product> requestedProducts = new ArrayList<Product>();	//! Keeps in Priorty Quee (Max-heap according to request time)
 
 	public Branch(String branchName) {
 		this.branchName = branchName;
