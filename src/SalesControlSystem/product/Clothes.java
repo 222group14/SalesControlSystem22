@@ -47,5 +47,17 @@ public class Clothes extends Product {
 		StringBuilder sb = new StringBuilder();
 		// insert
 		return sb.toString();
-	}	
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		// insert
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		//insert
+		return 0;
+	}
 }

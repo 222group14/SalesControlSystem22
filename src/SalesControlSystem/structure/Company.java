@@ -9,7 +9,7 @@ public class Company {
 
 	private String companyName;
 	private Administrator admin;
-	private List<Branch> branches = new ArrayList<Branch>(); 			// list?
+	private List<Branch> branches = new ArrayList<Branch>();
 
 	public Company(String companyName) {
 		this.companyName = companyName;
@@ -29,9 +29,9 @@ public class Company {
 	 * @return False if the admin has already an another company, otherwise true
 	 */
 	public boolean setAdministrator(Administrator admin) {
-		Company adminCompany = admin.getCompany();
+		Company company = admin.getCompany();
 		// make sure admin is not owner of another company
-		if (adminCompany != null && !adminCompany.equals(this))
+		if (company != null && !company.equals(this))
 			return false;
 		admin.setCompany(this);
 		this.admin = admin;
@@ -42,9 +42,41 @@ public class Company {
 		return companyName;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		// insert
-		return null;
+		sb.append("Company Name: " + companyName);
+		sb.append("\nAdministrator: " + admin + "\nBranches: \n");
+		
+		if (branches.size() == 0) 
+			sb.append("none\n");
+		for(int i = 0; i < branches.size(); ++i)
+			sb.append(i+1 + ": " + branches.get(i) + "\n");
+		return sb.toString();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if(other != null && other instanceof Company) {
+			Company otherCompany = (Company) other;
+			if(companyName.equals(otherCompany.companyName) 
+				&& admin.equals(otherCompany.admin) && (branches.size() == otherCompany.branches.size()) ) {
+
+				for(int i = 0; i < branches.size(); ++i) 
+					if(!branches.get(i).equals(otherCompany.branches.get(i)))
+						return false;
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+
+	@Override 
+	public int hashCode() {
+		int hcode = companyName.hashCode()* 7 + 5;
+		hcode += admin.hashCode()*31 + 3;
+		hcode += branches.hashCode() * 11;
+		return hcode;
 	}
 }

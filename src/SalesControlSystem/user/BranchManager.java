@@ -1,10 +1,14 @@
 package SalesControlSystem.user;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
+import SalesControlSystem.bst.*;
 import SalesControlSystem.enums.Gender;
 import SalesControlSystem.structure.Branch;
 import SalesControlSystem.structure.Company;
+import SalesControlSystem.product.Product;
 
 public class BranchManager extends User {
 
@@ -16,51 +20,80 @@ public class BranchManager extends User {
 		this.branch.setBranchManager(this);
 	}
 
-	public void printBranches(Company company) {
-		List<Branch> branches = company.getBranches();
+	public Branch getBranch() {
+		return branch;
+	}
+
+	public boolean setBranch(Branch branch) {
+		// make sure branch has not any other branch manager
+		BranchManager manager = branch.getBranchManager();
+		if (manager != null && !manager.equals(this)) 
+			return false;
+		// set branch manager of given branch	
+		branch.setBranchManager(this);
+		this.branch = branch;
+		return true;
+	}
+
+	//public void displayBranches(Company company) {
+	//	List<Branch> branches = company.getBranches();
 
 		// insert: check if this company has this branch manager
 		// insert: if true, print all branches.
+	//}
+
+	public void displayBranchEmployees() {
+		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
+		System.out.println(employees);
 	}
 
-	public void printBranchEmployees() {
-		List<BranchEmployee> employees = branch.getBranchEmployees();
-
-		// insert: if true, print employees
+	public void displayProducts() {
+		ArrayList<LinkedList<Product>> products = branch.getProducts();
+		for(int i = 0; i < products.size(); ++i) {
+			System.out.println("Product Type" + (i+1) + ": " + products.get(i).get(0).getClass());
+			int j = 0;
+			for(Product product: products.get(i))
+				System.out.println( (++j) + ": " + product);
+		}	
 	}
 
-	public void printProducts() {
-		// insert: print products	
-	}
-
-	public void addCustomer(Customer customer) {
-		List<Customer> customers = branch.getCustomers();
-
-		customers.add(customer);
-
-		// if elements are unique, insert search operation
+	public boolean addCustomer(Customer customer) {
+		BinarySearchTree<Customer> customers = branch.getCustomers();
+		return customers.add(customer);
 	}
 
 	public Customer removeCustomer(Customer customer) {
-		List<Customer> customers = branch.getCustomers();
-		customers.remove(customer);
-
-		// insert: return value.
-		// return deleted, if remove successful, otherwise null
-		return null;
+		BinarySearchTree<Customer> customers = branch.getCustomers();
+		return customers.delete(customer);
 	}
 
-	public void addBranchEmployee(BranchEmployee employee) {
-		List<BranchEmployee> employees = branch.getBranchEmployees();
-		employees.add(employee);
+	public boolean addBranchEmployee(BranchEmployee employee) {
+		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
+		return employees.add(employee);
 	}
 
 	public BranchEmployee removeBranchEmployee(BranchEmployee employee) {
-		List<BranchEmployee> employees = branch.getBranchEmployees();
-		employees.remove(employee);
-
-		// insert: return value.
-		// return deleted, if remove successful, otherwise null
-		return null;				
+		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
+		return employees.delete(employee);		
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("User Type: Branch Manager" + "\nBranch: " + branch.getBranchName());
+		sb.append(super.toString());
+		return sb.toString();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		// implement equals
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		//implement hashcode
+		return 0;
+	}		
 }

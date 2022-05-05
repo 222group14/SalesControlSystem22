@@ -42,4 +42,24 @@ public class User {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		// implement
+		return sb.toString();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		// implement equals
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		//implement hashcode
+		return 0;
+	}	
+
 }

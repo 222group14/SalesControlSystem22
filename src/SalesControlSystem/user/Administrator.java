@@ -23,9 +23,9 @@ public class Administrator extends User {
 	 * 			otherwise true.   
 	 */
 	public boolean setCompany(Company company) {
-		// make sure company has not any admin
-		Administrator companyOwner = company.getAdministrator();
-		if (companyOwner != null && !companyOwner.equals(this)) 
+		// make sure company has not any other admin
+		Administrator admin = company.getAdministrator();
+		if (admin != null && !admin.equals(this)) 
 			return false;
 		// set admin to administrator position of the given company 	
 		company.setAdministrator(this);
@@ -40,57 +40,68 @@ public class Administrator extends User {
 	public void addBranch(Branch branch) {
 		List<Branch> branches = company.getBranches();
 		branches.add(branch);
-
-		// if elements are unique, insert search operation
 	}
 
-	public Branch removeBranch(Branch branch) {
+	public boolean removeBranch(Branch branch) {
 		List<Branch> branches = company.getBranches();
-		branches.remove(branch);
-
-		// insert: return value.
-		// return deleted, if remove successful, otherwise null	
-		return null;
+		return branches.remove(branch);
 	}
 
 	public BranchManager setBranchManager(Branch branch, BranchManager branchManager) {
 		
-		// insert: search and set operation
-		// insert: return value
-		// return deleted, if remove successful, otherwise null		
+		// implement
 		return null;
 	}
 
-	public void printBranches() {
+	public void displayBranches() {
+		List<Branch> branches = company.getBranches();
+		for(Branch branch: branches) {
+			System.out.println(branch);
+		}
+	}
+
+	public void displayBranchManagers() {
 		List<Branch> branches = company.getBranches();
 		
-		// insert: check admin
-		// insert: search and print branches
+		for(Branch branch: branches) {
+			System.out.println(branch.getBranchManager());
+		}
 	}
 
-	public void printBranchManagers() {
+	public void displayCustomers() {
 		List<Branch> branches = company.getBranches();
-		// insert: check admin
-		// insert: search and print branchManagers for each branch
+
+		for(Branch branch: branches) {
+			System.out.println(branch.getBranchName() + ": \n");
+			System.out.println(branch.getCustomers());
+		}
 	}
 
-	public void printCustomers() {
-		List<Branch> branches = company.getBranches();
-		// insert: check admin
-		// insert: get all customers for each branch 
-		// List<Customer> customers = company.getCustomers();
-
-		// insert: search and print customers
-	}
-
-	public void printEmployees() {
+	public void displayEmployees() {
 		List <Branch> branches = company.getBranches();
-		// insert: search and print employees for each brand
+		for(Branch branch: branches) {
+			System.out.println(branch.getBranchName() + ": \n");
+			System.out.println(branch.getBranchEmployees());
+		}		
 	}
 
+	@Override
 	public String toString() {
-
-		// insert
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("User Type: Administrator" + "\nCompany: " + company.getCompanyName());
+		sb.append(super.toString());
+		return sb.toString();
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		// implement equals
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		//implement hashcode
+		return 0;
+	}	
 }

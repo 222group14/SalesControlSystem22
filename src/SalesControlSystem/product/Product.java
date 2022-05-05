@@ -3,7 +3,7 @@ package SalesControlSystem.product;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Product {
+public abstract class Product implements Comparable<Product> {
 
 	private String name;
 	private String brand;
@@ -56,10 +56,32 @@ public abstract class Product {
 		this.entryPrice = entryPrice;
 	}
 
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		// insert
+		// implement
 		return sb.toString();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		// implement equals
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		//implement hashcode
+		return 0;
+	}
+
+	@Override
+	public int compareTo(Product other) {
+		if(entryPrice > other.entryPrice)
+			return 1;
+		else if(entryPrice < other.entryPrice)
+			return -1;
+		return 0;
 	}
 }
