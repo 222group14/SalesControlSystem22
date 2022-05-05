@@ -45,19 +45,48 @@ public class Clothes extends Product {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		// insert
+		sb.append("\nCategory: " + this.getClass().getName());
+		sb.append(super.toString());
+		sb.append("\nSize: " + getSize());
+		sb.append("\nMaterial Type: " + getMaterialType());
+		sb.append("\nColor: " + getColor());
+		sb.append("\nSummery State: " + isSummery());
+		sb.append("\nGender: " + getGender());
+
 		return sb.toString();
 	}
 
 	@Override
 	public boolean equals(Object other) {
-		// insert
+		if(other != null && other instanceof Clothes){
+			Clothes otherClothes = (Clothes) other;
+
+			//comparisons
+			if(!super.equals(otherClothes) ||
+				!this.getSize().equals(otherClothes.getSize()) ||
+			    !this.getMaterialType().equals(otherClothes.getMaterialType()) ||
+				!this.getColor().equals(otherClothes.getColor()) ||
+				this.isSummery() != otherClothes.isSummery() ||
+				!this.getGender().equals(otherClothes.getGender()))
+				{
+					return false;
+				}
+			
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		//insert
-		return 0;
+		int hcode = super.hashCode();
+		hcode += getType().hashCode() * 37;
+		hcode += getSize().hashCode()* 43;
+		hcode += getMaterialType().hashCode() * 53;
+		hcode += getColor().hashCode()* 61;
+		/* hcode += summeryState.hashCode() * 71; */
+		hcode += getGender().hashCode()* 79;
+
+		return hcode;
 	}
 }

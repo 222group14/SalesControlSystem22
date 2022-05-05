@@ -57,20 +57,40 @@ public abstract class Product implements Comparable<Product> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		// implement
+		sb.append("\nName: " + getName());
+		sb.append("\nBrand Name: " + getBrand());
+		sb.append("\nType: " + getType());
+		sb.append("\nEntry Price: " + getEntryPrice());
 		return sb.toString();
 	}
 
 	@Override
 	public boolean equals(Object other) {
-		// implement equals
-		return true;
+		if(other != null && other instanceof Product){
+			Product otherProduct = (Product) other;
+
+			//comparisons
+			if(!this.getName().equals(otherProduct.getName()) ||
+				!this.getBrand().equals(otherProduct.getBrand()) ||
+				!this.getType().equals(otherProduct.getType()) ||
+				this.getEntryPrice() != otherProduct.getEntryPrice())
+				{
+					return false;
+				}
+			
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		//implement hashcode
-		return 0;
+		int hcode = getName().hashCode()* 7;
+		hcode += getBrand().hashCode()* 13;
+		hcode += getType().hashCode() * 19;
+		hcode += getEntryPrice()* 29;
+		
+		return hcode;
 	}
 
 	@Override
