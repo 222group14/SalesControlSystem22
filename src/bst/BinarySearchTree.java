@@ -1,4 +1,4 @@
-package SalesControlSystem.bst;
+package src.bst;
 /**
  * Implementation of a Binary Search Tree
  * @author Jacob / Koffman & Wolfgang

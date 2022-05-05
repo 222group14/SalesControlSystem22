@@ -1,7 +1,7 @@
-package SalesControlSystem.product;
+package src.product;
 
-import SalesControlSystem.enums.Gender;
-import SalesControlSystem.enums.Size;
+import src.enums.Gender;
+import src.enums.Size;
 
 public class Clothes extends Product {
 

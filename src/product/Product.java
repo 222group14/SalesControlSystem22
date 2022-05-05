@@ -1,7 +1,4 @@
-package SalesControlSystem.product;
-
-import java.util.ArrayList;
-import java.util.List;
+package src.product;
 
 public abstract class Product implements Comparable<Product> {
 

@@ -1,17 +1,14 @@
-package SalesControlSystem.user;
+package src.user;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.ArrayDeque;
-import java.util.List;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-import SalesControlSystem.bst.*;
-import SalesControlSystem.enums.Gender;
-import SalesControlSystem.product.Product;
-import SalesControlSystem.structure.Branch;
-import SalesControlSystem.product.Product;
+import src.bst.BinarySearchTree;
+import src.enums.Gender;
+import src.product.Product;
+import src.structure.Branch;
 
 public class Customer extends User implements Comparable<Customer> {
 

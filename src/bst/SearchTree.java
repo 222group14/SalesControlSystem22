@@ -1,4 +1,4 @@
-package SalesControlSystem.bst;
+package src.bst;
 /**
  * Searchable tree interface
  * @author Jacob / Koffman & Wolfgang

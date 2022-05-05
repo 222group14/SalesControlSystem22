@@ -1,9 +1,9 @@
-package SalesControlSystem.structure;
+package src.structure;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import SalesControlSystem.user.Administrator;
+import src.user.Administrator;
 
 public class Company {
 
@@ -29,11 +29,12 @@ public class Company {
 	 * @return False if the admin has already an another company, otherwise true
 	 */
 	public boolean setAdministrator(Administrator admin) {
-		Company company = admin.getCompany();
+		Company newAdminCompany = admin.getCompany();
 		// make sure admin is not owner of another company
-		if (company != null && !company.equals(this))
+		if (newAdminCompany == null)
+			admin.setCompany(this);
+		else if (! newAdminCompany.equals(this))
 			return false;
-		admin.setCompany(this);
 		this.admin = admin;
 		return true;
 	}
@@ -59,15 +60,12 @@ public class Company {
 	public boolean equals(Object other) {
 		if(other != null && other instanceof Company) {
 			Company otherCompany = (Company) other;
-			if(companyName.equals(otherCompany.companyName) 
-				&& admin.equals(otherCompany.admin) && (branches.size() == otherCompany.branches.size()) ) {
-
-				for(int i = 0; i < branches.size(); ++i) 
-					if(!branches.get(i).equals(otherCompany.branches.get(i)))
-						return false;
-				return true;
-			}
-			return false;
+			// compare admin
+			//! NOT IMPLEMENTED YET
+			
+			// compare branches
+			if (! branches.equals(otherCompany.getBranches()))
+				return false;
 		}
 		return false;
 	}

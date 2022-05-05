@@ -1,3 +1,3 @@
-package SalesControlSystem.enums;
+package src.enums;
 
 public enum Gender { MALE, FEMALE, OTHER }

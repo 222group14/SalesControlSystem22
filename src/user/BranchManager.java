@@ -1,14 +1,12 @@
-package SalesControlSystem.user;
+package src.user;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import SalesControlSystem.bst.*;
-import SalesControlSystem.enums.Gender;
-import SalesControlSystem.structure.Branch;
-import SalesControlSystem.structure.Company;
-import SalesControlSystem.product.Product;
+import src.bst.BinarySearchTree;
+import src.enums.Gender;
+import src.product.Product;
+import src.structure.Branch;
 
 public class BranchManager extends User {
 
@@ -26,11 +24,11 @@ public class BranchManager extends User {
 
 	public boolean setBranch(Branch branch) {
 		// make sure branch has not any other branch manager
-		BranchManager manager = branch.getBranchManager();
-		if (manager != null && !manager.equals(this)) 
+		BranchManager newBranchManager = branch.getBranchManager();
+		if (newBranchManager == null) 
+			branch.setBranchManager(this);
+		else if (!newBranchManager.equals(this))
 			return false;
-		// set branch manager of given branch	
-		branch.setBranchManager(this);
 		this.branch = branch;
 		return true;
 	}

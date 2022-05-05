@@ -1,10 +1,10 @@
-package SalesControlSystem.user;
+package src.user;
 
 import java.util.List;
 
-import SalesControlSystem.enums.Gender;
-import SalesControlSystem.structure.Branch;
-import SalesControlSystem.structure.Company;
+import src.enums.Gender;
+import src.structure.Branch;
+import src.structure.Company;
 
 public class Administrator extends User {
 
@@ -24,11 +24,12 @@ public class Administrator extends User {
 	 */
 	public boolean setCompany(Company company) {
 		// make sure company has not any other admin
-		Administrator admin = company.getAdministrator();
-		if (admin != null && !admin.equals(this)) 
+		Administrator newCompanyAdmin = company.getAdministrator();
+		if (newCompanyAdmin == null)
+			company.setAdministrator(this);
+		else if (!newCompanyAdmin.equals(this)) 
 			return false;
 		// set admin to administrator position of the given company 	
-		company.setAdministrator(this);
 		this.company = company;
 		return true;
 	}

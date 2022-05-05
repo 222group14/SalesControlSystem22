@@ -1,9 +1,9 @@
-package SalesControlSystem.user;
+package src.user;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import SalesControlSystem.enums.Gender;
+import src.enums.Gender;
 
 public class User {
 

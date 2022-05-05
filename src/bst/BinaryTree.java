@@ -1,4 +1,4 @@
-package SalesControlSystem.bst;
+package src.bst;
 import java.io.*;
 import java.util.Scanner;
 

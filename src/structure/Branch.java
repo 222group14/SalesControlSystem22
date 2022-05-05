@@ -1,15 +1,14 @@
-package SalesControlSystem.structure;
+package src.structure;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-import SalesControlSystem.bst.*;
-import SalesControlSystem.product.Product;
-import SalesControlSystem.user.BranchEmployee;
-import SalesControlSystem.user.BranchManager;
-import SalesControlSystem.user.Customer;
+import src.bst.BinarySearchTree;
+import src.product.Product;
+import src.user.BranchEmployee;
+import src.user.BranchManager;
+import src.user.Customer;
 
 public class Branch {
 
@@ -25,11 +24,12 @@ public class Branch {
 	}
 
 	public boolean setBranchManager(BranchManager manager) {
-		Branch branch = manager.getBranch();
+		Branch newManagerBranch = manager.getBranch();
 		// make sure manager is not owner of another branch
-		if (branch != null && !branch.equals(this))
+		if (newManagerBranch == null)
+			manager.setBranch(this);
+		else if (! newManagerBranch.equals(this))
 			return false;
-		manager.setBranch(this);
 		this.manager = manager;
 		return true;
 	}
