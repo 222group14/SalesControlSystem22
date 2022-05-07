@@ -25,6 +25,7 @@ public class Food extends Product {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
         sb.append("\nExpiry Date: " + getExpDate());
+		sb.append("\nWeight(kg): " + getWeight());
 
 		return sb.toString();
 	}
@@ -36,7 +37,8 @@ public class Food extends Product {
 
 			//comparisons
 			if(!super.equals(otherFood) ||
-                !this.getExpDate().equals(otherFood.getExpDate()))
+                !this.getExpDate().equals(otherFood.getExpDate()) ||
+				this.getWeight() != otherFood.getWeight())
 				{
 					return false;
 				}
@@ -50,6 +52,7 @@ public class Food extends Product {
 	public int hashCode() {
 		int hcode = super.hashCode();
         hcode += getExpDate().hashCode()* 37;
+		hcode += Double.valueOf(getWeight()).hashCode() * 43;
 
 		return hcode;
 	}

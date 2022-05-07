@@ -5,7 +5,8 @@ public class PersonalCare extends Product{
 	private String usageAim;
 	private String expDate;
 
-    public PersonalCare(String name, String brand, String type, double entryPrice, String usageAim, String expDate) {
+    public PersonalCare(String name, String brand, String type, double entryPrice,
+					 String usageAim, String expDate) {
         super(name, brand, type, entryPrice);
 		this.usageAim = usageAim;
 		this.expDate = expDate;
@@ -23,6 +24,8 @@ public class PersonalCare extends Product{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
+		sb.append("\nUsage Aim: " + getUsageAim());
+		sb.append("\nExpire Date: " + getExpDate());
 
 		return sb.toString();
 	}
@@ -33,7 +36,9 @@ public class PersonalCare extends Product{
 			PersonalCare otherPersonalCare = (PersonalCare) other;
 
 			//comparisons
-			if(!super.equals(otherPersonalCare)) 
+			if(!super.equals(otherPersonalCare) ||
+				!this.getExpDate().equals(otherPersonalCare.getExpDate()) ||
+				!this.getUsageAim().equals(otherPersonalCare.getUsageAim())) 
             {
                 return false;
             }
@@ -46,7 +51,9 @@ public class PersonalCare extends Product{
 	@Override
 	public int hashCode() {
 		int hcode = super.hashCode();
-
+		hcode += getExpDate().hashCode() * 37;
+		hcode += getUsageAim().hashCode() * 43;
+		
 		return hcode;
 	}
 }

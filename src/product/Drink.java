@@ -25,7 +25,7 @@ public class Drink extends Product {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
         sb.append("\nExpiry Date: " + getExpDate());
-
+		sb.append("\nLiter: " + getSizeLiter());
 
 		return sb.toString();
 	}
@@ -37,7 +37,8 @@ public class Drink extends Product {
 
 			//comparisons
 			if(!super.equals(otherDrink) ||
-                !this.getExpDate().equals(otherDrink.getExpDate()))
+                !this.getExpDate().equals(otherDrink.getExpDate()) ||
+				this.getSizeLiter() != otherDrink.getSizeLiter())
 				{
 					return false;
 				}
@@ -51,6 +52,7 @@ public class Drink extends Product {
 	public int hashCode() {
 		int hcode = super.hashCode();
         hcode += getExpDate().hashCode()* 37;
+		hcode += Double.valueOf(getSizeLiter()).hashCode() * 43;
 
 		return hcode;
 	}

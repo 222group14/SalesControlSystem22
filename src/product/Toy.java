@@ -24,6 +24,9 @@ public class Toy extends Product{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
+		sb.append("\nPlaying Age: " + getPlayingAge());
+		sb.append("\nKind: " + getKind());
+
 		return sb.toString();
 	}
 
@@ -33,7 +36,9 @@ public class Toy extends Product{
 			Toy otherToy = (Toy) other;
 
 			//comparisons
-			if(!super.equals(otherToy)) 
+			if(!super.equals(otherToy) ||
+				!this.getKind().equals(otherToy.getKind()) ||
+			    this.getPlayingAge() != otherToy.getPlayingAge()) 
             {
                 return false;
             }
@@ -46,6 +51,8 @@ public class Toy extends Product{
 	@Override
 	public int hashCode() {
 		int hcode = super.hashCode();
+		hcode += getPlayingAge() * 37;
+		hcode += getKind().hashCode() * 43;
 
 		return hcode;
 	}
