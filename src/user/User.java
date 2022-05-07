@@ -52,14 +52,19 @@ public class User {
 
 	@Override
 	public boolean equals(Object other) {
-		// implement equals
-		return true;
+		if (other != null && other instanceof User) {
+			User otherUser = (User) other;
+			if (name.equals(otherUser.name) && age == otherUser.age && gender.equals(otherUser.gender))
+				return true;
+		}
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		//implement hashcode
-		return 0;
+		int hCode = name.hashCode() * 3 + 1;
+		hCode += 7*age;
+		return hCode;
 	}	
 
 }

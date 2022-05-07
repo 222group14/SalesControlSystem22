@@ -42,17 +42,23 @@ public class BranchManager extends User {
 
 	public void displayBranchEmployees() {
 		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
-		System.out.println(employees);
+		System.out.println("Employees of " + branch.getBranchName());
+		int i = 0;
+		for (BranchEmployee employee: employees) {
+			System.out.println(++i + "- " + employee.getName());
+		}
 	}
 
 	public void displayProducts() {
 		ArrayList<LinkedList<Product>> products = branch.getProducts();
 		for(int i = 0; i < products.size(); ++i) {
-			System.out.println("Product Type" + (i+1) + ": " + products.get(i).get(0).getClass());
+			if(products.get(i) == null || products.get(i).size() == 0)
+				continue;
+			System.out.println("Product Type" + (i+1) + ": " + products.get(i).get(0).getType());
 			int j = 0;
 			for(Product product: products.get(i))
-				System.out.println( (++j) + ": " + product);
-		}	
+				System.out.println( (++j) + ": " + product.getName());
+		}
 	}
 
 	public boolean addCustomer(Customer customer) {
@@ -85,13 +91,31 @@ public class BranchManager extends User {
 
 	@Override
 	public boolean equals(Object other) {
-		// implement equals
-		return true;
+		if(other != null && other instanceof BranchManager) {
+			if (this == other)
+				return true;
+			BranchManager otherManager = (BranchManager) other;
+
+			if (!otherManager.getName().equals(this.getName()) || otherManager.getAge() != this.getAge()
+				|| !otherManager.getGender().equals(this.getGender())) {
+
+				return false;				
+			}
+
+			Branch otherBranch = otherManager.getBranch();
+			if (branch != null && otherBranch != null) {
+				if (!branch.getBranchName().equals(otherBranch.getBranchName()))
+					return false;
+			} 
+			else if (branch != null || otherBranch != null)
+				return false;
+		}
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		//implement hashcode
-		return 0;
+
+		return 11*super.hashCode() + 3*branch.hashCode();
 	}		
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import src.enums.Gender;
 import src.structure.Branch;
 import src.structure.Company;
+import src.bst.*;
+
 
 public class Administrator extends User {
 
@@ -56,8 +58,14 @@ public class Administrator extends User {
 
 	public void displayBranches() {
 		List<Branch> branches = company.getBranches();
+
 		for(Branch branch: branches) {
-			System.out.println(branch);
+			System.out.print("Branch Name:" + branch.getBranchName() + ", Branch Manager: ");
+			if (branch.getBranchManager() != null) 
+				System.out.println(branch.getBranchManager().getName());
+			
+			else
+				System.out.println("none");
 		}
 	}
 
@@ -71,19 +79,30 @@ public class Administrator extends User {
 
 	public void displayCustomers() {
 		List<Branch> branches = company.getBranches();
-
+		System.out.println("\nCustomers of " + company.getCompanyName());
 		for(Branch branch: branches) {
-			System.out.println(branch.getBranchName() + ": \n");
-			System.out.println(branch.getCustomers());
+			System.out.print(branch.getBranchName() + ": \n");
+			BinarySearchTree<Customer> customers = branch.getCustomers();
+
+			int i = 0;
+			for(Customer customer: customers) {
+				System.out.println(++i + "- " + customer.getName());
+			}
 		}
 	}
 
 	public void displayEmployees() {
-		List <Branch> branches = company.getBranches();
+		List<Branch> branches = company.getBranches();
+		System.out.println("\nEmployees of " + company.getCompanyName());
 		for(Branch branch: branches) {
-			System.out.println(branch.getBranchName() + ": \n");
-			System.out.println(branch.getBranchEmployees());
-		}		
+			System.out.print(branch.getBranchName() + ": \n");
+			BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
+
+			int i = 0;
+			for(BranchEmployee employee: employees) {
+				System.out.println(++i + "- " + employee.getName());
+			}
+		}	
 	}
 
 	@Override
@@ -96,13 +115,30 @@ public class Administrator extends User {
 
 	@Override
 	public boolean equals(Object other) {
-		// implement equals
-		return true;
+	if(other != null && other instanceof Administrator) {
+		if (this == other)
+			return true;
+		Administrator otherAdmin = (Administrator) other;
+
+		if (!otherAdmin.getName().equals(this.getName()) || otherAdmin.getAge() != this.getAge()
+			|| !otherAdmin.getGender().equals(this.getGender())) {
+
+			return false;				
+		}
+
+		Company otherCompany = otherAdmin.getCompany();
+		if (company != null && otherCompany != null) {
+			if (!company.getCompanyName().equals(otherCompany.getCompanyName()))
+				return false;
+		} 
+		else if (company != null || otherCompany != null)
+			return false;
+	}
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		//implement hashcode
-		return 0;
+		return 7*super.hashCode() + 3 * company.hashCode();
 	}	
 }

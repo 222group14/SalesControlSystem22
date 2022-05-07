@@ -8,7 +8,6 @@ public class Toy extends Product{
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nCategory: " + this.getClass().getName());
 		sb.append(super.toString());
 		return sb.toString();
 	}

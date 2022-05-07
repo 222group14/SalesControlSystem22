@@ -20,10 +20,13 @@ public class Customer extends User implements Comparable<Customer> {
 	public Customer(String name, int age, Gender gender, Branch branch) {
 		super(name, age, gender);
 		this.branch = branch;
-		BinarySearchTree<Customer> customers = this.branch.getCustomers();
-		customers.add(this);
+		branch.getBranchManager().addCustomer(this);
 	}
 
+	public Branch getBranch() {
+		return branch;
+	}
+	
 	public boolean addProduct(Product product) {
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i).get(0).getClass().equals(product.getClass())) {
@@ -57,25 +60,40 @@ public class Customer extends User implements Comparable<Customer> {
 	public void displayProducts() {
 		ArrayList<LinkedList<Product>> products = branch.getProducts();
 		for(int i = 0; i < products.size(); ++i) {
-			System.out.println("Product Type" + (i+1) + ": " + products.get(i).get(0).getClass());
+			if(products.get(i) == null || products.get(i).size() == 0)
+				continue;
+			System.out.println("Product Type" + (i+1) + ": " + products.get(i).get(0).getType());
 			int j = 0;
 			for(Product product: products.get(i))
-				System.out.println( (++j) + ": " + product);
+				System.out.println( (++j) + ": " + product.getName());
 		}
 	}
 
+	public void displayBasket() {
+		System.out.println("Basket of customer: " + getName());
+		for(int i = 0; i < basket.size(); ++i) {
+			if(basket.get(i) == null || basket.get(i).size() == 0)
+				continue;
+			System.out.println("Product Type" + " " + (i+1) + ": " + basket.get(i).get(0).getType());
+			int j = 0;
+			for(Product product: basket.get(i))
+				System.out.println( (++j) + ": " + product.getName());
+		}		
+	}
+
 	public void printOrderHistory() {
-		System.out.print("Last Removed Product: ");
+		System.out.print("Last Removed Product to Basket: ");
+
 		if(lastRemoved.isEmpty())
 			System.out.println("none");
 		else
-			System.out.println(lastRemoved.peek());
+			System.out.println(lastRemoved.peek().getName());
 
-		System.out.print("Last Added Product: ");
+		System.out.print("Last Added Product to Basket: ");
 		if(lastAdded.isEmpty())
 			System.out.println("none");
 		else
-			System.out.println(lastAdded.peek());		
+			System.out.println(lastAdded.peek().getName());		
 	}
 
 	@Override
@@ -93,13 +111,27 @@ public class Customer extends User implements Comparable<Customer> {
 
 	@Override
 	public boolean equals(Object other) {
-		// implement equals
-		return true;
+		if (other != null && other instanceof Customer) {
+			if (this == other)
+				return true;
+			Customer otherCustomer = (Customer) other;
+
+			if (((User) otherCustomer).equals((User) this) == false)
+				return false;
+
+			Branch otherBranch = otherCustomer.getBranch();
+			if (branch != null && otherBranch != null) {
+				if (!branch.getBranchName().equals(otherBranch.getBranchName()))
+					return false;
+			} 
+			else if (branch != null || otherBranch != null)
+				return false;
+		}
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		//implement hashcode
-		return 0;
+		return 17*super.hashCode() + 3*branch.hashCode();
 	}	
 }

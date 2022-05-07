@@ -29,7 +29,6 @@ public class Furniture extends Product{
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nCategory: " + this.getClass().getName());
 		sb.append(super.toString());
         sb.append("\nColor: " + getColor());
         sb.append("\nWidth: " + getWidth());

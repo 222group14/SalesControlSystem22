@@ -36,7 +36,6 @@ public class Electronic extends Product{
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nCategory: " + this.getClass().getName());
 		sb.append(super.toString());
         sb.append("\nGuarantee Time: " + getGuaranteeTime());
         sb.append("\nDisplay Product: " + isDisplayProduct());

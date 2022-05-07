@@ -45,7 +45,6 @@ public class Clothes extends Product {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nCategory: " + this.getClass().getName());
 		sb.append(super.toString());
 		sb.append("\nSize: " + getSize());
 		sb.append("\nMaterial Type: " + getMaterialType());
@@ -84,7 +83,6 @@ public class Clothes extends Product {
 		hcode += getSize().hashCode()* 43;
 		hcode += getMaterialType().hashCode() * 53;
 		hcode += getColor().hashCode()* 61;
-		/* hcode += summeryState.hashCode() * 71; */
 		hcode += getGender().hashCode()* 79;
 
 		return hcode;

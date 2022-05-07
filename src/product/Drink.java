@@ -17,7 +17,6 @@ public class Drink extends Product {
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nCategory: " + this.getClass().getName());
 		sb.append(super.toString());
         sb.append("\nExpiry Date: " + getExpDate());
 

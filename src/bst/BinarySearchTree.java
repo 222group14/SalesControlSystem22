@@ -1,4 +1,7 @@
 package src.bst;
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 /**
  * Implementation of a Binary Search Tree
  * @author Jacob / Koffman & Wolfgang
@@ -8,7 +11,7 @@ package src.bst;
 @SuppressWarnings("serial")
 public class BinarySearchTree<E extends Comparable<E>>
 								extends BinaryTree<E>
-								implements SearchTree<E>{
+								implements SearchTree<E>, Iterable<E>{
 	//Data Fields
 	/**
 	 * Return value from the public add method
@@ -25,6 +28,10 @@ public class BinarySearchTree<E extends Comparable<E>>
 		return inorder();
 	}
 	
+	public Iterator<E> iterator ( ) {
+		return new BSTIterator();
+	}
+		
 	public String inorder(){
 		StringBuilder sb = new StringBuilder();
 		inOrderTraverse(root, sb);
@@ -288,4 +295,61 @@ public class BinarySearchTree<E extends Comparable<E>>
 		}
 	}
 
+	/**
+	 * 
+	 * An iterator class which iterator through tree preorderly.
+	 */ 
+	private class BSTIterator implements Iterator<E> {
+
+		/**
+		 * nodeDeque to hold nodes as a stack.
+		 */ 
+		private ArrayDeque<Node<E>> nodeDeque;
+
+		/**
+		 * next node.
+		 */ 
+		private Node<E> next = null;
+
+		/**
+		 * Creates an empty deque or pushes the root.
+		 */
+		public BSTIterator ( ) {
+			next = root;
+			nodeDeque = new ArrayDeque<Node<E>>();
+			if ( root != null )
+				nodeDeque.push(root);
+		}
+
+		/**
+		 * Returns the next nodes data, and moves to other node.
+		 * @return the data of the next node.
+		 * @throws NoSuchElementException if there is no next.
+		 */
+		@Override 
+		public E next ( ) throws NoSuchElementException {
+			if ( !hasNext() || nodeDeque.isEmpty())
+				throw new NoSuchElementException();
+
+			Node<E> curNode = nodeDeque.pop();
+			
+			if ( curNode.right != null )
+				nodeDeque.push(curNode.right);
+			
+			if ( curNode.left != null )
+				nodeDeque.push(curNode.left);
+			
+			next = nodeDeque.peek();
+			return curNode.data;
+		}
+
+		/**
+		 * Checks if there is next item.
+		 * @return true if next item is not null
+		 */
+		@Override 
+		public boolean hasNext( ) {
+			return next != null;
+		}
+	}	
 }

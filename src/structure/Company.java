@@ -47,24 +47,38 @@ public class Company {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Company Name: " + companyName);
-		sb.append("\nAdministrator: " + admin + "\nBranches: \n");
+		sb.append("\nAdministrator: ");
+		if (admin == null)
+			sb.append("none\n");
+		else
+			sb.append(admin.getName());
+		sb.append("\nBranches: ");
 		
 		if (branches.size() == 0) 
 			sb.append("none\n");
+		else
+			sb.append("\n");
 		for(int i = 0; i < branches.size(); ++i)
-			sb.append(i+1 + ": " + branches.get(i) + "\n");
+			sb.append(i+1 + ": " + branches.get(i).getBranchName() + "\n");
 		return sb.toString();
 	}
 
 	@Override
 	public boolean equals(Object other) {
 		if(other != null && other instanceof Company) {
+			if (this == other)
+				return true;
+
 			Company otherCompany = (Company) other;
-			// compare admin
-			//! NOT IMPLEMENTED YET
-			
+
+			if (admin != null && otherCompany.admin != null)
+				if (!admin.equals(otherCompany.admin))
+					return false; 
+
+			else if (admin != null || otherCompany.admin != null)
+				return false;
 			// compare branches
-			if (! branches.equals(otherCompany.getBranches()))
+			if (!branches.equals(otherCompany.branches))
 				return false;
 		}
 		return false;
@@ -73,7 +87,8 @@ public class Company {
 	@Override 
 	public int hashCode() {
 		int hcode = companyName.hashCode()* 7 + 5;
-		hcode += admin.hashCode()*31 + 3;
+		if(admin != null)
+			hcode += admin.hashCode()*31 + 3;
 		hcode += branches.hashCode() * 11;
 		return hcode;
 	}
