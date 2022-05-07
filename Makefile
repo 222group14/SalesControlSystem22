@@ -11,11 +11,11 @@ TEST = test/
 DRIVER = Driver
 
 muo:
-	$(JC) $(JFlags) $(SUPER)$(SUB1)*.java $(SUPER)$(SUB2)*.java $(SUPER)$(SUB3)*.java $(SUPER)$(SUB4)*.java $(SUPER)$(SUB5)*.java $(SUPER)$(TEST)*.java -d classfiles
-	$(R) -cp classfiles $(SUPER)$(TEST)$(DRIVER)
+	$(JC) $(JFlags) $(SUPER)$(SUB1)*.java $(SUPER)$(SUB2)*.java $(SUPER)$(SUB3)*.java $(SUPER)$(SUB4)*.java $(SUPER)$(SUB5)*.java $(SUPER)$(TEST)*.java -d bin
+	$(R) -cp bin $(SUPER)$(TEST)$(DRIVER)
 
 javadoc:
-	javadoc $(SUPER)$(SUB1)*.java $(SUPER)$(SUB2)*.java $(SUPER)$(SUB3)*.java -d javadoc
+	javadoc $(SUPER)$(SUB1)*.java $(SUPER)$(SUB2)*.java $(SUPER)$(SUB3)*.java $(SUPER)$(SUB4)*.java $(SUPER)$(SUB5)*.java $(SUPER)$(TEST)*.java -d javadoc
 
 clean:
-	rm javadoc/ classfiles/ -r
+	rm javadoc/ bin/ -r
