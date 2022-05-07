@@ -24,36 +24,10 @@ public class BinarySearchTree<E extends Comparable<E>>
 	
 	//Methods
 	
-	public String toString(){
-		return inorder();
-	}
-	
 	public Iterator<E> iterator ( ) {
 		return new BSTIterator();
 	}
-		
-	public String inorder(){
-		StringBuilder sb = new StringBuilder();
-		inOrderTraverse(root, sb);
-		return sb.toString();
-	}
-	
-	/**
-	 * Perform an inorder traversal, returning the tree in ascending order (new lines separate characters)
-	 * @param node The local root
-	 * @param sb The string bufer to save the output
-	 */
-	private void inOrderTraverse(Node<E> node, StringBuilder sb){
-		if(node == null){
-			//do nothing
-		} else {
-			inOrderTraverse(node.left, sb);
-			sb.append(node.toString());
-			sb.append("\n");
-			inOrderTraverse(node.right, sb);
-		}
-	}
-	
+
 	/**
 	 * Starter method add
 	 * pre: The object to be inserted must implement the Comparable interface
@@ -213,86 +187,6 @@ public class BinarySearchTree<E extends Comparable<E>>
 	public boolean remove(E target) {
 		delete(target);
 		return deleteReturn == target;
-	}
-	
-	/**
-	 * Starter method delete for if we want to replace with leftmost child of right subtree
-	 * post: The object is not in the tree
-	 * @param target The object to be deleted
-	 * @return The object deleted from the tree or null if the object was not in the tree
-	 * @throws ClassCast Exception if target does not implement Comparable
-	 */
-	public E deleteS(E target){
-		root = deleteS(root, target);
-		return deleteReturn;
-	}
-	
-	/**
-	 * Recursive delete method (replace with leftmost child of right subtree)
-	 * post: The item is not in the tree;
-	 * 		 deleteReturn is equal to the deleted item
-	 * 		 as it was stored in the tree or null
-	 *		 if the item was not found
-	 * @param localRoot The root of the current subtree
-	 * @param item The item to be deleted
-	 * @return The modified local root that does not contain the item
-	 */
-	private Node<E> deleteS(Node<E> localRoot, E item){
-		if(localRoot == null){
-			//item is not in the tree
-			deleteReturn = null;
-			return localRoot;
-		}
-		//search for the item to delete
-		int compResult = item.compareTo(localRoot.data);
-		if(compResult < 0){
-			//item is smaller than localRoot.data
-			localRoot.left = delete(localRoot.left, item);
-			return localRoot;
-		} else if (compResult > 0){
-			//item is larger than localRoot.data
-			localRoot.right = delete(localRoot.right, item);
-			return localRoot;
-		} else {
-			//item is at local root
-			deleteReturn = localRoot.data;
-			if(localRoot.left == null){
-				//if there is no left child, return right child which can also be null
-				return localRoot.right;
-			} else if (localRoot.right == null){
-				//if there is no right child, return left child
-				return localRoot.left;
-			} else {
-				//Node being deleted has 2 children, replace the data with inorder predecessor
-				if(localRoot.right.left == null){
-					//the right child has no left child. Replace the data with the data in the right child
-					localRoot.data = localRoot.right.data;
-					localRoot.right = localRoot.right.right; // replace the right child with its right child
-					return localRoot;	
-				} else {
-					//Search for the inorder predecessor and replace deleted node's data with it
-					localRoot.data = findSmallestChild(localRoot.right);
-					return localRoot;
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Find the node that is the smallest child in a subtree
-	 * warning: only use if it is known that the parent has a left child
-	 * @param parent The root of the subtree
-	 * @return The smallest child in the subtree
-	 */
-	private E findSmallestChild(Node<E> parent){
-		//if the left child has no left child, it is the smallest item in the subtree
-		if(parent.left.left == null){
-			E returnValue = parent.left.data;
-			parent.left = parent.left.right;
-			return returnValue;
-		} else {
-			return findSmallestChild(parent.left);
-		}
 	}
 
 	/**

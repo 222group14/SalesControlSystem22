@@ -84,10 +84,10 @@ public class Test {
 
 		System.out.println("Customer display products, then adds and removes product to(from) basket and displays basket.\n");
 		customer1.displayProducts();
-		customer1.addProduct(product1);
-		customer1.addProduct(product2);
-		customer1.addProduct(product3);
-		customer1.removeProduct(product3);
+		customer1.addProductToBasket(product1);
+		customer1.addProductToBasket(product2);
+		customer1.addProductToBasket(product3);
+		customer1.removeProductFromBasket(product3);
 		customer1.displayBasket();
 
 		System.out.println("Customer prints order history.\n");		
@@ -131,16 +131,16 @@ public class Test {
 		BranchManager manager3 = new BranchManager("manager3", 30, Gender.FEMALE, branch3);
 		manager3.addBranchEmployee(new BranchEmployee("sevim", 24, Gender.FEMALE, branch3));
 
-		System.out.println("Admin adds new branches, and displays branches.\n");
+		System.out.println("\nAdmin adds new branches, and displays branches.\n");
 		admin1.addBranch(branch2);
 		admin1.addBranch(branch3);
 		admin1.displayBranches();
 
-		System.out.println("Admin displays employees, and customers.");
+		System.out.println("\nAdmin displays employees, and customers.");
 		admin1.displayEmployees();
 		admin1.displayCustomers();
 
-		System.out.println("Admin removes one of the branches, and displays.\n");
+		System.out.println("\nAdmin removes one of the branches, and displays.\n");
 		admin1.removeBranch(branch2);
 		admin1.displayBranches();
 

@@ -27,7 +27,7 @@ public class Customer extends User implements Comparable<Customer> {
 		return branch;
 	}
 	
-	public boolean addProduct(Product product) {
+	public boolean addProductToBasket(Product product) {
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i).get(0).getClass().equals(product.getClass())) {
 				lastAdded.push(product);
@@ -42,7 +42,7 @@ public class Customer extends User implements Comparable<Customer> {
 		return basket.get(basket.size() - 1).add(product);		
 	}
 
-	public boolean removeProduct(Product product) {
+	public boolean removeProductFromBasket(Product product) {
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i).get(0).getClass().equals(product.getClass())) {
 				lastRemoved.push(product);
