@@ -3,16 +3,22 @@ package src.product;
 public class Drink extends Product {
 
     private String expDate;
+	private double liter;
 
     public Drink(String name, String brand, String type, double entryPrice, 
-                 String expDate) {
+                 String expDate, double liter) {
         super(name, brand, type, entryPrice);
         this.expDate = expDate;
+		this.liter = liter;
     }
 
     public String getExpDate(){
         return expDate;
     }
+
+	public double getSizeLiter(){
+		return liter;
+	}
 
     @Override
 	public String toString() {

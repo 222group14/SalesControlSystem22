@@ -2,9 +2,24 @@ package src.product;
 
 public class Toy extends Product{
 
-    public Toy(String name, String brand, String type, double entryPrice) {
-        super(name, brand, type, entryPrice);              
+	private int playingAge;
+	private String kind;
+
+    public Toy(String name, String brand, String type, double entryPrice,
+				int playingAge, String kind) {
+        super(name, brand, type, entryPrice);
+		this.playingAge = playingAge;
+		this.kind = kind;              
     }
+
+	public int getPlayingAge(){
+		return playingAge;
+	}
+
+	public String getKind(){
+		return kind;
+	}
+
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

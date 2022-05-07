@@ -69,11 +69,11 @@ public class Test {
 
 		System.out.println("\nEmployees add new products.");
 		Product product2 = new Clothes("clothes2", "brand2", "Clothes", 111.8, Size.L, "matType1", "green", true, Gender.MALE);		
-		Product product3 = new Drink("tea", "brand3", "Drink", 12.6 , "11/02/2023");
+		Product product3 = new Drink("tea", "brand3", "Drink", 12.6 , "11/02/2023", 1.5);
 		Product product4 = new Electronic("phone", "samsung", "Electronic", 1000.0, 200, false, 12.1, 21.0);
-		Product product5 = new Food("crisps", "ruffle", "Food", 132.6, "13/07/2023");
+		Product product5 = new Food("crisps", "ruffle", "Food", 132.6, "13/07/2023", 0.250);
 		Product product6 = new Furniture("furniture1", "ikea", "Furniture", 131.9, 142.1, 1.92, "black");
-		Product product7 = new PersonalCare("shampoo", "blendax", "Personal Care", 76.1);
+		Product product7 = new PersonalCare("shampoo", "blendax", "Personal Care", 76.1, "For Dandruff Hair", "14/06/2024");
 
 		employee5.addProduct(product2);
 		employee6.addProduct(product3);
@@ -107,8 +107,8 @@ public class Test {
 		System.out.println("\n" + branch1 + "\n-----------");
 
 		customer1.requestProduct(new Clothes("tshirt", "brand3", "Clothes", 113.9, Size.XL, "matType2", "gray", true, Gender.FEMALE));
-		customer2.requestProduct(new PersonalCare("cream", "nivea", "Personal Care", 13.8));
-		customer2.requestProduct(new Food("noodles", "brand5", "Food", 7.6, "15/02/2023"));
+		customer2.requestProduct(new PersonalCare("cream", "nivea", "Personal Care", 13.8, "For dry skins", "22/03/2025"));
+		customer2.requestProduct(new Food("noodles", "brand5", "Food", 7.6, "15/02/2023", 0.4));
 		System.out.println("\nSome customers requested products. One of the employees display requested products.\n");
 
 		employee1.displayRequestedProducts();
