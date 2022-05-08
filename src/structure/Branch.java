@@ -5,21 +5,27 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 import src.bst.BinarySearchTree;
+import src.incommon.Location;
 import src.product.Product;
 import src.user.BranchEmployee;
 import src.user.BranchManager;
 import src.user.Customer;
 
 public class Branch {
-
 	private String branchName;
 	private BranchManager manager;
+	/** Branch location */
+	private Location loc;
+	/** Employees are keept in BST to provide efficent search basis on employee name */
 	private BinarySearchTree<BranchEmployee> employees = new BinarySearchTree<BranchEmployee>();							
 	private ArrayList<LinkedList<Product>> products = new ArrayList<LinkedList<Product>>();
+	/** Customers are keept in BST to provide efficent search basis on customer name */
 	private BinarySearchTree<Customer> customers = new BinarySearchTree<Customer>();
+	/** Requested products are are keept in Binary Heap to  */
 	private PriorityQueue<Product> requestedProducts = new PriorityQueue<Product>(); //compare entryprices
 
-	public Branch(String branchName) {
+	//! add location to constructor
+	public Branch(String branchName, Location loc) {  
 		this.branchName = branchName;
 	}
 

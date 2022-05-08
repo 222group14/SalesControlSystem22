@@ -3,13 +3,13 @@ package src.structure;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.product.Product;
 import src.user.Administrator;
 
 public class Company {
-
 	private String companyName;
 	private Administrator admin;
-	private List<Branch> branches = new ArrayList<Branch>();
+	private List<Branch> branches = new ArrayList<Branch>(); 
 
 	public Company(String companyName) {
 		this.companyName = companyName;
@@ -41,6 +41,15 @@ public class Company {
 
 	public String getCompanyName() {
 		return companyName;
+	}
+
+	/**
+	 * Determines all the branches that have stock for product p
+	 * @param p The product
+	 * @return The branches that has product p
+	 */
+	public Branch[] findProduct(Product p) {
+		return null;
 	}
 
 	@Override

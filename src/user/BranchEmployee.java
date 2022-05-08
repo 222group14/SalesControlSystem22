@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 
-import src.bst.BinarySearchTree;
-import src.enums.Gender;
+import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
 
@@ -47,7 +46,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 
 	public boolean addRequestedProducts() {
 		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
-		Product product = requestedProducts.peek();
+		Product product = requestedProducts.poll();
 		if(product == null)
 			return false;
 		return addProduct(product);

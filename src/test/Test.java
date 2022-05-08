@@ -1,7 +1,7 @@
 package src.test;
 
-import src.enums.*;
 import src.product.Clothes;
+import src.incommon.*;
 import src.product.*;
 import src.structure.Branch;
 import src.structure.Company;
@@ -14,7 +14,10 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Test {
-    public static void test0() {
+    /**
+	 * Tests all the public methods of classes
+	 */
+	public static void test0() {
 
     	System.out.println("Creating company");
 		Company company1 = new Company("company1");
@@ -28,7 +31,7 @@ public class Test {
 		System.out.println("\n" + company1 + "\n----------");
 
     	System.out.println("Creating a branch");		
-		Branch branch1 = new Branch("branch1");
+		Branch branch1 = new Branch("branch1", new Location());
 		System.out.println("\n" + branch1 + "\n----------");
 
     	System.out.println("Creating a branch manager");
@@ -40,7 +43,7 @@ public class Test {
 
     	System.out.println("Creating an employee and customer.");		
 		BranchEmployee employee1 = new BranchEmployee("elif", 30, Gender.FEMALE, branch1);
-		Customer customer1 = new Customer("ayse", 25, Gender.FEMALE, branch1);
+		Customer customer1 = new Customer("ayse", 25, Gender.FEMALE, new Location(), branch1);
 		System.out.println("\n" + employee1 + "\n-----------");
 		System.out.println("\n" + customer1 + "\n-----------");
 
@@ -97,11 +100,11 @@ public class Test {
 
 
 		System.out.println("\nBranch Manager adds new customers.");
-		Customer customer2 = new Customer("asli", 25, Gender.FEMALE, branch1);
-		Customer customer3 = new Customer("osman", 55, Gender.MALE, branch1);
-		Customer customer4 = new Customer("ali", 29, Gender.MALE, branch1);
-		Customer customer5 = new Customer("avni", 25, Gender.MALE, branch1);
-		Customer customer6 = new Customer("emir", 25, Gender.MALE, branch1);
+		Customer customer2 = new Customer("asli", 25, Gender.FEMALE, null, branch1);
+		Customer customer3 = new Customer("osman", 55, Gender.MALE, null, branch1);
+		Customer customer4 = new Customer("ali", 29, Gender.MALE, null, branch1);
+		Customer customer5 = new Customer("avni", 25, Gender.MALE, null, branch1);
+		Customer customer6 = new Customer("emir", 25, Gender.MALE, null, branch1);
 		System.out.println("\n" + branch1 + "\n-----------");
 
 		employee1.removeProduct(product2);
@@ -125,11 +128,11 @@ public class Test {
 		manager1.removeBranchEmployee(employee4);
 		manager1.displayBranchEmployees();
 
-		Branch branch2 = new Branch("branch2");
+		Branch branch2 = new Branch("branch2", null);
 		BranchManager manager2 = new BranchManager("manager2", 30, Gender.FEMALE, branch2);
 		manager2.addBranchEmployee(new BranchEmployee("osman", 24, Gender.MALE, branch2));
 
-		Branch branch3 = new Branch("branch3");
+		Branch branch3 = new Branch("branch3", null);
 		BranchManager manager3 = new BranchManager("manager3", 30, Gender.FEMALE, branch3);
 		manager3.addBranchEmployee(new BranchEmployee("sevim", 24, Gender.FEMALE, branch3));
 
@@ -148,6 +151,26 @@ public class Test {
 
 	}
 
+	/**
+	 * Test Case: 
+	 */
+	public static void test1() {
+		//! NOT IMPLEMENTEED YET
+	}
+
+	/**
+	 * Test Case: 
+	 */
+	public static void test2() {
+		//! NOT IMPLEMENTEED YET
+	}
+
+	/**
+	 * Test Case: Tests the GUI
+	 */
+	public static void testN() {
+		SCSystem sys = new SCSystem();
+	}
 
 	public static void performanceTest() {
 		performanceTest(100);
@@ -158,13 +181,14 @@ public class Test {
 		System.out.println("---------------------------------------------");		
 	}
 
-	public static void performanceTest(int size) {
+
+	private static void performanceTest(int size) {
 
 		System.out.println("Performance test for " + size + " dataset.\n");
 
 		Company comp1 = new Company("comp");
 		Administrator admin1 = new Administrator("adm1", 22, Gender.FEMALE, comp1);
-		Branch br1 = new Branch("br1");
+		Branch br1 = new Branch("br1", null);
 		BranchManager bm1 = new BranchManager("bm1", 33, Gender.MALE, br1);
 
 		ArrayList<BranchEmployee> employees = new ArrayList<BranchEmployee>();
@@ -190,7 +214,7 @@ public class Test {
 		// test bm's add customer
 		for(int i = 0; i < size; ++i) {
 
-			customers.add(new Customer(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER, br1));
+			customers.add(new Customer(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER, null, br1));
 		}
 		endTime = System.nanoTime();
 
@@ -285,7 +309,7 @@ public class Test {
 
 		System.out.print("inserting one employee to full = ");
 		startTime = System.nanoTime();			
-		bm1.addCustomer(new Customer(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER, br1));
+		bm1.addCustomer(new Customer(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER, null, br1));
 		endTime = System.nanoTime();
 		System.out.print((endTime - startTime) / size + "ns\n");
 
@@ -301,25 +325,5 @@ public class Test {
 		endTime = System.nanoTime();
 		System.out.print((endTime - startTime) / size + "ns\n");
 
-	}
-	/**
-	 * Test Case: 
-	 */
-	public static void test1() {
-		//! NOT IMPLEMENTEED YET
-	}
-
-	/**
-	 * Test Case: 
-	 */
-	public static void test2() {
-		//! NOT IMPLEMENTEED YET
-	}
-
-	/**
-	 * Test Case: Tests the GUI
-	 */
-	public static void testN() {
-		SCSystem sys = new SCSystem();
 	}
 }

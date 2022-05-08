@@ -5,19 +5,23 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-import src.bst.BinarySearchTree;
-import src.enums.Gender;
+import src.incommon.Gender;
+import src.incommon.Location;
 import src.product.Product;
 import src.structure.Branch;
+import src.structure.Company;
 
 public class Customer extends User implements Comparable<Customer> {
-
 	private Branch branch;
-    private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>();
+	/** Order location of customer */
+	private Location loc;
+	/** Stack are used to keep customer order history */
+	private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>();
 	private ArrayDeque<Product> lastAdded = new ArrayDeque<Product>(); 		// use it as a stack
 	private ArrayDeque<Product> lastRemoved = new ArrayDeque<Product>(); 	// use it as a stack
 
-	public Customer(String name, int age, Gender gender, Branch branch) {
+	//! add location to constructor
+	public Customer(String name, int age, Gender gender, Location loc, Branch branch) {
 		super(name, age, gender);
 		this.branch = branch;
 		branch.getBranchManager().addCustomer(this);
@@ -27,6 +31,21 @@ public class Customer extends User implements Comparable<Customer> {
 		return branch;
 	}
 	
+	/**
+	 * Finds all the branches which has stock for given product p
+	 * as ordered list according to distance between customer and branch location 
+	 * @param company The company that is shopping
+	 * @param p The requested product
+	 * @return Array of branches as ordered from the closest to the furthest distance
+	 */
+	public Branch[] suggestBranchs(Company company, Product p) {
+		// get the branches that has product p
+		var branches = company.findProduct(p);
+		// sort the branches according to euclidian distance 
+		// between customer location and company 
+		return branches;
+	}
+
 	public boolean addProductToBasket(Product product) {
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i).get(0).getClass().equals(product.getClass())) {
