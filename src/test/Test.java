@@ -10,6 +10,8 @@ import src.user.Administrator;
 import src.user.BranchEmployee;
 import src.user.BranchManager;
 import src.user.Customer;
+import java.util.Random;
+import java.util.ArrayList;
 
 public class Test {
     public static void test0() {
@@ -146,6 +148,160 @@ public class Test {
 
 	}
 
+
+	public static void performanceTest() {
+		performanceTest(100);
+		System.out.println("---------------------------------------------");
+		performanceTest(1000);
+		System.out.println("---------------------------------------------");		
+		performanceTest(10000);
+		System.out.println("---------------------------------------------");		
+	}
+
+	public static void performanceTest(int size) {
+
+		System.out.println("Performance test for " + size + " dataset.\n");
+
+		Company comp1 = new Company("comp");
+		Administrator admin1 = new Administrator("adm1", 22, Gender.FEMALE, comp1);
+		Branch br1 = new Branch("br1");
+		BranchManager bm1 = new BranchManager("bm1", 33, Gender.MALE, br1);
+
+		ArrayList<BranchEmployee> employees = new ArrayList<BranchEmployee>();
+		ArrayList<Customer> customers = new ArrayList<Customer>();
+		ArrayList<Product> products = new ArrayList<Product>();
+
+		Random rand = new Random();
+		long startTime, endTime;
+
+		System.out.print("average of inserting " + size +  " employee = ");
+		startTime = System.nanoTime();
+		// test bm's add employee
+		for(int i = 0; i < size; ++i) {
+
+			employees.add(new BranchEmployee(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER, br1));
+		}
+		endTime = System.nanoTime();
+
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("average of inserting " + size +  " customer = ");
+		startTime = System.nanoTime();
+		// test bm's add customer
+		for(int i = 0; i < size; ++i) {
+
+			customers.add(new Customer(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER, br1));
+		}
+		endTime = System.nanoTime();
+
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+
+		for(int i = 0; i < size; ++i) {
+
+			products.add(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", "type", (double) Integer.valueOf(rand.nextInt(99999))));
+		}
+
+		System.out.print("average of inserting " + size +  " product = ");
+		startTime = System.nanoTime();
+		// test employee's add product
+		for(int i = 0; i < size; ++i) {
+
+			employees.get(i).addProduct(products.get(i));
+		}
+		endTime = System.nanoTime();
+
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("average of requesting " + size +  " product = ");
+		startTime = System.nanoTime();		
+		// test request product(priority queue)
+		for(int i = 0; i < size; ++i) {
+
+			customers.get(i).requestProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", "type", (double) Integer.valueOf(rand.nextInt(99999))));
+		}
+		endTime = System.nanoTime();
+
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("addRequestedProducts() = ");
+		startTime = System.nanoTime();			
+		// test add requested products
+		employees.get(0).addRequestedProducts();
+		endTime = System.nanoTime();
+
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+
+		// test remove for middle element
+
+		System.out.print("remove middle employee = ");
+		startTime = System.nanoTime();	
+		bm1.removeBranchEmployee(employees.get(size/2));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("remove middle customer = ");
+		startTime = System.nanoTime();	
+		bm1.removeCustomer(customers.get(size/2));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+
+		// test remove for initial element
+
+		System.out.print("remove first employee = ");
+		startTime = System.nanoTime();	
+		bm1.removeBranchEmployee(employees.get(0));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("remove first customer = ");
+		startTime = System.nanoTime();	
+		bm1.removeCustomer(customers.get(0));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		// test remove for last element
+		System.out.print("remove last employee = ");
+		startTime = System.nanoTime();	
+		bm1.removeBranchEmployee(employees.get(employees.size() - 1));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("remove last customer = ");
+		startTime = System.nanoTime();	
+		bm1.removeCustomer(customers.get(customers.size() - 1));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		// test insertion to the full
+
+		System.out.print("inserting one employee to full = ");
+		startTime = System.nanoTime();			
+		bm1.addBranchEmployee(new BranchEmployee(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER, br1));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("inserting one employee to full = ");
+		startTime = System.nanoTime();			
+		bm1.addCustomer(new Customer(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER, br1));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("inserting one product to full = ");
+		startTime = System.nanoTime();			
+		employees.get(2).addProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", "type", (double) Integer.valueOf(rand.nextInt(99999))));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+		System.out.print("requesting one product to full = ");
+		startTime = System.nanoTime();			
+		customers.get(2).requestProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", "type", (double) Integer.valueOf(rand.nextInt(99999))));
+		endTime = System.nanoTime();
+		System.out.print((endTime - startTime) / size + "ns\n");
+
+	}
 	/**
 	 * Test Case: 
 	 */
