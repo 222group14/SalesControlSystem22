@@ -6,8 +6,7 @@ public class Driver {
 		Test.test0();
 		System.out.println("--------------------------- DONE ---------------------------");
 
-
-	//	Test.performanceTest();
+		Test.performanceTest();
 
 	/*
 		System.out.println("--------------------------- TEST1 ---------------------------");

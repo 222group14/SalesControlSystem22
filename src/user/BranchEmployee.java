@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 
-import src.bst.BinarySearchTree;
 import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;

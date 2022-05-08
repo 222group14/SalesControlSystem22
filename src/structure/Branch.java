@@ -25,8 +25,7 @@ public class Branch {
 	private PriorityQueue<Product> requestedProducts = new PriorityQueue<Product>(); //compare entryprices
 
 	//! add location to constructor
-	// public Branch(String branchName, Location loc) {  
-	public Branch(String branchName) { 
+	public Branch(String branchName, Location loc) {  
 		this.branchName = branchName;
 	}
 

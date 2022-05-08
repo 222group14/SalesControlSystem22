@@ -17,6 +17,13 @@ public class Location {
     }
 
     /**
+     * Constructs an location (0, 0)
+     */
+    public Location() {
+        y = x = 0;
+    }
+
+    /**
      * Calculates Euclidean distance between two point
      * @param other Other location
      * @return The distance between two location
