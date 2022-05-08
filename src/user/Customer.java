@@ -5,19 +5,23 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-import src.bst.BinarySearchTree;
-import src.enums.Gender;
+import src.incommon.Gender;
+import src.incommon.Location;
 import src.product.Product;
 import src.structure.Branch;
 
 public class Customer extends User implements Comparable<Customer> {
-
 	private Branch branch;
-    private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>();
+	/** Order location of customer */
+	private Location loc;
+	/** Stack are used to keep customer order history */
+	private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>();
 	private ArrayDeque<Product> lastAdded = new ArrayDeque<Product>(); 		// use it as a stack
 	private ArrayDeque<Product> lastRemoved = new ArrayDeque<Product>(); 	// use it as a stack
 
-	public Customer(String name, int age, Gender gender, Branch branch) {
+	//! add location to constructor
+	// public Customer(String name, int age, Gender gender, Location loc, Branch branch) {
+		public Customer(String name, int age, Gender gender, Branch branch) {
 		super(name, age, gender);
 		this.branch = branch;
 		branch.getBranchManager().addCustomer(this);

@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/ebylmz17/cse/project/SalesControlSystem22'
+javac  src/bst/*.java src/enums/*.java src/product/*.java src/structure/*.java src/user/*.java src/test/*.java -d classfiles
+java -cp classfiles src/test/Driver
+make: Leaving directory '/home/ebylmz17/cse/project/SalesControlSystem22'
+ 

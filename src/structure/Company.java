@@ -6,10 +6,10 @@ import java.util.List;
 import src.user.Administrator;
 
 public class Company {
-
 	private String companyName;
 	private Administrator admin;
-	private List<Branch> branches = new ArrayList<Branch>();
+	/** Branches are kept in a BST to provide efficient search basist on location */
+	private List<Branch> branches = new ArrayList<Branch>(); //! use BST (implement comparable interface for Branch)
 
 	public Company(String companyName) {
 		this.companyName = companyName;

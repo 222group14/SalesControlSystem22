@@ -1,7 +1,7 @@
 package src.test;
 
-import src.enums.*;
 import src.product.Clothes;
+import src.incommon.*;
 import src.product.*;
 import src.structure.Branch;
 import src.structure.Company;

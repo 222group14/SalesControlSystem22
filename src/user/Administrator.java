@@ -2,10 +2,10 @@ package src.user;
 
 import java.util.List;
 
-import src.enums.Gender;
 import src.structure.Branch;
 import src.structure.Company;
 import src.bst.*;
+import src.incommon.Gender;
 
 
 public class Administrator extends User {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import src.bst.BinarySearchTree;
-import src.enums.Gender;
+import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
 
