@@ -1,6 +1,6 @@
 package src.product;
 
-public abstract class Product implements Comparable<Product> {
+public class Product implements Comparable<Product> {
 
 	private String name;
 	private String brand;
