@@ -1,6 +1,0 @@
-make.exe --dry-run --always-make --keep-going --print-directory
-make.exe: Entering directory 'c:/Users/ebylm/Documents/cse/SalesControlSystem22'
-javac  src/bst/*.java src/incommon/*.java src/product/*.java src/structure/*.java src/user/*.java src/test/*.java -d bin
-java -cp bin src/test/Driver
-make.exe: Leaving directory 'c:/Users/ebylm/Documents/cse/SalesControlSystem22'
- 
