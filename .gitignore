@@ -1,6 +1,6 @@
-# ignore ALL .class files
+# compiled class files
+bin/  
 *.class
 
-# ignore ALL files in the directory
-bin/ 
+# vscode configuration
 .vscode/
