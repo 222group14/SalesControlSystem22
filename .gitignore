@@ -1,0 +1,6 @@
+# ignore ALL .class files
+*.class
+
+# ignore ALL files in the directory
+bin/ 
+.vscode/
