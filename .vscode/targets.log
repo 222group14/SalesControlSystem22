@@ -1,292 +1,258 @@
-make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
-# GNU Make 4.2.1
-# Built for x86_64-pc-linux-gnu
-# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.82.90
+# Built for i686-pc-mingw32
+# Copyright (C) 1988-2012 Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Sun May  8 17:08:08 2022
+# Make data base, printed on Tue May 10 08:28:50 2022
 
 # Variables
 
-# 'override' directive
-GNUMAKEFLAGS := 
 # automatic
-<D = $(patsubst %/,%,$(dir $<))
+<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
 # automatic
 ?F = $(notdir $?)
 # makefile (from 'Makefile', line 8)
 SUB4 = structure/
-# environment
-DESKTOP_SESSION = ubuntu
 # default
 .SHELLFLAGS := -c
-# environment
-XDG_SESSION_CLASS = user
-# environment
-SNAP_COMMON = /var/snap/code/common
-# environment
-XDG_SESSION_TYPE = x11
+# makefile
+MAKEFLAGS = Rrqp
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
-?D = $(patsubst %/,%,$(dir $?))
-# environment
-IM_CONFIG_PHASE = 1
+?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
-@D = $(patsubst %/,%,$(dir $@))
+@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-XAUTHORITY = /run/user/1000/gdm/Xauthority
-# environment
-GDMSESSION = ubuntu
-# environment
-XMODIFIERS = @im=ibus
+HOMEDRIVE = C:
+# automatic
+@F = $(notdir $@)
+# automatic
+^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
 # makefile
-CURDIR := /home/ebylmz17/cse/project/SalesControlSystem22
-# makefile
-SHELL = /bin/sh
-# environment
-SNAP_DATA = /var/snap/code/95
+CURDIR := c:/Users/ebylm/Documents/cse/SalesControlSystem22
+# default
+SHELL := sh.exe
 # makefile (from 'Makefile', line 2)
 R = java
 # environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+WINDIR = C:\WINDOWS
 # environment
-JOURNAL_STREAM = 8:64891
+VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
+# environment
+ONEDRIVE = C:\Users\ebylm\OneDrive
 # makefile (from 'Makefile', line 5)
 SUB1 = bst/
-# environment
-XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
-# environment
-SNAP_INSTANCE_NAME = code
-# environment
-SNAP_ARCH = amd64
 # makefile (from 'Makefile', line 9)
 SUB5 = user/
+# environment
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# automatic
-@F = $(notdir $@)
 # environment
-GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
+FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
-USERNAME = ebylmz17
-# environment
-XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
-# environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+TMP = C:\Users\ebylm\AppData\Local\Temp
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-_ = /snap/code/95/usr/share/code/code
+PROGRAMW6432 = C:\Program Files
 # environment
-MANAGERPID = 1557
+PROGRAMDATA = C:\ProgramData
 # environment
-LESSOPEN = | /usr/bin/lesspipe %s
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-4215bc40-7156-47c7-9721-0dc5385a3be9-sock
 # environment
-VSCODE_CWD = /home/ebylmz17
+VSCODE_CWD = C:\Users\ebylm\AppData\Local\Programs\Microsoft VS Code
 # makefile (from 'Makefile', line 6)
-SUB2 = enums/
+SUB2 = incommon/
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/95/usr/share/glib-2.0/schemas
-# default
-MAKE_HOST := x86_64-pc-linux-gnu
+PATH = C:\Program Files (x86)\VMware\VMware Player\bin\;C:\Program Files\Eclipse Adoptium\jdk-11.0.14.101-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\MinGW\bin;C:\Program Files\Eclipse Adoptium\jdk-8.0.322.6-hotspot;C:\Users\ebylm\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\ebylm\AppData\Local\Programs\Python\Python37\;C:\Users\ebylm\AppData\Local\Microsoft\WindowsApps;C:\Users\ebylm\AppData\Local\Programs\Microsoft VS Code\bin;C:\MinGW\bin;%PyCharm Community Edition%;C:\Program Files (x86)\Microsoft.NET;;D:\altera\13.1\modelsim_ase\win32aloem
 # environment
-PATH = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
 # environment
-GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+PROCESSOR_ARCHITECTURE = x86
 # environment
-SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1771,unix/ubuntu:/tmp/.ICE-unix/1771
+USERPROFILE = C:\Users\ebylm
 # environment
-XDG_RUNTIME_DIR = /run/user/1000
+ALLUSERSPROFILE = C:\ProgramData
 # environment
-GDK_PIXBUF_MODULE_FILE = /home/ebylmz17/snap/code/common/.cache/gdk-pixbuf-loaders.cache
-# environment
-SNAP = /snap/code/95
-# environment
-SNAP_VERSION = 57fd6d01
-# environment
-XDG_MENU_PREFIX = gnome-
+SOPC_KIT_NIOS2 = D:\altera\13.1\nios2eds
 # environment
 VSCODE_LOG_STACK = false
 # environment
-DISABLE_WAYLAND = 1
+NUMBER_OF_PROCESSORS = 8
 # environment
 ELECTRON_RUN_AS_NODE = 1
-# environment
-INVOCATION_ID = 00e73827aa5844c3a586c30a72147a3f
-# environment
-GDK_PIXBUF_MODULEDIR = /snap/code/95/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
-.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
-# environment
-LS_COLORS = 
-# environment
-XDG_SESSION_DESKTOP = ubuntu
-# environment
-SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
-# environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2458
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver
 # automatic
 %F = $(notdir $%)
 # environment
-DISPLAY = :0
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_2368_YJLJKWGKAVWDPNFH
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-SNAP_INSTANCE_KEY = 
+COMPUTERNAME = EBY-MATEBOOK
 # environment
-PWD = /home/ebylmz17/cse/project/SalesControlSystem22
-# default
-.LOADED := 
+PROGRAMFILES = C:\Program Files (x86)
 # environment
-SSH_AGENT_PID = 1738
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
 # environment
-ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-GTK_MODULES = gail:atk-bridge
+USERNAME = ebylm
+# environment
+PUBLIC = C:\Users\Public
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
-# environment
-HOME = /home/ebylmz17
-# environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
 # makefile (from 'Makefile', line 7)
 SUB3 = product/
 # environment
-VSCODE_CLI = 1
-# environment
-VSCODE_CODE_CACHE_PATH = /home/ebylmz17/.config/Code/CachedData/57fd6d0195bb9b9d1b49f6da5db789060795de47
-# environment
-LOGNAME = ebylmz17
+VSCODE_CODE_CACHE_PATH = C:\Users\ebylm\AppData\Roaming\Code\CachedData\57fd6d0195bb9b9d1b49f6da5db789060795de47
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
-SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
+COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
 # environment
-SNAP_CONTEXT = ku7XO8mS-9s23zV2I1AalLb0DODzYmkih8ArPbNtODxepS6P6gXV
-# environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
+LOGONSERVER = \\EBY-MATEBOOK
 # makefile (from 'Makefile', line 4)
 SUPER = src/
 # environment
-SNAP_USER_COMMON = /home/ebylmz17/snap/code/common
+ONEDRIVECONSUMER = C:\Users\ebylm\OneDrive
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
-GNOME_DESKTOP_SESSION_ID = this-is-deprecated
-# automatic
-^D = $(patsubst %/,%,$(dir $^))
+USERDOMAIN = EBY-MATEBOOK
 # makefile (from 'Makefile', line 10)
 TEST = test/
 # environment
 MAKELEVEL := 0
-# environment
-SNAP_REAL_HOME = /home/ebylmz17
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-QT_IM_MODULE = ibus
-# environment
-SNAP_USER_DATA = /home/ebylmz17/snap/code/95
-# environment
-SHLVL = 0
-# environment
-GNOME_SHELL_SESSION_MODE = ubuntu
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7912177b-b98d-4923-b76f-d3bde4b573bf.sock
+JAVA_HOME = C:\Program Files\Eclipse Adoptium\jdk-11.0.14.101-hotspot\
 # default
-MAKE_VERSION := 4.2.1
-# environment
-USER = ebylmz17
-# environment
-SNAP_REVISION = 95
+MAKE_VERSION := 3.82.90
 # makefile
 .DEFAULT_GOAL := muo
 # environment
-XDG_CURRENT_DESKTOP = Unity
+PROGRAMFILES(X86) = C:\Program Files (x86)
 # makefile (from 'Makefile', line 1)
 JC = javac
 # automatic
-%D = $(patsubst %/,%,$(dir $%))
+%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+# environment
+LOCALAPPDATA = C:\Users\ebylm\AppData\Local
+# environment
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
 # default
-MAKE_COMMAND := make
+MAKE_COMMAND := make.exe
+# environment
+PROCESSOR_ARCHITEW6432 = AMD64
 # default
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-93c01700-1.67.0-main.sock
+PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD
 # environment
-BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
-# makefile
-MAKEFLAGS = pqrR
+OS = Windows_NT
 # environment
-MFLAGS = -pqrR
+VSCODE_IPC_HOOK = \\.\pipe\2fcd1fdbd164f0d799a9cc782f476cf1-1.67.0-main-sock
+# environment
+HOMEPATH = \Users\ebylm
+# environment
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# environment
+PROMPT = $P$G
+# environment
+MFLAGS = -Rrqp
 # automatic
-*D = $(patsubst %/,%,$(dir $*))
-# automatic
-+D = $(patsubst %/,%,$(dir $+))
+*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
 # environment
-GDK_BACKEND = x11
+SYSTEMROOT = C:\WINDOWS
+# automatic
++D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
 # automatic
 +F = $(notdir $+)
 # environment
-QT_ACCESSIBILITY = 1
+APPDATA = C:\Users\ebylm\AppData\Roaming
+# environment
+TEMP = C:\Users\ebylm\AppData\Local\Temp
+# environment
+COMSPEC = C:\WINDOWS\system32\cmd.exe
 # default
 MAKEFILES := 
 # environment
-SNAP_COOKIE = ku7XO8mS-9s23zV2I1AalLb0DODzYmkih8ArPbNtODxepS6P6gXV
+QUARTUS_ROOTDIR = D:\altera\13.1\quartus
 # automatic
 <F = $(notdir $<)
-# environment
-SNAP_NAME = code
 # environment
 LC_ALL = C
 # makefile (from 'Makefile', line 11)
 DRIVER = Driver
 # makefile (from 'Makefile', line 3)
 JFlags = 
-# environment
-GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
 # environment
-SNAP_REEXEC = 
+SYSTEMDRIVE = C:
 # environment
-CHROME_DESKTOP = code-url-handler.desktop
+SESSIONNAME = Console
 # environment
-WINDOWPATH = 2
+PROCESSOR_REVISION = 1801
 # default
-.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
-# environment
-GJS_DEBUG_OUTPUT = stderr
+.INCLUDE_DIRS = C:/MinGW/include
 # default
 .RECIPEPREFIX := 
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2503
+PROCESSOR_LEVEL = 23
+# environment
+FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
+# environment
+VSCODE_PID = 2368
+# environment
+USERDOMAIN_ROAMINGPROFILE = EBY-MATEBOOK
 # variable set hash-table stats:
-# Load=131/1024=13%, Rehash=0, Collisions=20/156=13%
+# Load=106/1024=10%, Rehash=0, Collisions=13/125=10%
 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
- 
 
 # Directories
 
-# . (device 2053, inode 921302): 7 files, no impossibilities.
+# : could not be stat'd.
+# C:\Users\ebylm\AppData\Local\Programs\Python\Python37\ (key C:/Users/ebylm/AppData/Local/Programs/Python/Python37/, mtime 1644344778): 17 files, no impossibilities.
+# C:\Users\ebylm\AppData\Local\Programs\Microsoft VS Code\bin (key C:/Users/ebylm/AppData/Local/Programs/Microsoft VS Code/bin, mtime 1651838426): 4 files, no impossibilities.
+# C:\Users\ebylm\AppData\Local\Programs\Python\Python37\Scripts\ (key C:/Users/ebylm/AppData/Local/Programs/Python/Python37/Scripts/, mtime 1644585275): 8 files, no impossibilities.
+# C:\WINDOWS\System32\WindowsPowerShell\v1.0\ (key C:/WINDOWS/System32/WindowsPowerShell/v1.0/, mtime 1635830753): 27 files, no impossibilities.
+# . (key c:/Users/ebylm/Documents/cse/SalesControlSystem22, mtime 1652160243): 9 files, no impossibilities.
+# %PyCharm Community Edition%: could not be stat'd.
+# C:\Program Files\Git\cmd (key C:/Program Files/Git/cmd, mtime 1625144889): 8 files, no impossibilities.
+# C:\WINDOWS\System32\OpenSSH\: could not be stat'd.
+# C:\MinGW\bin (key C:/MinGW/bin, mtime 1651953596): 56 files, no impossibilities.
+# C:\Program Files (x86)\VMware\VMware Player\bin\ (key C:/Program Files (x86)/VMware/VMware Player/bin/, mtime 1647287896): 4 files, no impossibilities.
+# C:\WINDOWS (key C:/WINDOWS, mtime 1649866957): 119 files, no impossibilities.
+# C:\Program Files\Eclipse Adoptium\jdk-11.0.14.101-hotspot\bin (key C:/Program Files/Eclipse Adoptium/jdk-11.0.14.101-hotspot/bin, mtime 1647029213): 126 files, no impossibilities.
+# C:\Program Files\Eclipse Adoptium\jdk-8.0.322.6-hotspot: could not be stat'd.
+# C:\WINDOWS\System32\Wbem (key C:/WINDOWS/System32/Wbem, mtime 1641982085): 156 files, no impossibilities.
+# C:\WINDOWS\system32 (key C:/WINDOWS/system32, mtime 1649876369): 2900 files, no impossibilities.
+# D:\altera\13.1\modelsim_ase\win32aloem (key D:/altera/13.1/modelsim_ase/win32aloem, mtime 1646661337): 95 files, no impossibilities.
+# C:\Program Files (x86)\Microsoft.NET (key C:/Program Files (x86)/Microsoft.NET, mtime 1646508907): 3 files, no impossibilities.
+# C:\Users\ebylm\AppData\Local\Microsoft\WindowsApps (key C:/Users/ebylm/AppData/Local/Microsoft/WindowsApps, mtime 1651213339): 24 files, no impossibilities.
 
-# 7 files, no impossibilities in 1 directories.
+# 3556 files, no impossibilities in 19 directories.
 
 # Implicit Rules
 
@@ -302,9 +268,15 @@ all:
 #  File has not been updated.
 
 # Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-05 12:35:42.314034903
+#  Last modified 2022-05-10 08:17:59
 #  File has been updated.
 #  Successfully updated.
 
@@ -313,8 +285,8 @@ muo:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 14):
-	$(JC) $(JFlags) $(SUPER)$(SUB1)*.java $(SUPER)$(SUB2)*.java $(SUPER)$(SUB3)*.java $(SUPER)$(SUB4)*.java $(SUPER)$(SUB5)*.java $(SUPER)$(TEST)*.java -d classfiles
-	$(R) -cp classfiles $(SUPER)$(TEST)$(DRIVER)
+	$(JC) $(JFlags) $(SUPER)$(SUB1)*.java $(SUPER)$(SUB2)*.java $(SUPER)$(SUB3)*.java $(SUPER)$(SUB4)*.java $(SUPER)$(SUB5)*.java $(SUPER)$(TEST)*.java -d bin
+	$(R) -cp bin $(SUPER)$(TEST)$(DRIVER)
 
 # Not a target:
 .DEFAULT:
@@ -327,14 +299,14 @@ clean:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 21):
-	rm javadoc/ classfiles/ -r
+	rm javadoc/ bin/ -r
 
 javadoc:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 18):
-	javadoc $(SUPER)$(SUB1)*.java $(SUPER)$(SUB2)*.java $(SUPER)$(SUB3)*.java -d javadoc
+	javadoc $(SUPER)$(SUB1)*.java $(SUPER)$(SUB2)*.java $(SUPER)$(SUB3)*.java $(SUPER)$(SUB4)*.java $(SUPER)$(SUB5)*.java $(SUPER)$(TEST)*.java -d javadoc
 
 # files hash-table stats:
 # Load=7/1024=1%, Rehash=0, Collisions=0/17=0%
@@ -344,12 +316,16 @@ javadoc:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 15 / storage = 114 B / avg = 7 B
-# current buf: size = 8162 B / used = 114 B / count = 15 / avg = 7 B
+# strcache buffers: 7 (6) / strings = 3527 / storage = 53122 B / avg = 15 B
+# current buf: size = 8174 B / used = 4133 B / count = 286 / avg = 14 B
+# other used: total = 44948 B / count = 3241 / avg = 13 B
+# other free: total = 55 B / max = 13 B / min = 4 B / avg = 9 B
 
-# strcache performance: lookups = 22 / hit rate = 31%
+# strcache performance: lookups = 3587 / hit rate = 1%
 # hash-table stats:
-# Load=15/8192=0%, Rehash=0, Collisions=1/22=5%
-# Finished Make data base on Sun May  8 17:08:08 2022
+# Load=3527/8192=43%, Rehash=0, Collisions=1210/3587=34%
+# Finished Make data base on Tue May 10 08:28:50 2022
 
  
+make.exe: *** No rule to make target 'all'.  Stop.
+
