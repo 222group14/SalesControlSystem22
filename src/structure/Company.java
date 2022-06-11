@@ -3,22 +3,50 @@ package src.structure;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.product.Product;
 import src.user.Administrator;
 
+/**
+ * 
+ * A class that holds company data.
+ */ 
 public class Company {
 
+	/**
+	 * Name of the company
+	 */ 
 	private String companyName;
-	private Administrator admin;
-	private List<Branch> branches = new ArrayList<Branch>();
 
+	/**
+	 * Administrator of the company
+	 */ 
+	private Administrator admin;
+
+	/**
+	 * Branches of this company
+	 */ 
+	private List<Branch> branches = new ArrayList<Branch>();  //! use a graph which has special implementation for vertices
+
+	/**
+	 * Constructor which takes company name
+	 * @param companyName company name
+	 */ 
 	public Company(String companyName) {
 		this.companyName = companyName;
 	}
 
+	/**
+	 * Returns list of branches.
+	 * @return List of branches.
+	 */ 
 	public List<Branch> getBranches() {
 		return branches;
 	}
 
+	/**
+	 * Returns Administrator.
+	 * @return administrator.
+	 */ 
 	public Administrator getAdministrator() {
 		return admin;
 	}
@@ -39,10 +67,27 @@ public class Company {
 		return true;
 	}
 
+	/**
+	 * Returns company name
+	 * @return company name
+	 */ 
 	public String getCompanyName() {
 		return companyName;
 	}
 
+	/**
+	 * Determines all the branches that have stock for product p
+	 * @param p The product
+	 * @return The branches that has product p
+	 */
+	public Branch[] findProduct(Product p) {
+		return null;
+	}
+
+	/**
+	 * Returns String representation of company information
+	 * @return String representation of company
+	 */ 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -63,6 +108,11 @@ public class Company {
 		return sb.toString();
 	}
 
+	/**
+	 * Compares two company
+	 * @param other other company
+	 * @return true if both companies are equal
+	 */ 
 	@Override
 	public boolean equals(Object other) {
 		if(other != null && other instanceof Company) {
@@ -84,6 +134,10 @@ public class Company {
 		return false;
 	}
 
+	/**
+	 * Returns hash code of company
+	 * @return hash code of company
+	 */ 
 	@Override 
 	public int hashCode() {
 		int hcode = companyName.hashCode()* 7 + 5;

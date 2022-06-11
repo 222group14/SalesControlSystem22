@@ -1,3 +1,3 @@
-package src.enums;
+package src.incommon;
 
 public enum Gender { MALE, FEMALE, OTHER }

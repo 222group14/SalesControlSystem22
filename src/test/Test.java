@@ -1,7 +1,7 @@
 package src.test;
 
-import src.enums.*;
 import src.product.Clothes;
+import src.incommon.*;
 import src.product.*;
 import src.structure.Branch;
 import src.structure.Company;
@@ -19,7 +19,7 @@ public class Test {
 		System.out.println("\n" + company1 + "\n----------");
     	
     	System.out.println("Creating an administrator");
-		Administrator admin1 = new Administrator("admin1", 30, Gender.FEMALE, company1);    	
+		Administrator admin1 = new Administrator("admin1", 30, Gender.FEMALE, "ADMIN" , "adminsc." , company1);    	
     	System.out.println("\n" + admin1 + "\n----------");
 
     	System.out.println("Company after the administrator creation.");    	
@@ -30,15 +30,15 @@ public class Test {
 		System.out.println("\n" + branch1 + "\n----------");
 
     	System.out.println("Creating a branch manager");
-		BranchManager manager1 = new BranchManager("manager1", 30, Gender.MALE, branch1);
+		BranchManager manager1 = new BranchManager("manager1", 30, Gender.MALE, "mngr_1" , "m4n4g3r1" , branch1);
 		System.out.println("\n" + manager1 + "\n-----------");		
 
     	System.out.println("Branch after the manager creation."); 
 		System.out.println("\n" + branch1 + "-----------");
 
     	System.out.println("Creating an employee and customer.");		
-		BranchEmployee employee1 = new BranchEmployee("elif", 30, Gender.FEMALE, branch1);
-		Customer customer1 = new Customer("ayse", 25, Gender.FEMALE, branch1);
+		BranchEmployee employee1 = new BranchEmployee("elif", 30, Gender.FEMALE, "Elifabla" , "Elif2001." , branch1);
+		Customer customer1 = new Customer("ayse", 25, Gender.FEMALE, "a.ayse58" , "58A_ysesivas" ,branch1);
 		System.out.println("\n" + employee1 + "\n-----------");
 		System.out.println("\n" + customer1 + "\n-----------");
 
@@ -58,11 +58,11 @@ public class Test {
 		System.out.println("\n" + branch1 + "\n-----------");
 
 		System.out.println("\nBranch Manager adds new employees.");
-		BranchEmployee employee6 = new BranchEmployee("ahmet", 24, Gender.MALE, branch1);		
-		BranchEmployee employee2 = new BranchEmployee("emre", 44, Gender.MALE, branch1);
-		BranchEmployee employee3 = new BranchEmployee("irem", 31, Gender.FEMALE, branch1);
-		BranchEmployee employee4 = new BranchEmployee("burak", 42, Gender.MALE, branch1);
-		BranchEmployee employee5 = new BranchEmployee("ayse", 37, Gender.FEMALE, branch1);				
+		BranchEmployee employee6 = new BranchEmployee("ahmet", 24, Gender.MALE, "Ahmetinho" , "ronalda07." , branch1);		
+		BranchEmployee employee2 = new BranchEmployee("emre", 44, Gender.MALE, "Mr.shutterspeed", "d21esa2." , branch1);
+		BranchEmployee employee3 = new BranchEmployee("irem", 31, Gender.FEMALE, "Irem_y", "irem1905." , branch1);
+		BranchEmployee employee4 = new BranchEmployee("burak", 42, Gender.MALE, "burraaook", "Kocausta.41" , branch1);
+		BranchEmployee employee5 = new BranchEmployee("ayse", 37, Gender.FEMALE, "ayseee", "A_yse1235." , branch1);				
 		
 		System.out.println("\n" + branch1 + "\n-----------");
 
@@ -95,11 +95,11 @@ public class Test {
 
 
 		System.out.println("\nBranch Manager adds new customers.");
-		Customer customer2 = new Customer("asli", 25, Gender.FEMALE, branch1);
-		Customer customer3 = new Customer("osman", 55, Gender.MALE, branch1);
-		Customer customer4 = new Customer("ali", 29, Gender.MALE, branch1);
-		Customer customer5 = new Customer("avni", 25, Gender.MALE, branch1);
-		Customer customer6 = new Customer("emir", 25, Gender.MALE, branch1);
+		Customer customer2 = new Customer("asli", 25, Gender.FEMALE, "asliii", "A_sli3106." , branch1);
+		Customer customer3 = new Customer("osman", 55, Gender.MALE, "0smanK.", "O.smancık2001p" , branch1);
+		Customer customer4 = new Customer("ali", 29, Gender.MALE, "mali53", "rizeliA_li53" , branch1);
+		Customer customer5 = new Customer("avni", 25, Gender.MALE, "avni.celik", "avn_1234" , branch1);
+		Customer customer6 = new Customer("emir", 25, Gender.MALE, "emir.efe34", "E_efe1903" , branch1);
 		System.out.println("\n" + branch1 + "\n-----------");
 
 		employee1.removeProduct(product2);
@@ -124,12 +124,12 @@ public class Test {
 		manager1.displayBranchEmployees();
 
 		Branch branch2 = new Branch("branch2");
-		BranchManager manager2 = new BranchManager("manager2", 30, Gender.FEMALE, branch2);
-		manager2.addBranchEmployee(new BranchEmployee("osman", 24, Gender.MALE, branch2));
+		BranchManager manager2 = new BranchManager("manager2", 30, Gender.FEMALE, "mngr_2" , "m4n4g3r2." ,branch2);
+		manager2.addBranchEmployee(new BranchEmployee("osman", 24, Gender.MALE, "Osmanpzr" , " Osman3002." ,branch2));
 
 		Branch branch3 = new Branch("branch3");
-		BranchManager manager3 = new BranchManager("manager3", 30, Gender.FEMALE, branch3);
-		manager3.addBranchEmployee(new BranchEmployee("sevim", 24, Gender.FEMALE, branch3));
+		BranchManager manager3 = new BranchManager("manager3", 30, Gender.FEMALE, "mngr_3" , "m4n4g3r3" , branch3);
+		manager3.addBranchEmployee(new BranchEmployee("sevim", 24, Gender.FEMALE, " Sevim7 " ,  "Sevim2001." , branch3));
 
 		System.out.println("\nAdmin adds new branches, and displays branches.\n");
 		admin1.addBranch(branch2);

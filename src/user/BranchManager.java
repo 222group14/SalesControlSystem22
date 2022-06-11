@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import src.bst.BinarySearchTree;
-import src.enums.Gender;
+import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
 
@@ -12,8 +12,8 @@ public class BranchManager extends User {
 
 	private Branch branch;
 
-	public BranchManager(String name, int age, Gender gender, Branch branch) {
-		super(name, age, gender);
+	public BranchManager(String name, int age, Gender gender, String username, String password, Branch branch) {
+		super(name, age, gender, username, password);
 		this.branch = branch;
 		this.branch.setBranchManager(this);
 	}
@@ -84,7 +84,8 @@ public class BranchManager extends User {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Branch Manager" + "\nBranch: " + branch.getBranchName());
+		sb.append("User Type: Branch Manager\n");
+		sb.append("Branch: " + branch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}
@@ -96,11 +97,8 @@ public class BranchManager extends User {
 				return true;
 			BranchManager otherManager = (BranchManager) other;
 
-			if (!otherManager.getName().equals(this.getName()) || otherManager.getAge() != this.getAge()
-				|| !otherManager.getGender().equals(this.getGender())) {
-
-				return false;				
-			}
+			if(!super.equals(otherManager))
+				return false;
 
 			Branch otherBranch = otherManager.getBranch();
 			if (branch != null && otherBranch != null) {
@@ -109,6 +107,7 @@ public class BranchManager extends User {
 			} 
 			else if (branch != null || otherBranch != null)
 				return false;
+			return true;
 		}
 		return false;
 	}

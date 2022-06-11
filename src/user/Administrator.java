@@ -2,18 +2,18 @@ package src.user;
 
 import java.util.List;
 
-import src.enums.Gender;
 import src.structure.Branch;
 import src.structure.Company;
 import src.bst.*;
+import src.incommon.Gender;
 
 
 public class Administrator extends User {
 
 	private Company company;
 
-	public Administrator(String name, int age, Gender gender, Company company) {
-		super(name, age, gender);
+	public Administrator(String name, int age, Gender gender, String username, String password, Company company) {
+		super(name, age, gender, username, password);
 		this.company = company;
 		this.company.setAdministrator(this);
 	}
@@ -108,7 +108,8 @@ public class Administrator extends User {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Administrator" + "\nCompany: " + company.getCompanyName());
+		sb.append("User Type: Administrator\n");
+		sb.append("Company: " + company.getCompanyName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}
@@ -119,12 +120,9 @@ public class Administrator extends User {
 		if (this == other)
 			return true;
 		Administrator otherAdmin = (Administrator) other;
-
-		if (!otherAdmin.getName().equals(this.getName()) || otherAdmin.getAge() != this.getAge()
-			|| !otherAdmin.getGender().equals(this.getGender())) {
-
-			return false;				
-		}
+		
+		if (((User) otherAdmin).equals((User) this) == false)
+			return false;
 
 		Company otherCompany = otherAdmin.getCompany();
 		if (company != null && otherCompany != null) {
@@ -133,6 +131,7 @@ public class Administrator extends User {
 		} 
 		else if (company != null || otherCompany != null)
 			return false;
+		return true;
 	}
 		return false;
 	}

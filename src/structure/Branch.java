@@ -10,19 +10,52 @@ import src.user.BranchEmployee;
 import src.user.BranchManager;
 import src.user.Customer;
 
+/**
+ * 
+ * A class that holds branch information.
+ */ 
 public class Branch {
 
+	/**
+	 * Name of branch
+	 */ 
 	private String branchName;
+
+	/**
+	 * Name of branch manager
+	 */  
 	private BranchManager manager;
-	private BinarySearchTree<BranchEmployee> employees = new BinarySearchTree<BranchEmployee>();							
-	private ArrayList<LinkedList<Product>> products = new ArrayList<LinkedList<Product>>();
-	private BinarySearchTree<Customer> customers = new BinarySearchTree<Customer>();
+	
+
+	/** 
+	 * Employees are keept in BST to provide efficent search basis on employee name
+	 */
+	private BinarySearchTree<BranchEmployee> employees = new BinarySearchTree<BranchEmployee>(); //! use red-black tree / skiplist	
+
+	/**
+	 * List of products, according to their type
+	 */ 
+	private ArrayList<LinkedList<Product>> products = new ArrayList<LinkedList<Product>>(); //! 
+
+	/** 
+	 * Customers are keept in BST to provide efficent search basis on customer name
+	 */
+	private BinarySearchTree<Customer> customers = new BinarySearchTree<Customer>(); //! use red-black tree / skiplist
+
+	/** 
+	 * Requested products are are keept in Binary Heap(min heap).
+	 */
 	private PriorityQueue<Product> requestedProducts = new PriorityQueue<Product>(); //compare entryprices
 
-	public Branch(String branchName) {
+	public Branch(String branchName) {  
 		this.branchName = branchName;
 	}
 
+	/**
+	 * Sets the branch's manager, given manager should not be the owner of another branch
+	 * @param manager branch manager
+	 * @return true if set operation is successful
+	 */ 
 	public boolean setBranchManager(BranchManager manager) {
 		Branch newManagerBranch = manager.getBranch();
 		// make sure manager is not owner of another branch
@@ -34,30 +67,58 @@ public class Branch {
 		return true;
 	}
 
+	/**
+	 * Getter for branch employees
+	 * @return branch employees as binarySearchTree
+	 */ 
 	public BinarySearchTree<BranchEmployee> getBranchEmployees() {
 		return employees;
 	}
 
+	/**
+	 * Getter for products
+	 * @return products as ArrayList of LinkedList
+	 */ 
 	public ArrayList<LinkedList<Product>> getProducts() {
 		return products;
 	}
 
+	/**
+	 * Getter for branch name
+	 * @return branch name
+	 */ 
 	public String getBranchName() {
 		return branchName;
 	}
 
+	/**
+	 * Getter for customers.
+	 * @return customers as BinarySearchTree
+	 */ 
 	public BinarySearchTree<Customer> getCustomers() {
 		return customers;
 	}
 
+	/**
+	 * Getter for branch manager
+	 * @return branch manager
+	 */  
 	public BranchManager getBranchManager() {
 		return manager;
 	}
 
+	/**
+	 * Getter for requested products
+	 * @return requested products as PriorityQueue
+	 */  
 	public PriorityQueue<Product> getRequestedProducts() {
 		return requestedProducts;
 	}
 	
+	/**
+	 * Returns String representation of branch information
+	 * @return String representation of branch
+	 */ 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -91,6 +152,11 @@ public class Branch {
 		return sb.toString();
 	}
 
+	/**
+	 * Compares two branch
+	 * @param other other branch
+	 * @return true if two branch is equal
+	 */ 
 	@Override
 	public boolean equals(Object other) {
 		if(other != null && other instanceof Branch) {
@@ -116,6 +182,10 @@ public class Branch {
 		return false;
 	}
 
+	/**
+	 * Returns hash code value
+	 * @return hash code value
+	 */ 
 	@Override
 	public int hashCode() {
 		int hcode = branchName.hashCode()* 7 + 5;

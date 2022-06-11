@@ -1,7 +1,7 @@
 package src.product;
 
-import src.enums.Gender;
-import src.enums.Size;
+import src.incommon.Gender;
+import src.incommon.Size;
 
 public class Clothes extends Product {
 

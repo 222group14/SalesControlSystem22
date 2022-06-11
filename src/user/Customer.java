@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-import src.bst.BinarySearchTree;
-import src.enums.Gender;
+import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
 
@@ -17,8 +16,8 @@ public class Customer extends User implements Comparable<Customer> {
 	private ArrayDeque<Product> lastAdded = new ArrayDeque<Product>(); 		// use it as a stack
 	private ArrayDeque<Product> lastRemoved = new ArrayDeque<Product>(); 	// use it as a stack
 
-	public Customer(String name, int age, Gender gender, Branch branch) {
-		super(name, age, gender);
+	public Customer(String name, int age, Gender gender, String username, String password, Branch branch) {
+		super(name, age, gender, username, password);
 		this.branch = branch;
 		branch.getBranchManager().addCustomer(this);
 	}
@@ -104,7 +103,8 @@ public class Customer extends User implements Comparable<Customer> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Customer" + "\nBranch: " + branch.getBranchName());
+		sb.append("User Type: Customer\n");
+		sb.append("Branch: " + branch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}
@@ -126,6 +126,7 @@ public class Customer extends User implements Comparable<Customer> {
 			} 
 			else if (branch != null || otherBranch != null)
 				return false;
+			return true;
 		}
 		return false;
 	}

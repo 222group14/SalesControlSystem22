@@ -3,7 +3,7 @@ package src.test;
 public class Driver {
 	public static void main (String args[]) {
 		System.out.println("--------------------------- TEST0 ---------------------------");
-		Test.test0();
+		Test.testN();
 		System.out.println("--------------------------- DONE ---------------------------");
 
 	/*

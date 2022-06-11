@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 
-import src.bst.BinarySearchTree;
-import src.enums.Gender;
+import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
 
@@ -13,8 +12,8 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 
 	private Branch branch;
 
-	public BranchEmployee(String name, int age, Gender gender, Branch branch) {
-		super(name, age, gender);
+	public BranchEmployee(String name, int age, Gender gender, String username, String password, Branch branch) {
+		super(name, age, gender, username, password);
 		this.branch = branch;
 		branch.getBranchManager().addBranchEmployee(this);
 	}
@@ -69,7 +68,6 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		System.out.println("Requested Products:\n");
 		PriorityQueue<Product> products = branch.getRequestedProducts();
 		
-		int i = 0;
 		for(Product product: products)
 			System.out.println("product name: " + product.getName() + ", entry price: " + product.getEntryPrice());
 	}
@@ -77,7 +75,8 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Branch Employee" + "\nBranch: " + branch.getBranchName());
+		sb.append("User Type: Branch Employee\n");
+		sb.append("Branch: " + branch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}
@@ -99,6 +98,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 			} 
 			else if (branch != null || otherBranch != null)
 				return false;
+			return true;
 		}
 		return false;
 	}
