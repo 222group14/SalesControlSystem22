@@ -170,6 +170,10 @@ public class SCSystem {
 
     public void administratorMenu(){
 
+            // Display action list (add/remove/display stuff)
+                // three different list for admin, branch manager and employee
+
+        // before exit, save the current status of system
     }
 
     public void branchEmployeeMenu(){

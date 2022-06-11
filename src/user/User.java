@@ -1,6 +1,5 @@
 package src.user;
 
-
 import src.incommon.Gender;
 
 public class User {
@@ -89,5 +88,4 @@ public class User {
 		hCode += password.hashCode();
 		return hCode;
 	}	
-
 }

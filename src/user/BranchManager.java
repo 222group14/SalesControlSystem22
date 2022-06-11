@@ -1,5 +1,6 @@
 package src.user;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -7,6 +8,7 @@ import src.bst.BinarySearchTree;
 import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
+import src.structure.Company;
 
 public class BranchManager extends User {
 
@@ -33,12 +35,29 @@ public class BranchManager extends User {
 		return true;
 	}
 
-	//public void displayBranches(Company company) {
-	//	List<Branch> branches = company.getBranches();
+	public void displayBranches(Company company) {
+		List<Branch> branches = company.getBranches();
 
-		// insert: check if this company has this branch manager
-		// insert: if true, print all branches.
-	//}
+		boolean flag = false;
+		for (Branch branch: branches) {
+			if(branch.getBranchManager().equals(this)) {
+				flag = true;
+				break;
+			}
+		}
+
+		if (!flag)
+			return;
+
+		for(Branch branch: branches) {
+			System.out.print("Branch Name:" + branch.getBranchName() + ", Branch Manager: ");
+			if (branch.getBranchManager() != null) 
+				System.out.println(branch.getBranchManager().getName());
+			
+			else
+				System.out.println("none");
+		}		
+	}
 
 	public void displayBranchEmployees() {
 		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();

@@ -8,24 +8,42 @@ import java.util.PriorityQueue;
 import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
+import src.structure.Company;
 
 public class Customer extends User implements Comparable<Customer> {
-
-	private Branch branch;
-    private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>();
-	private ArrayDeque<Product> lastAdded = new ArrayDeque<Product>(); 		// use it as a stack
+	private Branch shoppingBranch;
+	/** Stack are used to keep customer order history */
+	private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>(); //!! change 
+	/** Added items into the basket */
+	private ArrayDeque<Product> lastAdded = new ArrayDeque<Product>(); 		//!! change 
+	/** Removed items into the basket */
 	private ArrayDeque<Product> lastRemoved = new ArrayDeque<Product>(); 	// use it as a stack
 
 	public Customer(String name, int age, Gender gender, String username, String password, Branch branch) {
 		super(name, age, gender, username, password);
-		this.branch = branch;
+		this.shoppingBranch = branch;
 		branch.getBranchManager().addCustomer(this);
 	}
 
-	public Branch getBranch() {
-		return branch;
+	public Branch getShoppingBranch() {
+		return shoppingBranch;
 	}
 	
+	/**
+	 * Finds all the branches which has stock for given product p
+	 * as ordered list according to distance between customer and branch location 
+	 * @param company The company that is shopping
+	 * @param p The requested product
+	 * @return Array of branches as ordered from the closest to the furthest distance
+	 */
+	public Branch[] suggestBranchs(Company company, Product p) {
+		// get the branches that has product p
+		var branches = company.findProduct(p);
+		// sort the branches according to euclidian distance 
+		// between customer location and company 
+		return branches;
+	}
+
 	public boolean addProductToBasket(Product product) {
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i).get(0).getClass().equals(product.getClass())) {
@@ -52,12 +70,12 @@ public class Customer extends User implements Comparable<Customer> {
 	}
 
 	public void requestProduct(Product product) {
-		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
+		PriorityQueue<Product> requestedProducts = shoppingBranch.getRequestedProducts();
 		requestedProducts.offer(product);
 	}
 
 	public void displayProducts() {
-		ArrayList<LinkedList<Product>> products = branch.getProducts();
+		ArrayList<LinkedList<Product>> products = shoppingBranch.getProducts();
 		for(int i = 0; i < products.size(); ++i) {
 			if(products.get(i) == null || products.get(i).size() == 0)
 				continue;
@@ -104,7 +122,7 @@ public class Customer extends User implements Comparable<Customer> {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("User Type: Customer\n");
-		sb.append("Branch: " + branch.getBranchName() + "\n");
+		sb.append("Branch: " + shoppingBranch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}
@@ -119,12 +137,12 @@ public class Customer extends User implements Comparable<Customer> {
 			if (((User) otherCustomer).equals((User) this) == false)
 				return false;
 
-			Branch otherBranch = otherCustomer.getBranch();
-			if (branch != null && otherBranch != null) {
-				if (!branch.getBranchName().equals(otherBranch.getBranchName()))
+			Branch otherBranch = otherCustomer.getShoppingBranch();
+			if (shoppingBranch != null && otherBranch != null) {
+				if (!shoppingBranch.getBranchName().equals(otherBranch.getBranchName()))
 					return false;
 			} 
-			else if (branch != null || otherBranch != null)
+			else if (shoppingBranch != null || otherBranch != null)
 				return false;
 			return true;
 		}
@@ -133,6 +151,6 @@ public class Customer extends User implements Comparable<Customer> {
 
 	@Override
 	public int hashCode() {
-		return 17*super.hashCode() + 3*branch.hashCode();
+		return 17*super.hashCode() + 3*shoppingBranch.hashCode();
 	}	
 }

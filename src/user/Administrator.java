@@ -41,8 +41,7 @@ public class Administrator extends User {
 	}
 
 	public void addBranch(Branch branch) {
-		List<Branch> branches = company.getBranches();
-		branches.add(branch);
+		company.getBranches().add(branch);
 	}
 
 	public boolean removeBranch(Branch branch) {
@@ -52,7 +51,15 @@ public class Administrator extends User {
 
 	public BranchManager setBranchManager(Branch branch, BranchManager branchManager) {
 		
-		// implement
+		List<Branch> branches = company.getBranches();
+
+		for (Branch branchRef: branches) {
+			if(branchRef.equals(branch)) {
+				branchRef.setBranchManager(branchManager);
+				return branchManager;
+			}
+		}
+	
 		return null;
 	}
 
