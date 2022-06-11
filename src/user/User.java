@@ -1,8 +1,5 @@
 package src.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import src.incommon.Gender;
 
 public class User {

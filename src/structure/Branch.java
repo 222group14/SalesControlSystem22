@@ -17,16 +17,16 @@ public class Branch {
 	/** Branch location */
 	private Location loc;
 	/** Employees are keept in BST to provide efficent search basis on employee name */
-	private BinarySearchTree<BranchEmployee> employees = new BinarySearchTree<BranchEmployee>();							
-	private ArrayList<LinkedList<Product>> products = new ArrayList<LinkedList<Product>>();
+	private BinarySearchTree<BranchEmployee> employees = new BinarySearchTree<BranchEmployee>();		//! use red-black tree / skiplist					
+	private ArrayList<LinkedList<Product>> products = new ArrayList<LinkedList<Product>>(); //! 
 	/** Customers are keept in BST to provide efficent search basis on customer name */
-	private BinarySearchTree<Customer> customers = new BinarySearchTree<Customer>();
+	private BinarySearchTree<Customer> customers = new BinarySearchTree<Customer>(); 		//! use red-black tree / skiplist
 	/** Requested products are are keept in Binary Heap to  */
 	private PriorityQueue<Product> requestedProducts = new PriorityQueue<Product>(); //compare entryprices
 
-	//! add location to constructor
 	public Branch(String branchName, Location loc) {  
 		this.branchName = branchName;
+		this.loc = loc;
 	}
 
 	public boolean setBranchManager(BranchManager manager) {

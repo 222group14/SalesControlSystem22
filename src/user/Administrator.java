@@ -41,8 +41,7 @@ public class Administrator extends User {
 	}
 
 	public void addBranch(Branch branch) {
-		List<Branch> branches = company.getBranches();
-		branches.add(branch);
+		company.getBranches().add(branch);
 	}
 
 	public boolean removeBranch(Branch branch) {

@@ -9,7 +9,7 @@ import src.user.Administrator;
 public class Company {
 	private String companyName;
 	private Administrator admin;
-	private List<Branch> branches = new ArrayList<Branch>(); 
+	private List<Branch> branches = new ArrayList<Branch>(); //! use a graph which has special implementation for vertices 
 
 	public Company(String companyName) {
 		this.companyName = companyName;

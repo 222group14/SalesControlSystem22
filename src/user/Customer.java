@@ -12,23 +12,25 @@ import src.structure.Branch;
 import src.structure.Company;
 
 public class Customer extends User implements Comparable<Customer> {
-	private Branch branch;
+	private Branch shoppingBranch;
 	/** Order location of customer */
 	private Location loc;
 	/** Stack are used to keep customer order history */
-	private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>();
-	private ArrayDeque<Product> lastAdded = new ArrayDeque<Product>(); 		// use it as a stack
+	private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>(); //!! change 
+	/** Added items into the basket */
+	private ArrayDeque<Product> lastAdded = new ArrayDeque<Product>(); 		//!! change 
+	/** Removed items into the basket */
 	private ArrayDeque<Product> lastRemoved = new ArrayDeque<Product>(); 	// use it as a stack
 
-	//! add location to constructor
-	public Customer(String name, int age, Gender gender, Location loc, Branch branch) {
+	public Customer(String name, int age, Gender gender, Location loc, Branch shoppingBranch) {
 		super(name, age, gender);
-		this.branch = branch;
-		branch.getBranchManager().addCustomer(this);
+		this.shoppingBranch = shoppingBranch;
+		this.loc = loc;
+		shoppingBranch.getBranchManager().addCustomer(this);
 	}
 
-	public Branch getBranch() {
-		return branch;
+	public Branch getShoppingBranch() {
+		return shoppingBranch;
 	}
 	
 	/**
@@ -72,12 +74,12 @@ public class Customer extends User implements Comparable<Customer> {
 	}
 
 	public void requestProduct(Product product) {
-		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
+		PriorityQueue<Product> requestedProducts = shoppingBranch.getRequestedProducts();
 		requestedProducts.offer(product);
 	}
 
 	public void displayProducts() {
-		ArrayList<LinkedList<Product>> products = branch.getProducts();
+		ArrayList<LinkedList<Product>> products = shoppingBranch.getProducts();
 		for(int i = 0; i < products.size(); ++i) {
 			if(products.get(i) == null || products.get(i).size() == 0)
 				continue;
@@ -123,7 +125,7 @@ public class Customer extends User implements Comparable<Customer> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Customer" + "\nBranch: " + branch.getBranchName());
+		sb.append("User Type: Customer" + "\nBranch: " + shoppingBranch.getBranchName());
 		sb.append(super.toString());
 		return sb.toString();
 	}
@@ -138,12 +140,12 @@ public class Customer extends User implements Comparable<Customer> {
 			if (((User) otherCustomer).equals((User) this) == false)
 				return false;
 
-			Branch otherBranch = otherCustomer.getBranch();
-			if (branch != null && otherBranch != null) {
-				if (!branch.getBranchName().equals(otherBranch.getBranchName()))
+			Branch otherBranch = otherCustomer.getShoppingBranch();
+			if (shoppingBranch != null && otherBranch != null) {
+				if (!shoppingBranch.getBranchName().equals(otherBranch.getBranchName()))
 					return false;
 			} 
-			else if (branch != null || otherBranch != null)
+			else if (shoppingBranch != null || otherBranch != null)
 				return false;
 		}
 		return false;
@@ -151,6 +153,6 @@ public class Customer extends User implements Comparable<Customer> {
 
 	@Override
 	public int hashCode() {
-		return 17*super.hashCode() + 3*branch.hashCode();
+		return 17*super.hashCode() + 3*shoppingBranch.hashCode();
 	}	
 }
