@@ -46,7 +46,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 
 	public boolean addRequestedProducts() {
 		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
-		Product product = requestedProducts.poll();
+		Product product = requestedProducts.peek();
 		if(product == null)
 			return false;
 		return addProduct(product);
