@@ -339,11 +339,9 @@ public class SCSystem {
                 currUser.addProduct(new Product(name,brand,type,entryPD));
             }
             else if(in.equals("2")){
-
                 System.out.println("Enter the product name to be removed.");
-                //isim ile silebilmemiz lazım
-                // ama removeProductByName fonku yazmak lazım
-
+                name = inputP.nextLine();
+                currUser.removeProductByName(name);
             }
             else if(in.equals("3")){
                 currUser.addRequestedProducts();

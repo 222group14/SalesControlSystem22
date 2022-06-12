@@ -49,6 +49,8 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		return branch.getProducts().remove(p);
 	}
 
+	public void removeProductByName(String productName){}
+
 	public boolean addRequestedProducts() {
 		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
 		Product product = requestedProducts.peek();
