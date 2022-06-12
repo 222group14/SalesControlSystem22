@@ -152,10 +152,80 @@ public class Test {
 	}
 
 	/**
-	 * Test Case: 
+	 * Testing Graph implementation.
+	 * Test Case: inserting 15 branch to one company, and customer suggests item which is not in the that customer's branch
 	 */
 	public static void test1() {
-		//! NOT IMPLEMENTEED YET
+		Company company1 = new Company("company1");
+		Administrator admin1 = new Administrator("admin1", 30, Gender.FEMALE, "ADMIN" , "adminsc." , company1); 
+		ArrayList<Branch> branches = new ArrayList<Branch>();
+		ArrayList<BranchManager> managers = new ArrayList<BranchManager>();
+		ArrayList<BranchEmployee> employees = new ArrayList<BranchEmployee>();
+
+		for ( int i = 0; i < 15; ++i ) {
+			branches.add(new Branch(String.format("branch%d", i+1)));
+			managers.add(new BranchManager(String.format("manager%d", i+1), i+30, Gender.MALE,
+							 String.format("mngr_%d", i+1) , String.format("m4n4g3r%d", i+1), branches.get(i)));
+			employees.add(new BranchEmployee(String.format("employee%d", i+1), 30, Gender.FEMALE,
+							 String.format("emp_nick%d", i+1), String.format("emp_pass%d", i+1), branches.get(i)));
+			admin1.addBranch(branches.get(i));
+		}
+		Customer customer1 = new Customer("ayse", 25, Gender.FEMALE, "a.ayse58" , "58A_ysesivas", branches.get(0));
+		
+		employees.get(0).addProduct(new Clothes("clothes1", "brand1", "Clothes", 132.6, Size.XL,
+									 "matType1", "blue", false, Gender.FEMALE));
+		employees.get(0).addProduct(new PersonalCare("cream", "nivea", "Personal Care", 13.8, "For dry skins", "22/03/2025"));
+		employees.get(0).addProduct(new Furniture("furniture1", "ikea", "Furniture", 131.9, 142.1, 1.92, "black"));
+
+		for(int i = 5; i < 15; ++i) {
+			employees.get(i).addProduct(new Electronic("phone", "samsung", "Electronic", 1000.0, 200, false, 12.1, 21.0));			
+		}
+
+
+		admin1.displayBranches();
+
+		System.out.println("\nBefore inserting edges:\n");
+		admin1.displayBranchGraph();
+
+		for ( int i = 2; i < 16; ++i ) {
+			admin1.connectBranches(1, i, i*20 + 30.0);
+		}
+
+		admin1.connectBranches(2, 3, 5.0);
+		admin1.connectBranches(2, 5, 10.0);
+		admin1.connectBranches(3, 6, 13.0);
+		admin1.connectBranches(5, 6, 5.0);
+		admin1.connectBranches(6, 9, 25.0);
+		admin1.connectBranches(7, 3, 12.0);
+		admin1.connectBranches(15, 2, 80.0);
+		admin1.connectBranches(4, 11, 28.0);
+		admin1.connectBranches(11, 12, 6.0);
+		admin1.connectBranches(11, 14, 9.0);														
+		admin1.connectBranches(15, 14, 7.0);
+		admin1.connectBranches(12, 15, 16.0);
+		admin1.connectBranches(8, 13, 20.0);
+		admin1.connectBranches(13, 9, 14.0);
+
+		System.out.println("\nAfter inserting edges:\n");
+		admin1.displayBranchGraph();
+
+		System.out.println("\nAdmin displays customers.\n");
+		admin1.displayCustomers();
+
+		System.out.println("\nCustomer displays products.\n");
+		customer1.displayProducts();
+
+		System.out.println("\nEvery employee of each branch displays products.\n");
+		for ( int i = 0; i < 15; ++i ) {
+			System.out.println("Branch: " + branches.get(i).getBranchName());
+			employees.get(i).displayProducts();
+			System.out.println();
+		}
+
+		System.out.println("\nCustomer requests an unexisted product of current branch which is electronic device, and gets branch suggestion\n");
+
+		Branch b = customer1.getBranchSuggestion(company1, new Electronic("phone", "samsung", "Electronic", 1000.0, 200, false, 12.1, 21.0));
+		System.out.println("Suggested(closest) branch according to the dijkstra is: " + b.getBranchName());
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import src.graph.*;
 import src.user.User;
 import src.incommon.Gender;
 import src.user.Administrator;
@@ -60,8 +61,9 @@ public class SCSystem {
 		System.out.println("\n" + company + "\n----------");
 
         System.out.println("------------------------------------------");
-        List<Branch> branches = company.getBranches();
-        System.out.println(branches.get(0));
+        DynamicBranchGraph branches = company.getBranches();
+        // graph does not have index access.
+       // System.out.println(branches.get(0)); 
         System.out.println("------------------------------------------");
 
         menu();

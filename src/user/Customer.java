@@ -4,7 +4,11 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
+import src.graph.DynamicBranchGraph;
+import src.graph.DijkstraAlgorithm;
 import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
@@ -30,18 +34,51 @@ public class Customer extends User implements Comparable<Customer> {
 	}
 	
 	/**
-	 * Finds all the branches which has stock for given product p
-	 * as ordered list according to distance between customer and branch location 
+	 * Suggests a closest branch that has product p.
+	 * post: check if it returns null
 	 * @param company The company that is shopping
 	 * @param p The requested product
-	 * @return Array of branches as ordered from the closest to the furthest distance
+	 * @return closest branch that has product p, returns null if there aren't any branch which have that product.
 	 */
-	public Branch[] suggestBranchs(Company company, Product p) {
-		// get the branches that has product p
-		var branches = company.findProduct(p);
-		// sort the branches according to euclidian distance 
-		// between customer location and company 
-		return branches;
+	public Branch getBranchSuggestion(Company company, Product p) {
+		DynamicBranchGraph branches = company.getBranches();
+		
+		if(shoppingBranch.hasProduct(p))
+			return shoppingBranch;
+
+		PriorityQueue<Product> requestedProducts = shoppingBranch.getRequestedProducts();
+		requestedProducts.offer(p);
+
+		int branchID = branches.getID(shoppingBranch);
+		Map<Integer, Integer> pred = new LinkedHashMap<Integer, Integer>();
+		Map<Integer, Double> dist = new LinkedHashMap<Integer, Double>();
+
+		DijkstraAlgorithm.dijkstraAlgorithm(branches, branchID, pred, dist);
+		
+	//	System.out.println("dist: " + dist);
+	//	System.out.println("pred: " + pred);
+
+		boolean found = false;
+		while (dist.isEmpty() || !found) {
+			int minID = -1;
+			double min = Double.POSITIVE_INFINITY;
+			for (Map.Entry<Integer, Double> entry: dist.entrySet()) {
+				if ( entry.getValue() < min ) {
+					minID = entry.getKey();
+					min = entry.getValue();
+					found = true;
+				}
+			}
+
+			if (found) {
+				Branch branch = branches.getBranch(minID);
+				if (branch.hasProduct(p))
+					return branch;
+				found = false;
+				dist.remove(minID);
+			}
+		}
+		return null;
 	}
 
 	public boolean addProductToBasket(Product product) {

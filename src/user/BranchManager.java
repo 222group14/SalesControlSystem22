@@ -9,6 +9,7 @@ import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
 import src.structure.Company;
+import src.graph.DynamicBranchGraph;
 
 public class BranchManager extends User {
 
@@ -36,7 +37,7 @@ public class BranchManager extends User {
 	}
 
 	public void displayBranches(Company company) {
-		List<Branch> branches = company.getBranches();
+		DynamicBranchGraph branches = company.getBranches();
 
 		boolean flag = false;
 		for (Branch branch: branches) {
