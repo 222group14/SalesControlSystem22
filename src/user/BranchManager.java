@@ -1,12 +1,7 @@
 package src.user;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import src.bst.BinarySearchTree;
 import src.incommon.Gender;
-import src.product.Product;
 import src.structure.Branch;
 import src.structure.Company;
 import src.graph.DynamicBranchGraph;
@@ -70,25 +65,15 @@ public class BranchManager extends User {
 	}
 
 	public void displayProducts() {
-		ArrayList<LinkedList<Product>> products = branch.getProducts();
-		for(int i = 0; i < products.size(); ++i) {
-			if(products.get(i) == null || products.get(i).size() == 0)
-				continue;
-			System.out.println("Product Type" + (i+1) + ": " + products.get(i).get(0).getType());
-			int j = 0;
-			for(Product product: products.get(i))
-				System.out.println( (++j) + ": " + product.getName());
-		}
+		System.out.println(branch.getStringProducts());
 	}
 
 	public boolean addCustomer(Customer customer) {
-		BinarySearchTree<Customer> customers = branch.getCustomers();
-		return customers.add(customer);
+	 	return	branch.getCustomers().add(customer);
 	}
 
-	public Customer removeCustomer(Customer customer) {
-		BinarySearchTree<Customer> customers = branch.getCustomers();
-		return customers.delete(customer);
+	public boolean removeCustomer(Customer customer) {
+		return branch.getCustomers().remove(customer);
 	}
 
 	public boolean addBranchEmployee(BranchEmployee employee) {

@@ -1,17 +1,26 @@
 package src.user;
 
-import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.ArrayList;
 
 import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
 
 public class BranchEmployee extends User implements Comparable<BranchEmployee> {
-
+	/**
+	 * Branch where the employee works
+	 */
 	private Branch branch;
 
+	/**
+	 * Constructs a branch employee with given properties
+	 * @param name Name of the employee
+	 * @param age Age of the employee
+	 * @param gender Gender of the employee
+	 * @param username Username of the employee
+	 * @param password Password of the employee
+	 * @param branch Branch where the employee works
+	 */
 	public BranchEmployee(String name, int age, Gender gender, String username, String password, Branch branch) {
 		super(name, age, gender, username, password);
 		this.branch = branch;
@@ -21,27 +30,24 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	public Branch getBranch() {
 		return branch;
 	}
-	public boolean addProduct(Product product) {
-		ArrayList<LinkedList<Product>> products = branch.getProducts();
-		for(int i = 0; i < products.size(); ++i) {
-			if((products.get(i) != null && products.get(i).size() > 0)
-				&& products.get(i).get(0).getClass().equals(product.getClass())){
-				return products.get(i).add(product);
-			}
-		}
-		products.add(new LinkedList<Product>());
-		return products.get(products.size() - 1).add(product);
+
+
+	/**
+	 * Adds given product to the branch stock 
+	 * @param p The product that being inserted
+	 * @return True if the given product is not already contained in the branch stock
+	 */
+	public boolean addProduct(Product p) {
+	 	return branch.getProducts().add(p);
 	}
 
-	public boolean removeProduct(Product product) {
-		ArrayList<LinkedList<Product>> products = branch.getProducts();
-		for(int i = 0; i < products.size(); ++i) {
-			if((products.get(i) != null && products.get(i).size() > 0)
-				&& products.get(i).get(0).getClass().equals(product.getClass())) {
-				return products.get(i).remove(product);
-			}
-		}
-		return false; 
+	/**
+	 * Removes given product from the branch stock
+	 * @param p The product that being removed
+	 * @return True if the given product is contained in the branch stock
+	 */
+	public boolean removeProduct(Product p) {
+		return branch.getProducts().remove(p);
 	}
 
 	public boolean addRequestedProducts() {
@@ -52,16 +58,11 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		return addProduct(product);
 	}
 
+	/**
+	 * Displays all the products that branch has
+	 */
 	public void displayProducts() {
-		ArrayList<LinkedList<Product>> products = branch.getProducts();
-		for(int i = 0; i < products.size(); ++i) {
-			if(products.get(i) == null || products.get(i).size() == 0)
-				continue;
-			System.out.println("Product Type" + (i+1) + ": " + products.get(i).get(0).getType());
-			int j = 0;
-			for(Product product: products.get(i))
-				System.out.println( (++j) + ": " + product.getName());
-		}
+		System.out.println(branch.getStringProducts());
 	}
 
 	public void displayRequestedProducts() {

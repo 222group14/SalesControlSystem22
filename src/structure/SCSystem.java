@@ -1,7 +1,6 @@
 package src.structure;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 import src.product.Product;

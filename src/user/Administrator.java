@@ -1,6 +1,5 @@
 package src.user;
 
-import java.util.List;
 import src.graph.*;
 import src.structure.Branch;
 import src.structure.Company;
@@ -134,7 +133,7 @@ public class Administrator extends User {
 		System.out.println("\nCustomers of " + company.getCompanyName());
 		for(Branch branch: branches) {
 			System.out.print(branch.getBranchName() + ": \n");
-			BinarySearchTree<Customer> customers = branch.getCustomers();
+			var customers = branch.getCustomers();
 
 			int i = 0;
 			for(Customer customer: customers) {
