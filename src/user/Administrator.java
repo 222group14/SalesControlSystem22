@@ -156,8 +156,8 @@ public class Administrator extends User {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Administrator\n");
-		sb.append("Company: " + company.getCompanyName() + "\n");
+		sb.append(" User Type: Administrator\n");
+		sb.append(" Company: " + company.getCompanyName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}

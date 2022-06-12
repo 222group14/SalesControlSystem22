@@ -137,8 +137,8 @@ public class Customer extends User implements Comparable<Customer> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Customer\n");
-		sb.append("Branch: " + shoppingBranch.getBranchName() + "\n");
+		sb.append(" User Type: Customer\n");
+		sb.append(" Branch: " + shoppingBranch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}

@@ -75,8 +75,8 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Branch Employee\n");
-		sb.append("Branch: " + branch.getBranchName() + "\n");
+		sb.append(" User Type: Branch Employee\n");
+		sb.append(" Branch: " + branch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}

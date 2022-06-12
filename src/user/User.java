@@ -62,10 +62,10 @@ public class User {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Name: " +name + "\n");
-		sb.append("Username: " + username + "\n");
-		sb.append("Age: " + age + "\n");
-		sb.append("Gender: " + gender.name() + "\n");
+		sb.append(" Name: " +name + "\n");
+		sb.append(" Username: " + username + "\n");
+		sb.append(" Age: " + age + "\n");
+		sb.append(" Gender: " + gender.name() + "\n");
 		return sb.toString();
 	}
 

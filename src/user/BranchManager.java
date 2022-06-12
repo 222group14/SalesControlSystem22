@@ -89,8 +89,8 @@ public class BranchManager extends User {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("User Type: Branch Manager\n");
-		sb.append("Branch: " + branch.getBranchName() + "\n");
+		sb.append(" User Type: Branch Manager\n");
+		sb.append(" Branch: " + branch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();
 	}
