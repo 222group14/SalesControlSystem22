@@ -40,45 +40,32 @@ public class Customer extends User implements Comparable<Customer> {
 	 * @param p The requested product
 	 * @return closest branch that has product p, returns null if there aren't any branch which have that product.
 	 */
-	public Branch getBranchSuggestion(Company company, Product p) {
-		DynamicBranchGraph branches = company.getBranches();
-		
+	public Branch getBranchSuggestion(Company company, Product p) {		
 		if(shoppingBranch.hasProduct(p))
 			return shoppingBranch;
 
-		PriorityQueue<Product> requestedProducts = shoppingBranch.getRequestedProducts();
-		requestedProducts.offer(p);
-
-		int branchID = branches.getID(shoppingBranch);
+		DynamicBranchGraph branches = company.getBranches();
+		int startID = branches.getID(shoppingBranch);
+		// initilization for dijkstra's algorithm
 		Map<Integer, Integer> pred = new LinkedHashMap<Integer, Integer>();
 		Map<Integer, Double> dist = new LinkedHashMap<Integer, Double>();
-
-		DijkstraAlgorithm.dijkstraAlgorithm(branches, branchID, pred, dist);
+		// find the shortest paths from start vertex (shopping branch) to all the branches 
+		DijkstraAlgorithm.dijkstraAlgorithm(branches, startID, pred, dist);
 		
-	//	System.out.println("dist: " + dist);
-	//	System.out.println("pred: " + pred);
-
-		boolean found = false;
-		while (dist.isEmpty() || !found) {
-			int minID = -1;
-			double min = Double.POSITIVE_INFINITY;
-			for (Map.Entry<Integer, Double> entry: dist.entrySet()) {
-				if ( entry.getValue() < min ) {
-					minID = entry.getKey();
-					min = entry.getValue();
-					found = true;
-				}
-			}
-
-			if (found) {
-				Branch branch = branches.getBranch(minID);
-				if (branch.hasProduct(p))
-					return branch;
-				found = false;
-				dist.remove(minID);
+		Branch closestBranch = null;
+		double minDist = Double.POSITIVE_INFINITY;
+		for (Map.Entry<Integer, Double> e : dist.entrySet()) {
+			int currID = e.getKey(); 
+			double currDist = e.getValue();
+			Branch currBranch = branches.getBranch(currID); 
+			// make sure the branch has desired product
+			if (currDist < minDist && currBranch.hasProduct(p)) {
+				minDist = currDist;
+				closestBranch = currBranch;
 			}
 		}
-		return null;
+		// to return more than one branches, a priorty queue can be used
+		return closestBranch;
 	}
 
 	public boolean addProductToBasket(Product product) {
@@ -112,15 +99,7 @@ public class Customer extends User implements Comparable<Customer> {
 	}
 
 	public void displayProducts() {
-		ArrayList<LinkedList<Product>> products = shoppingBranch.getProducts();
-		for(int i = 0; i < products.size(); ++i) {
-			if(products.get(i) == null || products.get(i).size() == 0)
-				continue;
-			System.out.println("Product Type" + (i+1) + ": " + products.get(i).get(0).getType());
-			int j = 0;
-			for(Product product: products.get(i))
-				System.out.println( (++j) + ": " + product.getName());
-		}
+		System.out.println(shoppingBranch.getStringProducts());
 	}
 
 	public void displayBasket() {

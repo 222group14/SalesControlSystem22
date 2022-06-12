@@ -1,7 +1,5 @@
 package src.structure;
 
-import java.util.ArrayList;
-import java.util.List;
 import src.graph.*;
 import src.product.Product;
 import src.user.Administrator;
@@ -23,7 +21,7 @@ public class Company {
 	private Administrator admin;
 
 	/**
-	 * Branches of this company as graph
+	 * Branches of this company kept in an undirected graph
 	 */ 
 	private DynamicBranchGraph branches = new DynamicBranchGraph(false);
 

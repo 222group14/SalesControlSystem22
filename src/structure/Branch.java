@@ -1,23 +1,19 @@
 package src.structure;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.TreeSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 
-import src.graph.*;
 import src.bst.BinarySearchTree;
-import src.incommon.Location;
 import src.product.Product;
 import src.user.BranchEmployee;
 import src.user.BranchManager;
 import src.user.Customer;
 
 /**
- * 
  * A class that holds branch information.
  */ 
 public class Branch {
-
 	/**
 	 * Name of branch
 	 */ 
@@ -31,23 +27,29 @@ public class Branch {
 	/** 
 	 * Employees are keept in BST to provide efficent search basis on employee name
 	 */
-	private BinarySearchTree<BranchEmployee> employees = new BinarySearchTree<BranchEmployee>(); //! use red-black tree / skiplist	
+	// TODO: add class RedBlackTree and keep the empployees with it 
+	private BinarySearchTree<BranchEmployee> employees = new BinarySearchTree<BranchEmployee>(); 	
 
 	/**
-	 * List of products, according to their type
+	 * All Products that branch has
 	 */ 
-	private ArrayList<LinkedList<Product>> products = new ArrayList<LinkedList<Product>>(); //! 
+	private TreeSet<Product> products = new TreeSet<>(); 
 
 	/** 
-	 * Customers are keept in BST to provide efficent search basis on customer name
+	 * Customers are keept in a skiplist according to their name. 
+	 * Skiplist provides concurrent access which can be useful for multiple access during sales.
 	 */
-	private BinarySearchTree<Customer> customers = new BinarySearchTree<Customer>(); //! use red-black tree / skiplist
+	private ConcurrentSkipListSet<Customer> customers = new ConcurrentSkipListSet<Customer>(); 
 
 	/** 
-	 * Requested products are are keept in Binary Heap(min heap).
+	 * Requested products are are keept in a priority queue according to entry price of the products.
 	 */
-	private PriorityQueue<Product> requestedProducts = new PriorityQueue<Product>(); //compare entryprices
+	private PriorityQueue<Product> requestedProducts = new PriorityQueue<Product>(); 
 
+	/**
+	 * Constructs the branch with its name
+	 * @param branchName Name of the branch
+	 */
 	public Branch(String branchName) {  
 		this.branchName = branchName;
 	}
@@ -80,7 +82,7 @@ public class Branch {
 	 * Getter for products
 	 * @return products as ArrayList of LinkedList
 	 */ 
-	public ArrayList<LinkedList<Product>> getProducts() {
+	public TreeSet<Product> getProducts() {
 		return products;
 	}
 
@@ -96,7 +98,7 @@ public class Branch {
 	 * Getter for customers.
 	 * @return customers as BinarySearchTree
 	 */ 
-	public BinarySearchTree<Customer> getCustomers() {
+	public ConcurrentSkipListSet<Customer> getCustomers() {
 		return customers;
 	}
 
@@ -118,17 +120,25 @@ public class Branch {
 	
 	/**
 	 * Checks if branch has that product.
-	 * @param product product
-	 * @return true if branch has that product.
+	 * @param p The product being searched
+	 * @return True if branch has that product.
 	 */ 
-	public boolean hasProduct(Product product) {
-		for(int i = 0; i < products.size(); ++i) {
-			if((products.get(i) != null && products.get(i).size() > 0)
-				&& products.get(i).get(0).getClass().equals(product.getClass())) {
-				return products.get(i).contains(product);
-			}
-		}
-		return false;
+	public boolean hasProduct(Product p) {
+		return products.contains(p); 
+	}
+
+	/**
+	 * Returns all the product in a formetted way
+	 * @return
+	 */
+	public String getStringProducts() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%-20s %-20s %-20s %s\n", "Product Type", "Brand Name", "Product Name", "Stock") );
+		sb.append("=====================================================================\n\n");
+		for (var p : products) 
+			sb.append(String.format("%-20s %-20s %-20s %d\n", 
+				p.getType(), p.getBrand(), p.getName(), p.getStock()));
+		return sb.toString();
 	}
 
 	/**
@@ -138,34 +148,21 @@ public class Branch {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("**********************************************************************\n");
 		sb.append("Branch Name: " + branchName);
-		sb.append("\nBranchManager: ");
-		
-		if(manager == null)
-			sb.append("none");
-		else
-			sb.append(manager.getName());
-
+		sb.append("\nBranchManager: " + (manager == null ? "none" : manager.getName()));
+					
 		sb.append("\nEmployees:\n");
-
-		int i = 0;
 		for(BranchEmployee employee: employees)
-			sb.append(++i + "- " + employee.getName() + "\n");
+			sb.append("- " + employee.getName() + "\n");
 
-		sb.append("\n\nProducts:\n");
-
-		i = 0;
-		for(LinkedList<Product> innerProducts: products) {
-			for(Product product : innerProducts)
-				sb.append(++i + "- " + product.getName() + "\n");
-		}
+		sb.append(getStringProducts());
 
 		sb.append("\n\nCustomers:\n");
- 		i = 0;
-		for(Customer customer: customers)
-			sb.append(++i + "- " + customer.getName() + "\n");
-		sb.append("\n");
-		return sb.toString();
+		for(var c: customers)
+			sb.append("- " + c.getName() + "\n");
+		sb.append("**********************************************************************\n");
+			return sb.toString();
 	}
 
 	/**

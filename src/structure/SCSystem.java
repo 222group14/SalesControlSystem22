@@ -1,7 +1,6 @@
 package src.structure;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 import src.product.Product;
@@ -61,8 +60,8 @@ public class SCSystem {
 		System.out.println("\n" + company + "\n----------");
 
         System.out.println("------------------------------------------");
-        List<Branch> branches = company.getBranches();
-        System.out.println(branches.get(0));
+        for (var branch : company.getBranches()) // prints all the branches
+            System.out.println(branch);
         System.out.println("------------------------------------------");
 
         menu();
