@@ -1,6 +1,7 @@
 package src.structure;
 
 import java.util.PriorityQueue;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -128,11 +129,42 @@ public class Branch {
 	}
 
 	/**
-	 * Returns all the product in a formetted way
-	 * @return
+	 * Returns the string representation of all the employees in a table
+	 * @return The string representation of all the employees in a table
+	 */
+	public String getStringEmployees() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Employees:\n\n");
+		sb.append(String.format("%-20s %-20s %s\n", "Name", "Gender", "Age") );
+		sb.append("=====================================================================\n\n");
+		for (var e : employees) 
+			sb.append(String.format("%-20s %-20s %d\n", 
+				e.getName(), e.getGender(), e.getAge()));
+		return sb.toString();
+	}
+
+	/**
+	 * Returns the string representation of all the customers in a table
+	 * @return The string representation of all the customers in a table
+	 */
+	public String getStringCustomers() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Customers:\n\n");
+		sb.append(String.format("%-20s %-20s %s\n", "Name", "Gender", "Age") );
+		sb.append("=====================================================================\n\n");
+		for (var c : customers) 
+			sb.append(String.format("%-20s %-20s %d\n", 
+				c.getName(), c.getGender(), c.getAge()));
+		return sb.toString();
+	}
+
+	/**
+	 * Returns the string representation of all the products in a table
+	 * @return The string representation of all the products in a table
 	 */
 	public String getStringProducts() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("Products:\n\n");
 		sb.append(String.format("%-20s %-20s %-20s %s\n", "Product Type", "Brand Name", "Product Name", "Stock") );
 		sb.append("=====================================================================\n\n");
 		for (var p : products) 
@@ -151,16 +183,9 @@ public class Branch {
 		sb.append("**********************************************************************\n");
 		sb.append("Branch Name: " + branchName);
 		sb.append("\nBranchManager: " + (manager == null ? "none" : manager.getName()));
-					
-		sb.append("\nEmployees:\n");
-		for(BranchEmployee employee: employees)
-			sb.append("- " + employee.getName() + "\n");
-
+		sb.append(getStringEmployees());
+		sb.append(getStringCustomers());
 		sb.append(getStringProducts());
-
-		sb.append("\n\nCustomers:\n");
-		for(var c: customers)
-			sb.append("- " + c.getName() + "\n");
 		sb.append("**********************************************************************\n");
 			return sb.toString();
 	}

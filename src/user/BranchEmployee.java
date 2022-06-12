@@ -31,14 +31,13 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		return branch;
 	}
 
-
 	/**
 	 * Adds given product to the branch stock 
 	 * @param p The product that being inserted
 	 * @return True if the given product is not already contained in the branch stock
 	 */
 	public boolean addProduct(Product p) {
-	 	return branch.getProducts().add(p);
+		return branch.getProducts().add(p);
 	}
 
 	/**

@@ -51,9 +51,7 @@ public class Administrator extends User {
 	}
 
 	public BranchManager setBranchManager(Branch branch, BranchManager branchManager) {
-		
 		DynamicBranchGraph branches = company.getBranches();
-
 		for (Branch branchRef: branches) {
 			if(branchRef.equals(branch)) {
 				branchRef.setBranchManager(branchManager);
@@ -122,7 +120,6 @@ public class Administrator extends User {
 
 	public void displayBranchManagers() {
 		DynamicBranchGraph branches = company.getBranches();
-		
 		for(Branch branch: branches) {
 			System.out.println(branch.getBranchManager());
 		}
@@ -167,23 +164,23 @@ public class Administrator extends User {
 
 	@Override
 	public boolean equals(Object other) {
-	if(other != null && other instanceof Administrator) {
-		if (this == other)
-			return true;
-		Administrator otherAdmin = (Administrator) other;
-		
-		if (((User) otherAdmin).equals((User) this) == false)
-			return false;
-
-		Company otherCompany = otherAdmin.getCompany();
-		if (company != null && otherCompany != null) {
-			if (!company.getCompanyName().equals(otherCompany.getCompanyName()))
+		if(other != null && other instanceof Administrator) {
+			if (this == other)
+				return true;
+			Administrator otherAdmin = (Administrator) other;
+			
+			if (((User) otherAdmin).equals((User) this) == false)
 				return false;
-		} 
-		else if (company != null || otherCompany != null)
-			return false;
-		return true;
-	}
+
+			Company otherCompany = otherAdmin.getCompany();
+			if (company != null && otherCompany != null) {
+				if (!company.getCompanyName().equals(otherCompany.getCompanyName()))
+					return false;
+			} 
+			else if (company != null || otherCompany != null)
+				return false;
+			return true;
+		}
 		return false;
 	}
 
