@@ -2,9 +2,26 @@ package src.product;
 
 public class Food extends Product {
 
+	/**
+	 * Expiry date of the food
+	 */
     private String expDate;
+
+	/**
+	 * Weight of the food
+	 */
 	private double weight;
 
+	/**
+	 * Constructs a Dood object with given properties
+     * (Number of stock is set to its default value 0)  
+	 * @param name Name of the food
+	 * @param brand Name of the brand
+	 * @param type Type of the product (Food)
+	 * @param entryPrice Entry price for the product
+     * @param expDate Expiry date of the food
+	 * @param weight Weight of the food
+	 */
     public Food(String name, String brand, String type, double entryPrice, 
                  String expDate, double weight) {
         super(name, brand, type, entryPrice);
@@ -12,24 +29,57 @@ public class Food extends Product {
 		this.weight = weight;
     }
 
+	/**
+	 * Constructs a Food object with given properties
+	 * @param name Name of the food
+	 * @param brand Name of the brand
+	 * @param type Type of the product (Food)
+	 * @param entryPrice Entry price for the product
+     * @param expDate Expiry date of the food
+	 * @param weight Weight of the food
+	 * @param numStock Number of stock for the product
+	 */
+    public Food(String name, String brand, String type, double entryPrice, 
+                 String expDate, double weight, int numStock) {
+        super(name, brand, type, entryPrice, numStock);
+        this.expDate = expDate;
+		this.weight = weight;
+    }
+
+	/**
+	 * Returns the expiry date of the food
+	 * @return Expiry date of the food
+	 */
     public String getExpDate(){
         return expDate;
     }
 
+	/**
+	 * Returns the weight of the food
+	 * @return Weight of the food
+	 */
 	public double getWeight(){
 		return weight;
 	}
 
+	/**
+	 * Returns string of the properties of the product : 
+	 * Name, brand, type, entryprice, expiry date, weight
+     * @return String of the properties of the product
+	 */
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
         sb.append("\nExpiry Date: " + getExpDate());
 		sb.append("\nWeight(kg): " + getWeight());
-
 		return sb.toString();
 	}
 
+	/**
+	 * Checks whether two personalcare objects are equal or not.
+	 * Compares : Name, brand, type, entryprice, expiry date, weight
+	 */
 	@Override
 	public boolean equals(Object other) {
 		if(other != null && other instanceof Food){
@@ -42,18 +92,19 @@ public class Food extends Product {
 				{
 					return false;
 				}
-			
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Creates a hash code for the object of the class Food.
+	 */
 	@Override
 	public int hashCode() {
 		int hcode = super.hashCode();
         hcode += getExpDate().hashCode()* 37;
 		hcode += Double.valueOf(getWeight()).hashCode() * 43;
-
 		return hcode;
 	}
 }
