@@ -374,9 +374,11 @@ public class SCSystem {
 
         Scanner input = new Scanner(System.in);
         String in = input.nextLine();
-
         Scanner inputP = new Scanner(System.in);
         String inP ;
+
+        String name, age, gen, username, password,branchName;
+        Gender gender;
 
         while(!in.equals("0")){
 
@@ -386,34 +388,69 @@ public class SCSystem {
                 currUser.setBranch(new Branch(inP));
             }
             else if(in.equals("2")){
-                System.out.print("Enter the Company Name to display its branches. ");
-                inP = inputP.nextLine();
-                currUser.displayBranches(new Company(inP));
+                currUser.displayBranches(company);
             }
             else if(in.equals("3")){
                 currUser.displayBranchEmployees();
             }
             else if(in.equals("4")){
                 currUser.displayProducts();
-            } /*
-            else if(in.equals("5")){
-
             }
-            else if(in.equals("6")){
+            else if(in.equals("5") || in.equals("6") || in.equals("7") || in.equals("8")){
 
+                System.out.println("Available branch names are listed below: ");
+                for (Branch branch : company.getBranches()) {
+                    System.out.printf(" %s\n", branch.getBranchName());
+                }
+                boolean flag = true;
+                Branch myBranch=null;
+                do {
+                    flag = true;
+                    System.out.println("Enter the Branch Name that you want to add/remove the user to: ");
+                    branchName = inputP.nextLine();
+
+                    for (Branch branch : company.getBranches()) {
+                        if(branch.getBranchName().equals(branchName)){
+                            myBranch=branch;
+                            flag=false;
+                            break;
+                        }
+                    }
+                    if(flag) System.err.println(" Nonexistent branch.Try Again.");
+                } while (flag);
+
+                System.out.println("Enter the user infos to be added/removed.");
+
+                System.out.println("Name:");
+                name = inputP.nextLine();
+                System.out.println("Age:");
+                age = inputP.nextLine();
+                System.out.println("Gender:");
+                gen = inputP.nextLine();
+                if(gen.equals("M") || gen.equals("m"))
+                    gender = Gender.MALE;
+                else if(gen.equals("F") || gen.equals("f"))
+                    gender = Gender.FEMALE;
+                else gender = Gender.OTHER;
+                System.out.println("Username:");
+                username = inputP.nextLine();
+                System.out.println("Password:");
+                password = inputP.nextLine();
+
+                if(in.equals("5"))
+                    currUser.addCustomer(new Customer(name,Integer.parseInt(age),gender,username,password,myBranch));
+                else if(in.equals("6"))
+                    currUser.removeCustomer(new Customer(name,Integer.parseInt(age),gender,username,password,myBranch));
+                else if(in.equals("7"))
+                    currUser.addBranchEmployee(new BranchEmployee(name,Integer.parseInt(age),gender,username,password,myBranch));
+                else if(in.equals("8"))
+                    currUser.removeBranchEmployee(new BranchEmployee(name,Integer.parseInt(age),gender,username,password,myBranch));
             }
-            else if(in.equals("7")){
-
-            }
-            else if(in.equals("8")){
-
-            }*/
             else{
                 System.out.println("Invalid input.Try again.");
                 in = input.nextLine();
             }
         }
-
 
     }
 
