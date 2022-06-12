@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import src.product.Product;
 import src.user.User;
+import src.graph.DynamicBranchGraph;
 import src.incommon.Gender;
 import src.user.Administrator;
 import src.user.BranchEmployee;
@@ -21,6 +22,7 @@ public class SCSystem {
 
     /** All the registered users (key:username value:password) */
     // private HashMap<String, String> users;  
+    private HashMap<String, User> registeredUsers = new HashMap<String, User>();  
     private HashMap<String, User> users = new HashMap<String, User>();  
 
     public SCSystem () {
@@ -44,7 +46,7 @@ public class SCSystem {
         // before exit, save the current status of system
 
         System.out.println("Creating company");
-		Company company = new Company("company1");
+		this.company = new Company("BIG SUPERMARKET");
 		System.out.println("\n" + company + "\n----------");
     	
     	System.out.println("Creating an administrator");
@@ -54,108 +56,236 @@ public class SCSystem {
     	System.out.println("Creating a branch");		
 		Branch branch1 = new Branch("branch1");
 		System.out.println("\n" + branch1 + "\n----------");
-
         admin1.addBranch(branch1);
+
+        System.out.println("Creating a branch manager");		
+		BranchManager branchmng1 = new BranchManager("tarık", 10, Gender.MALE, "tarık.mng", "1234567", branch1);
+		System.out.println("\n" + branchmng1 + "\n----------");
+        admin1.setBranchManager(branch1, branchmng1);
 
     	System.out.println("Company after the administrator creation.");    	
 		System.out.println("\n" + company + "\n----------");
 
         System.out.println("------------------------------------------");
-        List<Branch> branches = company.getBranches();
-        System.out.println(branches.get(0));
+        DynamicBranchGraph branches = company.getBranches();
+        for (Branch branch : branches) {
+            System.out.println(branch);   
+        }
         System.out.println("------------------------------------------");
-
+        
+        System.out.print("\033[H\033[2J");
         menu();
     }
 
     public void menu(){
-        System.out.println("1 - Sign Up");
-        System.out.println("2 - Sign In");
-        System.out.println("0 - Exit");
+        printMenuHeader();
+        System.out.print(" Choice: ");
 
         Scanner input = new Scanner(System.in);
-        String in = input.nextLine();
-        while(!in.equals("0")){
-            if(in.equals("1")){
-                Customer customer = signup();
-                users.put(customer.getUserName(), customer);
+        String inp = input.nextLine();
+
+        while(!inp.equals("0")){
+            if(inp.equals("1")){
+                User newUser = signup();
+                registeredUsers.put(newUser.getUserName(), newUser);
             }
-            else if(in.equals("2"))
+            else if(inp.equals("2"))
                 signIn();
             else{
-                System.out.println("Invalid option.");
+                System.out.print("\033[H\033[2J");
+                System.out.println(" INVALID OPERATION!");
             }
-            in = input.nextLine();
+            printMenuHeader();
+            System.out.print(" Choice: ");
+            inp = input.nextLine();
         }
-        System.out.println("Terminated...");
+
+        System.out.println("------------------------------------------------");
+        System.out.println("------------ SYSTEM TERMINATED... --------------");
+        System.out.println("------------------------------------------------");
         input.close();
     }
 
-    public Customer signup(){
-        Scanner input = new Scanner(System.in);
+    private void printMenuHeader(){
+        System.out.println("\n------------------------------------------------");
+        System.out.println("------------- SALES CONTROL SYSTEM -------------");
+        System.out.println("------------------------------------------------");
+        System.out.printf("-  COMPANY : %-32s  -\n", company.getCompanyName());
+        System.out.println("------------------------------------------------");
+        System.out.printf("-  %-15s %27s -\n", "1 - Sign Up", " ");
+        System.out.printf("-  %-15s %27s -\n", "2 - Sign In", " ");
+        System.out.printf("-  %-15s %27s -\n", "0 - Exit", " ");
+        System.out.println("------------------------------------------------");
+    }
 
-        System.out.println("Enter name: ");
+    public User signup(){
+        System.out.println("\n------------------------------------------------");
+        System.out.println("----------------- USER SIGN UP -----------------");
+        System.out.println("------------------------------------------------");
+        Scanner input = new Scanner(System.in);
+        boolean flag;
+
+        System.out.print(" Enter name: ");
         String name = input.nextLine();
 
-        System.out.println("Enter age: ");
-        String a = input.nextLine();
-        int age = Integer.parseInt(a);
-
-        //LOOP NEEDED
-        System.out.println("Male: M\nFemale: F\nOther: O");
-        System.out.println("Enter gender: ");
-        Gender gender = null;
-        String gen = input.nextLine();
-        if(gen.equals("M"))
-            gender = Gender.MALE;
-        else if(gen.equals("F"))
-            gender = Gender.FEMALE;
-        else if(gen.equals("O"))
-            gender = Gender.OTHER;
-        else
-            System.out.println("Invalid gender.");
+        int age;
+        do {
+            System.out.print("\n Enter age: ");
+            String a = input.nextLine();
+            try {        
+                age = Integer.parseInt(a);
+                if(age < 1)            
+                    System.err.println(" Invalid age format. Enter age in valid format!");
+                else
+                    break;        
+            } catch (Exception e) {
+                System.err.println(" Invalid age format. Enter age in valid format!");
+                continue;
+            }    
+        } while (true);
         
-        //LOOP NEEDED
-        System.out.println("Enter username: ");
-        String username = input.nextLine();
-        if(!users.containsKey(username))
-            ;
-        else
-            username = " ";
+        Gender gender = null;
+        do {        
+            flag = false;
+            System.out.println("\n Male: M-m   Female: F-f   Other: O-o");
+            System.out.print(" Enter gender: ");
 
-        System.out.println("Enter password: ");
-        String password = input.nextLine();        
+            String gen = input.nextLine();
+            if(gen.equals("M") || gen.equals("m"))
+                gender = Gender.MALE;
+            else if(gen.equals("F") || gen.equals("f"))
+                gender = Gender.FEMALE;
+            else if(gen.equals("O") || gen.equals("o"))
+                gender = Gender.OTHER;
+            else{
+                System.err.println(" Invalid gender type.");
+                flag = true;
+            }
+        } while (flag);
+        
+        String username;
+        do {
+            flag = false;        
+            System.out.print("\n Enter username: ");
+            username = input.nextLine();
+            if(users.containsKey(username)){
+                System.err.println(" This username is used. Enter a new username.");
+                flag = true;
+            }  
+        } while (flag);
+        
+        String password;
+        do {
+            flag = false;        
+            System.out.print("\n Enter password(Min 8 charachter): ");
+            password = input.nextLine(); 
+            if(password.length() < 8){
+                System.err.println(" Weak password in length. Enter a new password.");
+                flag = true;
+            }  
+        } while (flag);
 
-        System.out.println("Available branches");
+        String userType = "";
+        do {
+            flag = false;        
+            System.out.printf("\n %-18s: M-m", "Branch Manager");
+            System.out.printf("\n %-18s: E-e", "Branch Employee");
+            System.out.printf("\n %-18s: C-c", "Customer");
+            System.out.print("\n Enter user type: ");
+            
+            String inp = input.nextLine();
+            if(inp.equals("M") || inp.equals("m")
+            || inp.equals("E") || inp.equals("e")
+            || inp.equals("C") || inp.equals("c"))
+                userType = inp.toUpperCase();
+            else{
+                System.err.println(" Invalid user type.");
+                flag = true;
+            }
+        } while (flag);
+
+        System.out.println("\n Available branches: ");
         for (Branch branch : company.getBranches()) {
-            System.out.println(branch.getBranchName() + "\n");            
+            System.out.printf(" %s\n", branch.getBranchName());            
         }
 
+        User newUser = null;
         do {
-            
-            System.out.println("Enter : ");        
+            flag = true;
+            System.out.print("\n Enter a branch name: ");        
             String branchName = input.nextLine();
 
             for (Branch branch : company.getBranches()) {
-                if(branch.getBranchName().equals(branchName)){        
-                    input.close();
-                    return new Customer(name, age, gender, username, password, branch);
+                if(branch.getBranchName().equals(branchName)){
+                    if(userType.equals("E"))
+                        newUser = new BranchEmployee(name, age, gender, username, password, branch);
+                    else if(userType.equals("M"))
+                        newUser = new BranchManager(name, age, gender, username, password, branch);
+                    else if(userType.equals("C"))
+                        newUser = new Customer(name, age, gender, username, password, branch);
+                    flag = false;
+                    break;
                 }
-            }    
-        } while (true);
+            }
+            System.err.println(" Nonexistent branch.");
+        } while (flag);
+        
+        System.out.print("\033[H\033[2J");
+        System.out.println("------------------------------------------------");
+        System.out.print(newUser);
+        System.out.println(" User is registered to system successfully.");
+        System.out.println("------------------------------------------------");
+        return newUser;
     }
 
     public void signIn(){
+        System.out.println("\n------------------------------------------------");
+        System.out.println("----------------- USER SIGN IN -----------------");
+        System.out.println("------------------------------------------------");
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter username: ");
-        String username = input.nextLine();
+        boolean flag;
+        System.out.println("-  0 - Exit                                    -");
+        System.out.println("------------------------------------------------");
 
-        System.out.println("Enter password: ");
-        String password = input.nextLine();
- 
-        input.close();
-        User currUser = users.get(username);
-        if(currUser.getPassword().equals(password)){
+        String username;
+        do {
+            flag = false;        
+            System.out.print("\n Enter username: ");
+            username = input.nextLine();
+            if(username.equals("0")){
+                flag = true;
+                break;
+            }
+            if(!users.containsKey(username)){
+                System.err.println(" There is no user in system with this username!");
+                flag = true;
+            }  
+        } while (flag);
+        
+        String password;
+        if(!flag){
+            do {
+                flag = false;        
+                System.out.print("\n Enter password: ");
+                password = input.nextLine();
+                if(password.equals("0")){
+                    flag = true;
+                    break;
+                }
+                if(!users.get(username).getPassword().equals(password)){
+                    System.err.println(" Wrong password!");
+                    flag = true;
+                }  
+            } while (flag);    
+        }
+
+        System.out.print("\033[H\033[2J");
+        if(!flag){
+            User currUser = users.get(username);
+            System.out.println("------------------------------------------------");
+            System.out.printf(" %s signed in successfully.", username);
+            System.out.println("------------------------------------------------");
+
             if(currUser instanceof Administrator)
                 administratorMenu();
             else if(currUser instanceof BranchEmployee)
@@ -165,8 +295,6 @@ public class SCSystem {
             else if(currUser instanceof Customer)
                 customerMenu();
         }
-        else
-            System.out.println("Invalid user.");
     }
 
     public void administratorMenu(){
