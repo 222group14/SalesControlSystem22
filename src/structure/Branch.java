@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+import src.graph.*;
 import src.bst.BinarySearchTree;
 import src.incommon.Location;
 import src.product.Product;
@@ -27,7 +28,6 @@ public class Branch {
 	 */  
 	private BranchManager manager;
 	
-
 	/** 
 	 * Employees are keept in BST to provide efficent search basis on employee name
 	 */
@@ -116,6 +116,21 @@ public class Branch {
 		return requestedProducts;
 	}
 	
+	/**
+	 * Checks if branch has that product.
+	 * @param product product
+	 * @return true if branch has that product.
+	 */ 
+	public boolean hasProduct(Product product) {
+		for(int i = 0; i < products.size(); ++i) {
+			if((products.get(i) != null && products.get(i).size() > 0)
+				&& products.get(i).get(0).getClass().equals(product.getClass())) {
+				return products.get(i).contains(product);
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Returns String representation of branch information
 	 * @return String representation of branch

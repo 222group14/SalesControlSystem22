@@ -1,7 +1,7 @@
 package src.user;
 
 import java.util.List;
-
+import src.graph.*;
 import src.structure.Branch;
 import src.structure.Company;
 import src.bst.*;
@@ -45,13 +45,15 @@ public class Administrator extends User {
 	}
 
 	public boolean removeBranch(Branch branch) {
-		List<Branch> branches = company.getBranches();
+		DynamicBranchGraph branches = company.getBranches();
+		if ( branches == null )
+			return false;
 		return branches.remove(branch);
 	}
 
 	public BranchManager setBranchManager(Branch branch, BranchManager branchManager) {
 		
-		List<Branch> branches = company.getBranches();
+		DynamicBranchGraph branches = company.getBranches();
 
 		for (Branch branchRef: branches) {
 			if(branchRef.equals(branch)) {
@@ -63,8 +65,51 @@ public class Administrator extends User {
 		return null;
 	}
 
+	/**
+	 * Connects already existed branches according to the id's. If it is undirected, connects also connects other direction too.
+	 * @param branch1 source
+	 * @param branch2 dest
+	 * @param weight weight of the edge
+	 * @return true if it is connected
+	 */ 
+	public boolean connectBranches(Branch branch1, Branch branch2, double weight) {
+		DynamicBranchGraph branches = company.getBranches();
+		return branches.addEdge(branch1, branch2, weight);		
+	}
+
+	/**
+	 * Connects already existed branches according to the id's. If it is undirected, connects also connects other direction too.
+	 * @param id1 source id
+	 * @param id2 dest id
+	 * @param weight weight of the edge
+	 * @return true if it is connected
+	 */ 
+	public boolean connectBranches(int id1, int id2, double weight) {
+		DynamicBranchGraph branches = company.getBranches();
+		return branches.addEdge(id1, id2, weight);
+	}
+
+	/**
+	 * Removes edges according to the id's. If it is undirected, removes other direction too.
+	 * @param id1 source id
+	 * @param id2 destination id
+	 * @return true if it is removed.
+	 */ 
+	public boolean removeConnection(int id1, int id2) {
+		DynamicBranchGraph branches = company.getBranches();
+		return branches.removeEdge(id1, id2);		
+	}
+
+	/**
+	 * Prints the graph(Map) of the branches with weights.
+	 */ 
+	public void displayBranchGraph ( ) {
+		DynamicBranchGraph branches = company.getBranches();
+		System.out.println(branches);
+	}
+
 	public void displayBranches() {
-		List<Branch> branches = company.getBranches();
+		DynamicBranchGraph branches = company.getBranches();
 
 		for(Branch branch: branches) {
 			System.out.print("Branch Name:" + branch.getBranchName() + ", Branch Manager: ");
@@ -77,7 +122,7 @@ public class Administrator extends User {
 	}
 
 	public void displayBranchManagers() {
-		List<Branch> branches = company.getBranches();
+		DynamicBranchGraph branches = company.getBranches();
 		
 		for(Branch branch: branches) {
 			System.out.println(branch.getBranchManager());
@@ -85,7 +130,7 @@ public class Administrator extends User {
 	}
 
 	public void displayCustomers() {
-		List<Branch> branches = company.getBranches();
+		DynamicBranchGraph branches = company.getBranches();
 		System.out.println("\nCustomers of " + company.getCompanyName());
 		for(Branch branch: branches) {
 			System.out.print(branch.getBranchName() + ": \n");
@@ -99,7 +144,7 @@ public class Administrator extends User {
 	}
 
 	public void displayEmployees() {
-		List<Branch> branches = company.getBranches();
+		DynamicBranchGraph branches = company.getBranches();
 		System.out.println("\nEmployees of " + company.getCompanyName());
 		for(Branch branch: branches) {
 			System.out.print(branch.getBranchName() + ": \n");

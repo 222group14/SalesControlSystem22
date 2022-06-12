@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import src.product.Product;
 import src.user.User;
 import src.incommon.Gender;
 import src.user.Administrator;
@@ -159,9 +158,9 @@ public class SCSystem {
             if(currUser instanceof Administrator)
                 administratorMenu();
             else if(currUser instanceof BranchEmployee)
-                branchEmployeeMenu((BranchEmployee)currUser);
+                branchEmployeeMenu();
             else if(currUser instanceof BranchManager)
-                branchManagerMenu((BranchManager)currUser);
+                branchManagerMenu();
             else if(currUser instanceof Customer)
                 customerMenu();
         }
@@ -177,117 +176,11 @@ public class SCSystem {
         // before exit, save the current status of system
     }
 
-    public void branchEmployeeMenu(BranchEmployee currUser){
-
-        System.out.println("1 - Add Product");
-        System.out.println("2 - Remove Product");
-        System.out.println("3 - Add Requested Products");
-        System.out.println("4 - Display Products");
-        System.out.println("5 - Display Requested Products");
-        System.out.println("0 - Exit");
-
-        Scanner input = new Scanner(System.in);
-        String in = input.nextLine();
-
-        Scanner inputP = new Scanner(System.in);
-        String name,brand,type,entryPrice;
-        double entryPD;
-
-        while(!in.equals("0")){
-
-            if(in.equals("1")){
-                System.out.println("Enter the product infos to be added.");
-
-                System.out.println("Name:");
-                name = inputP.nextLine();
-                System.out.println("Brand:");
-                brand = inputP.nextLine();
-                System.out.println("Type:");
-                type = inputP.nextLine();
-                System.out.println("EntryPrice:");
-                entryPrice = inputP.nextLine();
-                entryPD = Double.parseDouble(entryPrice);
-
-                currUser.addProduct(new Product(name,brand,type,entryPD));
-            }
-            else if(in.equals("2")){
-
-                System.out.println("Enter the product name to be removed.");
-                //isim ile silebilmemiz lazım
-                // ama removeProductByName fonku yazmak lazım
-
-            }
-            else if(in.equals("3")){
-                currUser.addRequestedProducts();
-            }
-            else if(in.equals("4")){
-                currUser.displayProducts();
-            }
-            else if(in.equals("5")){
-                currUser.displayRequestedProducts();
-            }
-            else{
-                System.out.println("Invalid input.Try again.");
-                in = input.nextLine();
-            }
-        }
+    public void branchEmployeeMenu(){
 
     }
 
-    public void branchManagerMenu(BranchManager currUser){
-
-        System.out.println("1 - Set Branch");
-        System.out.println("2 - Display Branches");
-        System.out.println("3 - Display Branch Employees");
-        System.out.println("4 - Display Products");
-        System.out.println("5 - Add Customer");
-        System.out.println("6 - Remove Customer");
-        System.out.println("7 - Add Branch Employee");
-        System.out.println("8 - Remove Branch Employee");
-        System.out.println("0 - Exit");
-
-        Scanner input = new Scanner(System.in);
-        String in = input.nextLine();
-
-        Scanner inputP = new Scanner(System.in);
-        String inP ;
-
-        while(!in.equals("0")){
-
-            if(in.equals("1")){
-                System.out.print("Enter the Branch Name to be set: ");
-                inP = inputP.nextLine();
-                currUser.setBranch(new Branch(inP));
-            }
-            else if(in.equals("2")){
-                System.out.print("Enter the Company Name to display its branches. ");
-                inP = inputP.nextLine();
-                currUser.displayBranches(new Company(inP));
-            }
-            else if(in.equals("3")){
-                currUser.displayBranchEmployees();
-            }
-            else if(in.equals("4")){
-                currUser.displayProducts();
-            } /*
-            else if(in.equals("5")){
-
-            }
-            else if(in.equals("6")){
-
-            }
-            else if(in.equals("7")){
-
-            }
-            else if(in.equals("8")){
-
-            }*/
-            else{
-                System.out.println("Invalid input.Try again.");
-                in = input.nextLine();
-            }
-        }
-
+    public void branchManagerMenu(){
 
     }
 

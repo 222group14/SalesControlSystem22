@@ -2,7 +2,7 @@ package src.structure;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import src.graph.*;
 import src.product.Product;
 import src.user.Administrator;
 
@@ -23,9 +23,9 @@ public class Company {
 	private Administrator admin;
 
 	/**
-	 * Branches of this company
+	 * Branches of this company as graph
 	 */ 
-	private List<Branch> branches = new ArrayList<Branch>();  //! use a graph which has special implementation for vertices
+	private DynamicBranchGraph branches = new DynamicBranchGraph(false);
 
 	/**
 	 * Constructor which takes company name
@@ -39,7 +39,7 @@ public class Company {
 	 * Returns list of branches.
 	 * @return List of branches.
 	 */ 
-	public List<Branch> getBranches() {
+	public DynamicBranchGraph getBranches() {
 		return branches;
 	}
 
@@ -98,13 +98,15 @@ public class Company {
 		else
 			sb.append(admin.getName());
 		sb.append("\nBranches: ");
-		
-		if (branches.size() == 0) 
+		sb.append("\n");
+
+		int i = 0;
+		for (Branch branch: branches) 
+			sb.append(++i + ": " + branch.getBranchName() + "\n");
+
+		if (i == 0) 
 			sb.append("none\n");
-		else
-			sb.append("\n");
-		for(int i = 0; i < branches.size(); ++i)
-			sb.append(i+1 + ": " + branches.get(i).getBranchName() + "\n");
+	
 		return sb.toString();
 	}
 
