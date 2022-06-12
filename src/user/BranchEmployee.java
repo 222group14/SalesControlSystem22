@@ -1,6 +1,8 @@
 package src.user;
 
 import java.util.PriorityQueue;
+import java.util.TreeSet;
+import java.util.Iterator;
 
 import src.incommon.Gender;
 import src.product.Product;
@@ -62,7 +64,20 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 * Removes product according to the name.
 	 * @param productName product name
 	 */ 
-	public void removeProductByName(String productName){}
+	public void removeProductByName(String productName) {
+
+		TreeSet<Product> products = branch.getProducts();
+		
+		// iterate through products
+		Iterator<Product> itr = products.iterator();
+		while ( itr.hasNext() ) {
+			Product p = itr.next();
+			if(p.getName().equals(productName)) {
+				itr.remove();
+				return;
+			}
+		}	
+	}
 
 	public boolean addRequestedProducts() {
 		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
