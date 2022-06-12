@@ -6,6 +6,11 @@ import src.incommon.Gender;
 import src.product.Product;
 import src.structure.Branch;
 
+/**
+ * 
+ * Branch Employee class which extends User, and holds Branch reference that is employee's current branch.
+ * Branch employee has the abilities which are adding, removing products etc..
+ */ 
 public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	/**
 	 * Branch where the employee works
@@ -27,6 +32,10 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		branch.getBranchManager().addBranchEmployee(this);
 	}
 
+	/**
+	 * Returns Employee's current branch
+	 * @return branch
+	 */ 
 	public Branch getBranch() {
 		return branch;
 	}
@@ -49,6 +58,10 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		return branch.getProducts().remove(p);
 	}
 
+	/**
+	 * Removes product according to the name.
+	 * @param productName product name
+	 */ 
 	public void removeProductByName(String productName){}
 
 	public boolean addRequestedProducts() {
@@ -66,6 +79,9 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		System.out.println(branch.getStringProducts());
 	}
 
+	/**
+	 * Prints requested products.
+	 */ 
 	public void displayRequestedProducts() {
 		System.out.println("Requested Products:\n");
 		PriorityQueue<Product> products = branch.getRequestedProducts();
@@ -74,6 +90,10 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 			System.out.println("product name: " + product.getName() + ", entry price: " + product.getEntryPrice());
 	}
 
+	/**
+	 * Returns employee's information as string.
+	 * @return string
+	 */ 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -83,6 +103,10 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		return sb.toString();
 	}
 
+	/**
+	 * Checks if both employees are equal or not.
+	 * @return true if both employees are equal.
+	 */ 
 	@Override
 	public boolean equals(Object other) {
 		if (other != null && other instanceof BranchEmployee) {
@@ -105,11 +129,19 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		return false;
 	}
 
+	/**
+	 * Hashcode of Branch Employee.
+	 * @return hashcode
+	 */ 
 	@Override
 	public int hashCode() {
 		return 13*super.hashCode() + 3*branch.hashCode();
 	}
 
+	/**
+	 * Compares Employees by their name.
+	 * @return this object calls compareTo method, and returns its result.
+	 */ 
 	@Override
 	public int compareTo(BranchEmployee other) {
 		return getName().compareTo(other.getName());
