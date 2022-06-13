@@ -3,13 +3,12 @@ package src.structure;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 
 import src.bst.BinarySearchTree;
 import src.bst.RedBlackTree;
 import src.product.Product;
+import src.product.ProductType;
 import src.user.BranchEmployee;
 import src.user.BranchManager;
 import src.user.Customer;
@@ -34,10 +33,9 @@ public class Branch {
 	private BinarySearchTree<BranchEmployee> employees = new RedBlackTree<BranchEmployee>(); 	
 
 	/**
-	 * All Products that branch has
+	 * All Products that branch has with divided subsets with the usage of hashMap
 	 */ 
-	//private TreeSet<Product> products = new TreeSet<>(); 
-	private HashMap<String,TreeSet<Product>> products = new HashMap<String,TreeSet<Product>>();
+	private HashMap<ProductType,TreeSet<Product>> products = new HashMap<ProductType ,TreeSet<Product>>();
 
 	/** 
 	 * Customers are keept in a skiplist according to their name. 
@@ -86,7 +84,7 @@ public class Branch {
 	 * Getter for products
 	 * @return products as ArrayList of LinkedList
 	 */ 
-	public TreeSet<Product> getProducts(String type) {
+	public TreeSet<Product> getProducts(ProductType type) {
 		return products.get(type);
 	}
 
@@ -94,7 +92,7 @@ public class Branch {
 	 * Getter for products
 	 * @return products as ArrayList of LinkedList
 	 */ 
-	public HashMap<String,TreeSet<Product>> getProducts() {
+	public HashMap<ProductType,TreeSet<Product>> getProducts() {
 		return products;
 	}
 
@@ -182,7 +180,7 @@ public class Branch {
 		for (var product : products.values()) 
 			for(var p : product )
 				sb.append(String.format(" %d - %-15s %-15s %-15s %.2f\n", ++k, 
-				p.getType(), p.getBrand(), p.getName(), p.getSalePrice()));
+				p.getType().toString(), p.getBrand(), p.getName(), p.getSalePrice()));
 		return sb.toString();
 	}
 

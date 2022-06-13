@@ -9,6 +9,7 @@ import java.util.TreeSet;
 
 import src.product.Gender;
 import src.product.Product;
+import src.product.ProductType;
 import src.user.User;
 import src.graph.DynamicBranchGraph;
 import src.user.Administrator;
@@ -500,21 +501,21 @@ public class SCSystem {
                         break;
                     }
                     else if(inp2.equals("1"))
-                        flag = printProducts(currUser.getShoppingBranch(), "Book");
+                        flag = printProducts(currUser.getShoppingBranch(), ProductType.BOOK);
                     else if(inp2.equals("2"))
-                        flag = printProducts(currUser.getShoppingBranch(), "Clothes");
+                        flag = printProducts(currUser.getShoppingBranch(), ProductType.CLOTHES);
                     else if(inp2.equals("3"))
-                        flag = printProducts(currUser.getShoppingBranch(), "Drink");
+                        flag = printProducts(currUser.getShoppingBranch(), ProductType.DRINK);
                     else if(inp2.equals("4"))                    
-                        flag = printProducts(currUser.getShoppingBranch(), "Electronic");
+                        flag = printProducts(currUser.getShoppingBranch(), ProductType.ELECTRONIC);
                     else if(inp2.equals("5"))
-                        flag = printProducts(currUser.getShoppingBranch(), "Food");
+                        flag = printProducts(currUser.getShoppingBranch(), ProductType.FOOD);
                     else if(inp2.equals("6"))        
-                        flag = printProducts(currUser.getShoppingBranch(), "Furniture");
+                        flag = printProducts(currUser.getShoppingBranch(), ProductType.FURNITURE);
                     else if(inp2.equals("7")) 
-                        flag = printProducts(currUser.getShoppingBranch(), "Personal Care");
+                        flag = printProducts(currUser.getShoppingBranch(), ProductType.PERSONALCARE);
                     else if(inp2.equals("8")) 
-                        flag = printProducts(currUser.getShoppingBranch(), "Toy");
+                        flag = printProducts(currUser.getShoppingBranch(), ProductType.TOY);
                     else{
                         System.out.println(" INVALID INPUT!");
                         flag = true;
@@ -582,7 +583,7 @@ public class SCSystem {
         System.out.print("\033[H\033[2J");    
     }
     
-    private boolean printProducts(Branch branch, String type){
+    private boolean printProducts(Branch branch, ProductType type){
         TreeSet<Product> treeSet = branch.getProducts(type);
         if(treeSet != null){
             for(var prod : branch.getProducts(type))

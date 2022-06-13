@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import src.product.Gender;
 import src.product.Product;
+import src.product.ProductType;
 import src.structure.Branch;
 
 /**
@@ -50,7 +51,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 * @return True if the given product is not already contained in the branch stock
 	 */
 	public boolean addProduct(Product p) {
-		HashMap<String, TreeSet<Product>> products = branch.getProducts();
+		HashMap<ProductType, TreeSet<Product>> products = branch.getProducts();
 		if(!products.containsKey(p.getType()))
 			products.put(p.getType(), new TreeSet<Product>());
 		return products.get(p.getType()).add(p);
@@ -132,7 +133,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 *  	associated with the given product name. Otherwise returns null.
 	 */
 	public Product findProductByName(String productName) {
-		HashMap<String,TreeSet<Product>> products = branch.getProducts();
+		HashMap<ProductType, TreeSet<Product>> products = branch.getProducts();
 		// iterate through products
 		for (TreeSet<Product> treeSet : products.values()) {	
 			Iterator<Product> itr = treeSet.iterator();

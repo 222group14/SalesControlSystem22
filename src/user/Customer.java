@@ -187,30 +187,6 @@ public class Customer extends User implements Comparable<Customer> {
 	}
 
 	/**
-	 * Customer purchases products that are in the basket.
-	 */
-	public void purchaseBasket(){
-		double price = 0;
-		int j = 0;
-		System.out.printf("\n");
-		System.out.printf(String.format("     %-15s %-15s %-18s %s\n", "Product Type", "Brand Name", "Product Name", "Price") );
-		System.out.printf("------------------------------------------------------------\n");
-
-		for(int i = 0; i < basket.size(); ++i){
-			if(basket.get(i) == null || basket.get(i).size() == 0)
-				continue;
-		
-			for(Product product: basket.get(i)){
-				System.out.printf("%2d : %-15s %-15s %-18s %.2f\n", (++j), product.getType(), product.getBrand(), product.getName(), product.getSalePrice());
-				price += product.getSalePrice();
-				product.decreaseStock();
-			}
-		}
-
-		System.out.printf("\nTotal Amount : %.2f\n", price);
-	}
-
-	/**
 	 * Customer prints order history. It displays last removed and last added product to basket.
 	 */ 
 	public void printOrderHistory() {
