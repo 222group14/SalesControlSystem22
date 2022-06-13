@@ -5,6 +5,7 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import src.bst.BinarySearchTree;
+import src.bst.RedBlackTree;
 import src.product.Product;
 import src.user.BranchEmployee;
 import src.user.BranchManager;
@@ -25,10 +26,9 @@ public class Branch {
 	private BranchManager manager;
 	
 	/** 
-	 * Employees are keept in BST to provide efficent search basis on employee name
+	 * Employees are keept in Red Black Tree to provide efficent search basis on employee name
 	 */
-	// TODO: add class RedBlackTree and keep the empployees with it 
-	private BinarySearchTree<BranchEmployee> employees = new BinarySearchTree<BranchEmployee>(); 	
+	private BinarySearchTree<BranchEmployee> employees = new RedBlackTree<BranchEmployee>(); 	
 
 	/**
 	 * All Products that branch has

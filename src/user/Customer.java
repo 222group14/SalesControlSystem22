@@ -14,7 +14,14 @@ import src.product.Product;
 import src.structure.Branch;
 import src.structure.Company;
 
+/**
+ * 
+ * Customer class which extends User class, holds Branch that means customer's current branch.
+ * Customer has the abilities which are ordering, requesting etc..
+ */ 
 public class Customer extends User implements Comparable<Customer> {
+
+	/** Customer's current branch */
 	private Branch shoppingBranch;
 	/** Stack are used to keep customer order history */
 	private ArrayList<LinkedList<Product>> basket = new ArrayList<LinkedList<Product>>(); //!! change 
@@ -23,12 +30,25 @@ public class Customer extends User implements Comparable<Customer> {
 	/** Removed items into the basket */
 	private ArrayDeque<Product> lastRemoved = new ArrayDeque<Product>(); 	// use it as a stack
 
+	/**
+	 * Constructor to create customer.
+	 * @param name customer's name
+	 * @param age customer's age
+	 * @param gender customer's gender
+	 * @param username customer's username
+	 * @param password customer's password
+	 * @param branch customer's current branch
+	 */ 
 	public Customer(String name, int age, Gender gender, String username, String password, Branch branch) {
 		super(name, age, gender, username, password);
 		this.shoppingBranch = branch;
 		branch.getBranchManager().addCustomer(this);
 	}
 
+	/**
+	 * Returns customer's branch
+	 * @return branch of the customers
+	 */ 
 	public Branch getShoppingBranch() {
 		return shoppingBranch;
 	}
@@ -68,6 +88,11 @@ public class Customer extends User implements Comparable<Customer> {
 		return closestBranch;
 	}
 
+	/**
+	 * Adds product to customer's basket.
+	 * @param product product to added to basket.
+	 * @return true if it is added, false otherwise.
+	 */ 
 	public boolean addProductToBasket(Product product) {
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i).get(0).getClass().equals(product.getClass())) {
@@ -83,6 +108,11 @@ public class Customer extends User implements Comparable<Customer> {
 		return basket.get(basket.size() - 1).add(product);		
 	}
 
+	/**
+	 * Removes product from customer's basket.
+	 * @param product product to removed
+	 * @return true if it is removed successfully.
+	 */ 
 	public boolean removeProductFromBasket(Product product) {
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i).get(0).getClass().equals(product.getClass())) {
@@ -93,15 +123,25 @@ public class Customer extends User implements Comparable<Customer> {
 		return false; 			
 	}
 
+	/**
+	 * Customer requests product.
+	 * @param product product to be requested
+	 */ 
 	public void requestProduct(Product product) {
 		PriorityQueue<Product> requestedProducts = shoppingBranch.getRequestedProducts();
 		requestedProducts.offer(product);
 	}
 
+	/**
+	 * Customer displays products.
+	 */ 
 	public void displayProducts() {
 		System.out.println(shoppingBranch.getStringProducts());
 	}
 
+	/**
+	 * Customer displays basket.
+	 */ 
 	public void displayBasket() {
 		System.out.println(" Basket of customer: " + getName());
 		for(int i = 0; i < basket.size(); ++i) {
@@ -114,6 +154,9 @@ public class Customer extends User implements Comparable<Customer> {
 		}		
 	}
 
+	/**
+	 * Customer prints order history. It displays last removed and last added product to basket.
+	 */ 
 	public void printOrderHistory() {
 		System.out.print(" Last Removed Product from Basket: ");
 
@@ -129,11 +172,20 @@ public class Customer extends User implements Comparable<Customer> {
 			System.out.println(lastAdded.peek().getName());		
 	}
 
+	/**
+	 * Compares two customer according to their names.
+	 * @param other other customer.
+	 * @return 1 if calling customer's name is greater.
+	 */ 
 	@Override
 	public int compareTo(Customer other) {
 		return getName().compareTo(other.getName());
 	}
 
+	/**
+	 * Returns Customer information as a string.
+	 * @return string
+	 */ 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -143,6 +195,11 @@ public class Customer extends User implements Comparable<Customer> {
 		return sb.toString();
 	}
 
+	/**
+	 * Checks if two customers are equal or not.
+	 * @param other other object
+	 * @return true if items are equal.
+	 */ 
 	@Override
 	public boolean equals(Object other) {
 		if (other != null && other instanceof Customer) {
@@ -165,6 +222,10 @@ public class Customer extends User implements Comparable<Customer> {
 		return false;
 	}
 
+	/**
+	 * Hashcode for customer.
+	 * @return hashcode
+	 */ 
 	@Override
 	public int hashCode() {
 		return 17*super.hashCode() + 3*shoppingBranch.hashCode();

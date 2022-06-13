@@ -184,6 +184,11 @@ public class Product implements Comparable<Product> {
 		return r;		
 	}
 
+	/**
+	 * Returns string of the properties of the product : 
+	 * Name, brand, type, entry price
+	 * @return String of the properties of the product
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -194,6 +199,10 @@ public class Product implements Comparable<Product> {
 		return sb.toString();
 	}
 
+	/**
+	 * Checks whether two product objects are equal or not.
+	 * Compares : Name, brand, type and entryprice
+	 */
 	@Override
 	public boolean equals(Object other) {
 		if(other != null && other instanceof Product){

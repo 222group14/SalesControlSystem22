@@ -6,7 +6,11 @@ import src.structure.Company;
 import src.bst.*;
 import src.incommon.Gender;
 
-
+/**
+ * 
+ * Administrator class which extends User class. Administrator holds Company that is Administrator's company.
+ * Administrator has the abilities which are adding, removing, connecting branches etc..
+ */ 
 public class Administrator extends User {
 
 	private Company company;
@@ -35,14 +39,27 @@ public class Administrator extends User {
 		return true;
 	}
 
+	/**
+	 * Getter for Administrator's company.
+	 * @return Administrator's company.
+	 */ 
 	public Company getCompany() {
 		return company;
 	}
 
+	/**
+	 * Adds branch to company.
+	 * @param branch branch to add
+	 */ 
 	public void addBranch(Branch branch) {
 		company.getBranches().add(branch);
 	}
 
+	/**
+	 * Removes branch from company.
+	 * @param branch branch to be removed.
+	 * @return true if it is removed.
+	 */ 
 	public boolean removeBranch(Branch branch) {
 		DynamicBranchGraph branches = company.getBranches();
 		if ( branches == null )
@@ -50,6 +67,12 @@ public class Administrator extends User {
 		return branches.remove(branch);
 	}
 
+	/**
+	 * Sets the branch manager of selected branch.
+	 * @param branch target branch
+	 * @param branchManager branch manager to be setted
+	 * @return new branch manager
+	 */ 
 	public BranchManager setBranchManager(Branch branch, BranchManager branchManager) {
 		DynamicBranchGraph branches = company.getBranches();
 		for (Branch branchRef: branches) {
@@ -105,6 +128,9 @@ public class Administrator extends User {
 		System.out.println(branches);
 	}
 
+	/**
+	 * Prints branches.
+	 */ 
 	public void displayBranches() {
 		DynamicBranchGraph branches = company.getBranches();
 		System.out.printf(" %-20s %-20s\n","Branch Name", "Branch Manager");
@@ -117,6 +143,9 @@ public class Administrator extends User {
 		}
 	}
 
+	/**
+	 * Prints branch managers.
+	 */ 
 	public void displayBranchManagers() {
 		DynamicBranchGraph branches = company.getBranches();
 		for(Branch branch: branches) {
@@ -124,6 +153,9 @@ public class Administrator extends User {
 		}
 	}
 
+	/**
+	 * Prints customers.
+	 */ 
 	public void displayCustomers() {
 		DynamicBranchGraph branches = company.getBranches();
 		System.out.println("\n Customers of " + company.getCompanyName());
@@ -138,6 +170,9 @@ public class Administrator extends User {
 		}
 	}
 
+	/**
+	 * Prints employees.
+	 */ 
 	public void displayEmployees() {
 		DynamicBranchGraph branches = company.getBranches();
 		System.out.println("\n Employees of " + company.getCompanyName());
@@ -152,6 +187,10 @@ public class Administrator extends User {
 		}	
 	}
 
+	/**
+	 * Returns String representation of Administrator's information.
+	 * @return string
+	 */ 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -161,6 +200,11 @@ public class Administrator extends User {
 		return sb.toString();
 	}
 
+	/**
+	 * Checks if both administrators are equal or not.
+	 * @param other other object
+	 * @return true if both administrators are equal.
+	 */ 
 	@Override
 	public boolean equals(Object other) {
 		if(other != null && other instanceof Administrator) {
@@ -183,6 +227,10 @@ public class Administrator extends User {
 		return false;
 	}
 
+	/**
+	 * Hashcode for Administrator.
+	 * @return hashcode
+	 */ 
 	@Override
 	public int hashCode() {
 		return 7*super.hashCode() + 3 * company.hashCode();
