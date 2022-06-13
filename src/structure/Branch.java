@@ -133,11 +133,11 @@ public class Branch {
 	 */
 	public String getStringEmployees() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" Employees:\n");
+		sb.append("\n------------------------- Employees ------------------------\n");
 		sb.append(String.format("  %-20s %-10s %s\n", "Name", "Gender", "Age") );
 		sb.append("------------------------------------------------------------\n");
 		for (var e : employees) 
-			sb.append(String.format("%  -20s %-10s %d\n", 
+			sb.append(String.format("  %-20s %-10s %d\n", 
 				e.getName(), e.getGender(), e.getAge()));
 		return sb.toString();
 	}
