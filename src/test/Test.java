@@ -229,10 +229,60 @@ public class Test {
 	}
 
 	/**
+	 * Testing buying system for the customer
 	 * Test Case: 
 	 */
 	public static void test2() {
-		//! NOT IMPLEMENTEED YET
+		//Creating company
+		Company company1 = new Company("company1");
+
+    	//Creating an administrator
+		Administrator admin1 = new Administrator("admin1", 30, Gender.FEMALE, "ADMIN" , "adminsc." , company1); 
+
+    	// Creating a branch	
+		Branch branch1 = new Branch("branch1");
+
+		//Creating a branch manager
+		BranchManager manager1 = new BranchManager("manager1", 30, Gender.MALE, "mngr_1" , "m4n4g3r1" , branch1);	
+
+    	//Creating an employee and customer.	
+		BranchEmployee employee1 = new BranchEmployee("elif", 30, Gender.FEMALE, "Elifabla" , "Elif2001." , branch1);
+		Customer customer1 = new Customer("ayse", 25, Gender.FEMALE, "a.ayse58" , "58A_ysesivas" ,branch1);
+
+    	// Admin adds branch to company. Company after adding branch.		
+		admin1.addBranch(branch1);
+
+		// Employees add new products.
+		Product product2 = new Clothes("tshirt", "zara", "Clothes", 111.8, Size.L, "matType1", "green", true, Gender.MALE,7);		
+		Product product5 = new Clothes("blouse", "mavi", "Clothes", 74, Size.M, "matType1", "white", true, Gender.FEMALE,6);		
+		Product product3 = new Drink("tea", "dogus", "Drink", 12.6 , "11/02/2023", 1.5,10);
+		Product product4 = new Electronic("phone", "samsung", "Electronic", 1000.0, 200, false, 12.1, 21.0,5);
+
+		employee1.addProduct(product2);
+		employee1.addProduct(product5);
+		employee1.addProduct(product3);
+		employee1.addProduct(product4);
+
+		System.out.println("\nBranch after new products, employee and customer added.");
+		System.out.println("\n" + branch1 + "\n-----------");
+
+
+		System.out.println("Customer display products, then adds product to basket and displays basket.\n");
+		customer1.displayProducts();
+		customer1.addProductToBasket(product4);
+		customer1.addProductToBasket(product5);
+		customer1.addProductToBasket(product2);
+		customer1.displayBasket(); 
+
+		System.out.println("\n\n-----------");
+		System.out.println("Customer purchases products in the basket.\n");
+		customer1.purchaseBasket();
+
+		System.out.println("\n\n-----------");
+		System.out.println("Product stocks after purchase.\n");
+		customer1.displayProducts();
+
+
 	}
 
 	/**
