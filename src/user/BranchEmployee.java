@@ -43,7 +43,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	}
 
 	/**
-	 * Adds given product to the branch stock 
+	 * Adds given product to the branch 
 	 * @param p The product that being inserted
 	 * @return True if the given product is not already contained in the branch stock
 	 */
@@ -52,7 +52,26 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	}
 
 	/**
-	 * Removes given product from the branch stock
+	 * Adds the new coming products to the branch stock 
+	 * @param p The product that being inserted
+	 * @param numProducts Number of new coming products
+	 * @return True if the product is exist at the branch and its new stock is updated
+	 */
+	public boolean addProduct(Product p, int numProducts) {
+		var products = branch.getProducts();
+		// make sure the product is available in the branch
+		if (numProducts <= 0 && products.contains(p)) {
+			products.remove(p);
+			// update the stock
+			p.setStock(p.getStock() + numProducts);
+			products.add(p);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Removes/sells all the stock of given product  
 	 * @param p The product that being removed
 	 * @return True if the given product is contained in the branch stock
 	 */
@@ -61,24 +80,68 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	}
 
 	/**
-	 * Removes product according to the name.
-	 * @param productName product name
-	 */ 
-	public void removeProductByName(String productName) {
+	 * Removes/sells given number of products 
+	 * @param p The product 
+	 * @param numProducts The number of selling product
+	 * @return True if there is enough stock exist at the branch for salling
+	 */
+	public boolean removeProduct(Product p, int numProducts) {
+		var products = branch.getProducts();
+		// make sure the product is available in the branch
+		if (products.contains(p)) {
+			products.remove(p);
+			// update the stock
+			boolean succesfullSalling =  p.setStock(p.getStock() - numProducts);
+			products.add(p);
+			return succesfullSalling;
+		}
+		return false;		
+	}
 
+	/**
+	 * Removes/sells all the stock of given product according to the product name  
+	 * @param productName Product name
+	 * @param p The product 
+	 * @param numProducts The number of selling product
+	 */ 
+	public boolean removeProduct(String productName) {
+		Product p = findProductByName(productName);
+		return p == null ? false : removeProduct(p);
+	}
+
+	/**
+	 * Removes/sells the given product according to the product name  
+	 * @param productName Product name
+	 * @param p The product 
+	 * @param numProducts The number of selling product
+	 */ 
+	public boolean removeProduct(String productName, int numProducts) {
+		Product p = findProductByName(productName);
+		return p == null ? false : removeProduct(p, numProducts);
+	}
+
+	/**
+	 * Finds the product according to its name
+	 * @param productName Name of the product
+	 * @return If the product is found, returns a reference for the product
+	 *  	associated with the given product name. Otherwise returns null.
+	 */
+	public Product findProductByName(String productName) {
 		TreeSet<Product> products = branch.getProducts();
-		
 		// iterate through products
 		Iterator<Product> itr = products.iterator();
 		while ( itr.hasNext() ) {
 			Product p = itr.next();
-			if(p.getName().equals(productName)) {
-				itr.remove();
-				return;
-			}
+			if (p.getName().equals(productName))
+				return p;
 		}	
+		return null;
 	}
 
+	/**
+	 * Adds requested products
+	 * @return True if the products are inserted
+	 */
 	public boolean addRequestedProducts() {
 		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
 		Product product = requestedProducts.peek();

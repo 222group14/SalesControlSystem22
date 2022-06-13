@@ -367,7 +367,7 @@ public class SCSystem {
                 currEmployee.addProduct(createProduct());
             else if(inp.equals("2")){
                 System.out.print(" Enter the product name to be removed: ");
-                currEmployee.removeProductByName(input.nextLine());
+                currEmployee.removeProduct(input.nextLine());
             }
             else if(inp.equals("3"))
                 currEmployee.addRequestedProducts();
