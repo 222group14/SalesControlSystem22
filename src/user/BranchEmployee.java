@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 import java.util.TreeSet;
 import java.util.Iterator;
 
-import src.incommon.Gender;
+import src.product.Gender;
 import src.product.Product;
 import src.structure.Branch;
 

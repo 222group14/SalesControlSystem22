@@ -1,10 +1,10 @@
 package src.user;
 
 import src.graph.*;
+import src.product.Gender;
 import src.structure.Branch;
 import src.structure.Company;
 import src.bst.*;
-import src.incommon.Gender;
 
 /**
  * 

@@ -22,15 +22,14 @@ public class Furniture extends Product{
      * (Number of stock is set to its default value 0)  
 	 * @param name Name of the furniture
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Furniture)
 	 * @param entryPrice Entry price for the product
      * @param width Width of the furniture 
      * @param height Height of the furniture 
      * @param color Color of the furniture 
 	 */
-    public Furniture(String name, String brand, String type, double entryPrice,
+    public Furniture(String name, String brand, double entryPrice,
                         double width, double height, String color) {
-        super(name, brand, type, entryPrice);
+        super(name, brand, ProductType.FURNITURE, entryPrice);
         this.width = width; 
         this.height = height;  
         this.color = color;                
@@ -40,16 +39,15 @@ public class Furniture extends Product{
 	 * Constructs a Furniture object with given properties  
 	 * @param name Name of the furniture
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Furniture)
 	 * @param entryPrice Entry price for the product
      * @param width width of the furniture 
      * @param height height of the furniture 
      * @param color color of the furniture 
 	 * @param numStock Number of stock for the product
 	 */
-    public Furniture(String name, String brand, String type, double entryPrice,
+    public Furniture(String name, String brand, double entryPrice,
                         double width, double height, String color, int numStock) {
-        super(name, brand, type, entryPrice, numStock);
+        super(name, brand, ProductType.FURNITURE, entryPrice, numStock);
         this.width = width; 
         this.height = height;  
         this.color = color;                

@@ -17,14 +17,13 @@ public class PersonalCare extends Product{
      * (Number of stock is set to its default value 0)  
 	 * @param name Name of the personal care product
 	 * @param brand Name of the brand
-	 * @param type Type of the product (PersonalCare)
 	 * @param entryPrice Entry price for the product
 	 * @param usageAim Usage aim of the personal care product
 	 * @param expDate Expiry date of the personal care product
 	 */
-    public PersonalCare(String name, String brand, String type, double entryPrice,
+    public PersonalCare(String name, String brand, double entryPrice,
 					 String usageAim, String expDate) {
-        super(name, brand, type, entryPrice);
+        super(name, brand, ProductType.PERSONALCARE, entryPrice);
 		this.usageAim = usageAim;
 		this.expDate = expDate;
     }
@@ -33,15 +32,14 @@ public class PersonalCare extends Product{
 	 * Constructs a PersonalCare object with given properties
 	 * @param name Name of the personal care product
 	 * @param brand Name of the brand
-	 * @param type Type of the product (PersonalCare)
 	 * @param entryPrice Entry price for the product
 	 * @param usageAim Usage aim of the personal care product
 	 * @param expDate Expiry date of the personal care product
 	 * @param numStock Number of stock for the product
 	 */
-    public PersonalCare(String name, String brand, String type, double entryPrice,
+    public PersonalCare(String name, String brand, double entryPrice,
 					 String usageAim, String expDate, int numStock) {
-        super(name, brand, type, entryPrice, numStock);
+        super(name, brand, ProductType.PERSONALCARE, entryPrice, numStock);
 		this.usageAim = usageAim;
 		this.expDate = expDate;
     }

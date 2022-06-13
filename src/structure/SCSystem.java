@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 
+import src.product.Gender;
 import src.product.Product;
 import src.user.User;
 import src.graph.DynamicBranchGraph;
-import src.incommon.Gender;
 import src.user.Administrator;
 import src.user.BranchEmployee;
 import src.user.BranchManager;

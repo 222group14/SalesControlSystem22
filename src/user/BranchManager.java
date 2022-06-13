@@ -1,10 +1,10 @@
 package src.user;
 
 import src.bst.BinarySearchTree;
-import src.incommon.Gender;
 import src.structure.Branch;
 import src.structure.Company;
 import src.graph.DynamicBranchGraph;
+import src.product.Gender;
 
 public class BranchManager extends User {
 

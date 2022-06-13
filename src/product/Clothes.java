@@ -1,8 +1,5 @@
 package src.product;
 
-import src.incommon.Gender;
-import src.incommon.Size;
-
 public class Clothes extends Product {
  
 	/**
@@ -35,7 +32,6 @@ public class Clothes extends Product {
      * (Number of stock is set to its default value 0)  
 	 * @param name Name of the cloth
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Clothes)
 	 * @param entryPrice Entry price for the product
      * @param size Size of the cloth
 	 * @param materialType Material Type of the cloth
@@ -43,10 +39,10 @@ public class Clothes extends Product {
 	 * @param summeryState Summery state of the cloth 
 	 * @param gender Gender of the cloth
 	 */
-	public Clothes(String name, String brand, String type, double entryPrice,
+	public Clothes(String name, String brand, double entryPrice,
 					 Size size, String materialType, String color, 
 					 boolean summeryState, Gender gender) {
-		super(name, brand, type, entryPrice);
+		super(name, brand, ProductType.CLOTHES, entryPrice);
 		this.size = size;
 		this.materialType = materialType;
 		this.color = color;
@@ -58,7 +54,6 @@ public class Clothes extends Product {
 	 * Constructs a Clothes object with given properties
 	 * @param name Name of the cloth
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Clothes)
 	 * @param entryPrice Entry price for the product
      * @param size Size of the cloth
 	 * @param materialType Material Type of the cloth
@@ -67,10 +62,10 @@ public class Clothes extends Product {
 	 * @param gender Gender of the cloth
 	 * @param numStock Number of stock for the product
 	 */
-	public Clothes(String name, String brand, String type, double entryPrice,
+	public Clothes(String name, String brand, double entryPrice,
 					 Size size, String materialType, String color, 
 					 boolean summeryState, Gender gender, int numStock) {
-		super(name, brand, type, entryPrice, numStock);
+		super(name, brand, ProductType.CLOTHES, entryPrice, numStock);
 		this.size = size;
 		this.materialType = materialType;
 		this.color = color;

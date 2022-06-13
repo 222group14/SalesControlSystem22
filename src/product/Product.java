@@ -26,7 +26,7 @@ public class Product implements Comparable<Product> {
 	/**
 	 * Type of the product (Electronic, Food, Clothes ...)
 	 */
-	private String type;
+	private ProductType type;
 
 	/**
 	 * Entry price for the product
@@ -46,7 +46,7 @@ public class Product implements Comparable<Product> {
 	 * @param entryPrice Entry price for the product
 	 * @param numStock Number of stock for the product
 	 */
-	public Product(String name, String brand, String type, double entryPrice, int numStock) {
+	public Product(String name, String brand, ProductType type, double entryPrice, int numStock) {
 		this.name = name;
 		this.brand = brand;
 		this.type = type;
@@ -59,12 +59,11 @@ public class Product implements Comparable<Product> {
 	 * (Number of stock is set to its default value 0)   
 	 * @param name Name of the product
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Electronic, Food, Clothes ...)
+	 * @param string Type of the product (Electronic, Food, Clothes ...)
 	 * @param entryPrice Entry price for the product
 	 * @param numStock Number of stock for the product
 	 */
-
-	public Product(String name, String brand, String type, double entryPrice) {
+	public Product(String name, String brand, ProductType type, double entryPrice) {
 		this(name, brand, type, entryPrice, 0);
 	}
 
@@ -96,7 +95,7 @@ public class Product implements Comparable<Product> {
 	 * Returns type of the product
 	 * @return Type of the product
 	 */
-	public String getType() {
+	public ProductType getType() {
 		return type;
 	}
 
@@ -165,8 +164,8 @@ public class Product implements Comparable<Product> {
 	 * @param type New product type
 	 * @return The previous type of the product
 	 */
-	public String setType(String type) {
-		String r = this.type;
+	public ProductType setType(ProductType type) {
+		ProductType r = this.type;
 		this.type = type;
 		return r;
 	}

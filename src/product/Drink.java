@@ -16,14 +16,13 @@ public class Drink extends Product {
      * (Number of stock is set to its default value 0)  
 	 * @param name Name of the drink
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Drink)
 	 * @param entryPrice Entry price for the product
      * @param expDate Expiry date of the drink
 	 * @param liter Liter of the drink
 	 */
-    public Drink(String name, String brand, String type, double entryPrice, 
+    public Drink(String name, String brand, double entryPrice, 
                  String expDate, double liter) {
-        super(name, brand, type, entryPrice);
+        super(name, brand, ProductType.DRINK, entryPrice);
         this.expDate = expDate;
 		this.liter = liter;
     }
@@ -32,15 +31,14 @@ public class Drink extends Product {
 	 * Constructs a Drink object with given properties 
 	 * @param name Name of the drink
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Drink)
 	 * @param entryPrice Entry price for the product
      * @param expDate Expiry date of the drink
 	 * @param liter Liter of the drink
 	 * @param numStock Number of stock for the product
 	 */
-    public Drink(String name, String brand, String type, double entryPrice, 
+    public Drink(String name, String brand, double entryPrice, 
                  String expDate, double liter, int numStock) {
-        super(name, brand, type, entryPrice, numStock);
+        super(name, brand, ProductType.DRINK, entryPrice, numStock);
         this.expDate = expDate;
 		this.liter = liter;
     }

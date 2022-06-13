@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 
 import src.graph.DynamicBranchGraph;
 import src.graph.DijkstraAlgorithm;
-import src.incommon.Gender;
+import src.product.Gender;
 import src.product.Product;
 import src.structure.Branch;
 import src.structure.Company;

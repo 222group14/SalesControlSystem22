@@ -27,17 +27,16 @@ public class Electronic extends Product{
      * (Number of stock is set to its default value 0)  
 	 * @param name Name of the  electronic product 
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Electronic)
 	 * @param entryPrice Entry price for the product
      * @param guaranteeTime Guarantee time of the electronic product 
      * @param displayProduct Display state of the electronic product 
      * @param width Width of the electronic product 
      * @param height Height of the electronic product  
 	 */
-    public Electronic(String name, String brand, String type, double entryPrice,
+    public Electronic(String name, String brand, double entryPrice,
                         int guaranteeTime, boolean displayProduct
                         , double width, double height) {
-        super(name, brand, type, entryPrice);
+        super(name, brand, ProductType.ELECTRONIC, entryPrice);
         this.guaranteeTime = guaranteeTime;
         this.displayProduct = displayProduct;
         this.width = width; 
@@ -48,7 +47,6 @@ public class Electronic extends Product{
 	 * Constructs a Electronic object with given properties
 	 * @param name Name of the  electronic product 
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Electronic)
 	 * @param entryPrice Entry price for the product
      * @param guaranteeTime Guarantee time of the electronic product 
      * @param displayProduct Display state of the electronic product 
@@ -56,10 +54,10 @@ public class Electronic extends Product{
      * @param height Height of the electronic product  
      * @param numStock Number of stock for the product
 	 */
-    public Electronic(String name, String brand, String type, double entryPrice,
+    public Electronic(String name, String brand, double entryPrice,
                         int guaranteeTime, boolean displayProduct
                         , double width, double height, int numStock) {
-        super(name, brand, type, entryPrice, numStock);
+        super(name, brand, ProductType.ELECTRONIC, entryPrice, numStock);
         this.guaranteeTime = guaranteeTime;
         this.displayProduct = displayProduct;
         this.width = width; 

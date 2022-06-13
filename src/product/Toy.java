@@ -17,14 +17,13 @@ public class Toy extends Product{
 	 * (Number of stock is set to its default value 0)  
 	 * @param name Name of the toy
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Toy)
 	 * @param entryPrice Entry price for the product
      * @param playingAge Playing age of the toy
 	 * @param kind Kind of the toy 
 	 */
-    public Toy(String name, String brand, String type, double entryPrice,
+    public Toy(String name, String brand, double entryPrice,
 				int playingAge, String kind) {
-        super(name, brand, type, entryPrice);
+        super(name, brand, ProductType.TOY, entryPrice);
 		this.playingAge = playingAge;
 		this.kind = kind;              
     }
@@ -33,15 +32,14 @@ public class Toy extends Product{
 	 * Constructs a Toy object with given properties 
 	 * @param name Name of the toy
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Toy)
 	 * @param entryPrice Entry price for the product
      * @param playingAge Playing age of the toy
 	 * @param kind Kind of the toy 
 	 * @param numStock Number of stock for the product
 	 */
-    public Toy(String name, String brand, String type, double entryPrice,
+    public Toy(String name, String brand, double entryPrice,
 				int playingAge, String kind, int numStock) {
-        super(name, brand, type, entryPrice, numStock);
+        super(name, brand, ProductType.TOY, entryPrice, numStock);
 		this.playingAge = playingAge;
 		this.kind = kind;              
     }

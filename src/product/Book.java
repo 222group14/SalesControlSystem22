@@ -1,21 +1,42 @@
 package src.product;
 
 public class Book extends Product{
-
+	/**
+	 * The kind of book
+	 */
     private String Kind;
+
+	/**
+	 * The author of book
+	 */
     private String author;
 
-    public Book(String name, String brand, String type, double entryPrice,
-                String Kind, String author) {
-        super(name, brand, type, entryPrice);
+	/**
+	 * Constructs the product with given parameters
+	 * @param name Product name
+	 * @param brand Brand 
+	 * @param entryPrice Entry price
+	 * @param Kind Kind of the book
+	 * @param author Author of the book
+	 */
+    public Book(String name, String brand, double entryPrice, String Kind, String author) {
+        super(name, brand, ProductType.BOOK, entryPrice);
         this.Kind = Kind;
         this.author = author;
     }
 
+	/**
+	 * Returns the kind of the book
+	 * @return The kind of book
+	 */
     public String getKind(){
         return Kind;
     }
 
+	/**
+	 * Returns the author of the book
+	 * @return The author of the book
+	 */
     public String getAuthor(){
         return author;
     }

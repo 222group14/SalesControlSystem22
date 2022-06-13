@@ -1,6 +1,6 @@
 package src.user;
 
-import src.incommon.Gender;
+import src.product.Gender;
 
 public class User {
 
