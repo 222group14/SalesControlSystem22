@@ -139,19 +139,51 @@ public class Customer extends User implements Comparable<Customer> {
 		System.out.println(shoppingBranch.getStringProducts());
 	}
 
+	public boolean isBasketEmpty(){
+		return basket.isEmpty();
+	}
+
 	/**
 	 * Customer displays basket.
 	 */ 
 	public void displayBasket() {
-		System.out.println(" Basket of customer: " + getName());
+		System.out.printf("\n------------ Basket of Customer %-15s ------------\n", getName());
+		System.out.printf("  %-15s %-15s %-18s %s\n", "Product Type", "Brand Name", "Product Name", "Price");
+		System.out.println("------------------------------------------------------------");
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i) == null || basket.get(i).size() == 0)
 				continue;
-			System.out.printf(" Product Type %d : %s\n", (i+1), basket.get(i).get(0).getType());
 			int j = 0;
-			for(Product product: basket.get(i))
-				System.out.printf(" %3d : %s\n", (++j), product.getName());
-		}		
+			for(Product product: basket.get(i)){
+				System.out.printf("  %-15s %-15s %-18s %.2f\n", 
+				product.getType(), product.getBrand(), product.getName(), product.getSalePrice());
+			}
+		}
+		System.out.printf("------------------------------------------------------------\n");
+	}
+
+	/**
+	 * Customer purchases products that are in the basket.
+	 */
+	public void purchaseBasket(){
+		double price = 0;
+		System.out.printf("\n------------ Basket of Customer %15s ------------\n", getName());
+		System.out.printf("  %-15s %-15s %-18s %s\n", "Product Type", "Brand Name", "Product Name", "Price");
+		System.out.println("------------------------------------------------------------");
+		for(int i = 0; i < basket.size(); ++i) {
+			if(basket.get(i) == null || basket.get(i).size() == 0)
+				continue;
+
+			for(Product product: basket.get(i)){
+				System.out.printf("  %-15s %-15s %-18s %.2f\n", 
+				product.getType(), product.getBrand(), product.getName(), product.getSalePrice());
+				price += product.getSalePrice();
+				product.decreaseStock();
+			}
+		}
+		System.out.println("------------------------------------------------------------");
+		System.out.printf("\n Total Amount : %.2f\n", price);
+		System.out.println("------------------------------------------------------------");
 	}
 
 	/**

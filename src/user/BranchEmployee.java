@@ -2,6 +2,8 @@ package src.user;
 
 import java.util.PriorityQueue;
 import java.util.TreeSet;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import src.incommon.Gender;
@@ -48,7 +50,10 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 * @return True if the given product is not already contained in the branch stock
 	 */
 	public boolean addProduct(Product p) {
-		return branch.getProducts().add(p);
+		HashMap<String, TreeSet<Product>> products = branch.getProducts();
+		if(!products.containsKey(p.getType()))
+			products.put(p.getType(), new TreeSet<Product>());
+		return products.get(p.getType()).add(p);
 	}
 
 	/**
@@ -58,7 +63,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 * @return True if the product is exist at the branch and its new stock is updated
 	 */
 	public boolean addProduct(Product p, int numProducts) {
-		var products = branch.getProducts();
+		var products = branch.getProducts(p.getType());
 		// make sure the product is available in the branch
 		if (numProducts <= 0 && products.contains(p)) {
 			products.remove(p);
@@ -76,7 +81,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 * @return True if the given product is contained in the branch stock
 	 */
 	public boolean removeProduct(Product p) {
-		return branch.getProducts().remove(p);
+		return branch.getProducts(p.getType()).remove(p);
 	}
 
 	/**
@@ -86,7 +91,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 * @return True if there is enough stock exist at the branch for salling
 	 */
 	public boolean removeProduct(Product p, int numProducts) {
-		var products = branch.getProducts();
+		var products = branch.getProducts(p.getType());
 		// make sure the product is available in the branch
 		if (products.contains(p)) {
 			products.remove(p);
@@ -127,14 +132,16 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 *  	associated with the given product name. Otherwise returns null.
 	 */
 	public Product findProductByName(String productName) {
-		TreeSet<Product> products = branch.getProducts();
+		HashMap<String,TreeSet<Product>> products = branch.getProducts();
 		// iterate through products
-		Iterator<Product> itr = products.iterator();
-		while ( itr.hasNext() ) {
-			Product p = itr.next();
-			if (p.getName().equals(productName))
-				return p;
-		}	
+		for (TreeSet<Product> treeSet : products.values()) {	
+			Iterator<Product> itr = treeSet.iterator();
+			while ( itr.hasNext() ) {
+				Product p = itr.next();
+				if (p.getName().equals(productName))
+					return p;
+			}		
+		}
 		return null;
 	}
 
@@ -161,12 +168,16 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 * Prints requested products.
 	 */ 
 	public void displayRequestedProducts() {
-		System.out.println(" Requested Products:");
 		PriorityQueue<Product> products = branch.getRequestedProducts();
-		
-		System.out.printf(" %-20s %-15s\n", "Product Name", "Entry Price");
-		for(Product product: products)	
-			System.out.printf(" %-20s %f\n", product.getName(), product.getEntryPrice());
+		if(products.isEmpty())
+			System.err.println("\n There is no requested products!");
+		else{
+			System.err.println("\n-------------------- Requested Products --------------------");
+			System.out.printf("  %-20s %-15s\n", "Product Name", "Price");
+			for(Product product: products)	
+				System.out.printf("  %-20s %f\n", product.getName(), product.getSalePrice());
+			System.out.println("------------------------------------------------------------\n");
+		}
 	}
 
 	/**

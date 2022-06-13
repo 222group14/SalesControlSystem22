@@ -3,6 +3,9 @@ package src.structure;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
 
 import src.bst.BinarySearchTree;
 import src.bst.RedBlackTree;
@@ -33,7 +36,8 @@ public class Branch {
 	/**
 	 * All Products that branch has
 	 */ 
-	private TreeSet<Product> products = new TreeSet<>(); 
+	//private TreeSet<Product> products = new TreeSet<>(); 
+	private HashMap<String,TreeSet<Product>> products = new HashMap<String,TreeSet<Product>>();
 
 	/** 
 	 * Customers are keept in a skiplist according to their name. 
@@ -82,7 +86,15 @@ public class Branch {
 	 * Getter for products
 	 * @return products as ArrayList of LinkedList
 	 */ 
-	public TreeSet<Product> getProducts() {
+	public TreeSet<Product> getProducts(String type) {
+		return products.get(type);
+	}
+
+	/**
+	 * Getter for products
+	 * @return products as ArrayList of LinkedList
+	 */ 
+	public HashMap<String,TreeSet<Product>> getProducts() {
 		return products;
 	}
 
@@ -124,7 +136,7 @@ public class Branch {
 	 * @return True if branch has that product.
 	 */ 
 	public boolean hasProduct(Product p) {
-		return products.contains(p); 
+		return products.get(p.getType()).contains(p); 
 	}
 
 	/**
@@ -163,12 +175,14 @@ public class Branch {
 	 */
 	public String getStringProducts() {
 		StringBuilder sb = new StringBuilder();
+		int k = 0;
 		sb.append("\n------------------------- Products -------------------------\n");
-		sb.append(String.format("  %-15s %-15s %-18s %s\n", "Product Type", "Brand Name", "Product Name", "Stock") );
+		sb.append(String.format("     %-15s %-15s %-15s %s\n", "Product Type", "Brand Name", "Product Name", "Price") );
 		sb.append("------------------------------------------------------------\n");
-		for (var p : products) 
-			sb.append(String.format("  %-15s %-15s %-19s %d\n", 
-				p.getType(), p.getBrand(), p.getName(), p.getStock()));
+		for (var product : products.values()) 
+			for(var p : product )
+				sb.append(String.format(" %d - %-15s %-15s %-15s %.2f\n", ++k, 
+				p.getType(), p.getBrand(), p.getName(), p.getSalePrice()));
 		return sb.toString();
 	}
 
