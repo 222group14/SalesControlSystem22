@@ -24,8 +24,8 @@ public class Toy extends Product{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-		sb.append("\nPlaying Age: " + getPlayingAge());
-		sb.append("\nKind: " + getKind());
+		sb.append("\n Playing Age: " + getPlayingAge());
+		sb.append("\n Kind: " + getKind());
 
 		return sb.toString();
 	}

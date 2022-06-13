@@ -24,8 +24,8 @@ public class Drink extends Product {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-        sb.append("\nExpiry Date: " + getExpDate());
-		sb.append("\nLiter: " + getSizeLiter());
+        sb.append("\n Expiry Date: " + getExpDate());
+		sb.append("\n Liter: " + getSizeLiter());
 
 		return sb.toString();
 	}

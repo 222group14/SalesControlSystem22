@@ -46,11 +46,11 @@ public class Clothes extends Product {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-		sb.append("\nSize: " + getSize());
-		sb.append("\nMaterial Type: " + getMaterialType());
-		sb.append("\nColor: " + getColor());
-		sb.append("\nSummery State: " + isSummery());
-		sb.append("\nGender: " + getGender());
+		sb.append("\n Size: " + getSize());
+		sb.append("\n Material Type: " + getMaterialType());
+		sb.append("\n Color: " + getColor());
+		sb.append("\n Summery State: " + isSummery());
+		sb.append("\n Gender: " + getGender());
 
 		return sb.toString();
 	}

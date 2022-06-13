@@ -347,14 +347,14 @@ public class DynamicBranchGraph implements DynamicGraph, Iterable<Branch> {
 	public String toString ( ) {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append("Adjacency List\n");
+		sb.append(" Adjacency List\n");
 		if ( numV == 0 ) {
-			sb.append("empty graph\n");
+			sb.append(" Empty graph\n");
 			return sb.toString();
 		}
 
 		for ( Map.Entry<Integer, LinkedList<Edge>> entryEdge: edgeMap.entrySet() ) {
-			sb.append("vertex (id = " + entryEdge.getKey() + ", branch name = "
+			sb.append(" vertex (id = " + entryEdge.getKey() + ", branch name = "
 						 + branchMap.get(entryEdge.getKey()).getBranchName() + ")-->\n");
 			for( Edge e: entryEdge.getValue() ) {
 				

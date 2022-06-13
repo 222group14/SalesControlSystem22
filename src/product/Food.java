@@ -24,8 +24,8 @@ public class Food extends Product {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-        sb.append("\nExpiry Date: " + getExpDate());
-		sb.append("\nWeight(kg): " + getWeight());
+        sb.append("\n Expiry Date: " + getExpDate());
+		sb.append("\n Weight(kg): " + getWeight());
 
 		return sb.toString();
 	}

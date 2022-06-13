@@ -37,10 +37,10 @@ public class Electronic extends Product{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-        sb.append("\nGuarantee Time: " + getGuaranteeTime());
-        sb.append("\nDisplay Product: " + isDisplayProduct());
-        sb.append("\nWidth: " + getWidth());
-        sb.append("\nHeigth: " + getHeight());
+        sb.append("\n Guarantee Time: " + getGuaranteeTime());
+        sb.append("\n Display Product: " + isDisplayProduct());
+        sb.append("\n Width: " + getWidth());
+        sb.append("\n Heigth: " + getHeight());
 
 
 		return sb.toString();

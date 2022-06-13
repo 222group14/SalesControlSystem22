@@ -187,10 +187,10 @@ public class Product implements Comparable<Product> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nName: " + getName());
-		sb.append("\nBrand Name: " + getBrand());
-		sb.append("\nType: " + getType());
-		sb.append("\nEntry Price: " + getEntryPrice());
+		sb.append("\n Name: " + getName());
+		sb.append("\n Brand Name: " + getBrand());
+		sb.append("\n Type: " + getType());
+		sb.append("\n Entry Price: " + getEntryPrice());
 		return sb.toString();
 	}
 

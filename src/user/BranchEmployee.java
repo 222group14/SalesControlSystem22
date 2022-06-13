@@ -49,6 +49,8 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		return branch.getProducts().remove(p);
 	}
 
+	public void removeProductByName(String productName){}
+
 	public boolean addRequestedProducts() {
 		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
 		Product product = requestedProducts.peek();
@@ -65,17 +67,18 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	}
 
 	public void displayRequestedProducts() {
-		System.out.println("Requested Products:\n");
+		System.out.println(" Requested Products:");
 		PriorityQueue<Product> products = branch.getRequestedProducts();
 		
-		for(Product product: products)
-			System.out.println("product name: " + product.getName() + ", entry price: " + product.getEntryPrice());
+		System.out.printf(" %-20s %-15s\n", "Product Name", "Entry Price");
+		for(Product product: products)	
+			System.out.printf(" %-20s %f\n", product.getName(), product.getEntryPrice());
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" User Type: Branch Employee\n");
+		sb.append("\n User Type: Branch Employee\n");
 		sb.append(" Branch: " + branch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();

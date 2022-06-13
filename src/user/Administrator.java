@@ -107,14 +107,13 @@ public class Administrator extends User {
 
 	public void displayBranches() {
 		DynamicBranchGraph branches = company.getBranches();
-
+		System.out.printf(" %-20s %-20s\n","Branch Name", "Branch Manager");
 		for(Branch branch: branches) {
-			System.out.print("Branch Name:" + branch.getBranchName() + ", Branch Manager: ");
+			System.out.printf(" %-20s ", branch.getBranchName());
 			if (branch.getBranchManager() != null) 
 				System.out.println(branch.getBranchManager().getName());
-			
 			else
-				System.out.println("none");
+				System.out.println("None");
 		}
 	}
 
@@ -127,28 +126,28 @@ public class Administrator extends User {
 
 	public void displayCustomers() {
 		DynamicBranchGraph branches = company.getBranches();
-		System.out.println("\nCustomers of " + company.getCompanyName());
+		System.out.println("\n Customers of " + company.getCompanyName());
 		for(Branch branch: branches) {
-			System.out.print(branch.getBranchName() + ": \n");
+			System.out.printf(" %s :\n", branch.getBranchName());
 			var customers = branch.getCustomers();
 
 			int i = 0;
 			for(Customer customer: customers) {
-				System.out.println(++i + "- " + customer.getName());
+				System.out.printf(" %3d - %s\n", ++i, customer.getName());
 			}
 		}
 	}
 
 	public void displayEmployees() {
 		DynamicBranchGraph branches = company.getBranches();
-		System.out.println("\nEmployees of " + company.getCompanyName());
+		System.out.println("\n Employees of " + company.getCompanyName());
 		for(Branch branch: branches) {
-			System.out.print(branch.getBranchName() + ": \n");
+			System.out.printf(" %s :\n", branch.getBranchName());
 			BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
 
 			int i = 0;
 			for(BranchEmployee employee: employees) {
-				System.out.println(++i + "- " + employee.getName());
+				System.out.printf(" %3d - %s\n", ++i, employee.getName());
 			}
 		}	
 	}
@@ -156,7 +155,7 @@ public class Administrator extends User {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" User Type: Administrator\n");
+		sb.append("\n User Type: Administrator\n");
 		sb.append(" Company: " + company.getCompanyName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();

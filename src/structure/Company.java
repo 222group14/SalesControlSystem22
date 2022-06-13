@@ -1,5 +1,7 @@
 package src.structure;
 
+import java.util.ArrayList;
+
 import src.graph.*;
 import src.product.Product;
 import src.user.Administrator;
@@ -26,11 +28,32 @@ public class Company {
 	private DynamicBranchGraph branches = new DynamicBranchGraph(false);
 
 	/**
+	 * An array of name of product types
+	 */
+	private ArrayList<String> productTypes = new ArrayList<String>(); 
+
+	/**
 	 * Constructor which takes company name
 	 * @param companyName company name
 	 */ 
 	public Company(String companyName) {
 		this.companyName = companyName;
+		productTypes.add("Book");
+		productTypes.add("Clothes");
+		productTypes.add("Drink");
+		productTypes.add("Electronic");
+		productTypes.add("Food");
+		productTypes.add("Furniture");
+		productTypes.add("Personal Care");
+		productTypes.add("Toy");
+	}
+
+	/**
+	 * Returns the array of name of product types
+	 * @return The productTypes array.
+	 */
+	public ArrayList<String> getProductTypes(){
+		return productTypes;
 	}
 
 	/**
@@ -89,21 +112,20 @@ public class Company {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Company Name: " + companyName);
-		sb.append("\nAdministrator: ");
+		sb.append(" Company Name: " + companyName);
+		sb.append("\n Administrator: ");
 		if (admin == null)
-			sb.append("none\n");
+			sb.append("None");
 		else
 			sb.append(admin.getName());
-		sb.append("\nBranches: ");
-		sb.append("\n");
+		sb.append("\n Branches: ");
 
 		int i = 0;
 		for (Branch branch: branches) 
-			sb.append(++i + ": " + branch.getBranchName() + "\n");
+			sb.append(String.format(" %d : %s\n", ++i, branch.getBranchName()));
 
 		if (i == 0) 
-			sb.append("none\n");
+			sb.append(" None\n");
 	
 		return sb.toString();
 	}

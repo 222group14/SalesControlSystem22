@@ -45,22 +45,24 @@ public class BranchManager extends User {
 		if (!flag)
 			return;
 
+		
+		System.out.printf(" %-20s %-20s\n", "Branch Name", "Branch Manager");
 		for(Branch branch: branches) {
-			System.out.print("Branch Name:" + branch.getBranchName() + ", Branch Manager: ");
+			System.out.printf(" %-20s ", branch.getBranchName());
 			if (branch.getBranchManager() != null) 
 				System.out.println(branch.getBranchManager().getName());
 			
 			else
-				System.out.println("none");
+				System.out.println("None");
 		}		
 	}
 
 	public void displayBranchEmployees() {
 		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
-		System.out.println("Employees of " + branch.getBranchName());
+		System.out.println("\n Employees of " + branch.getBranchName() + " : ");
 		int i = 0;
 		for (BranchEmployee employee: employees) {
-			System.out.println(++i + "- " + employee.getName());
+			System.out.printf(" %d - %s", ++i, employee.getName());
 		}
 	}
 
@@ -89,7 +91,7 @@ public class BranchManager extends User {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" User Type: Branch Manager\n");
+		sb.append("\n User Type: Branch Manager\n");
 		sb.append(" Branch: " + branch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();

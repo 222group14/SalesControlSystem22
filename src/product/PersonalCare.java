@@ -24,8 +24,8 @@ public class PersonalCare extends Product{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-		sb.append("\nUsage Aim: " + getUsageAim());
-		sb.append("\nExpire Date: " + getExpDate());
+		sb.append("\n Usage Aim: " + getUsageAim());
+		sb.append("\n Expire Date: " + getExpDate());
 
 		return sb.toString();
 	}

@@ -103,28 +103,28 @@ public class Customer extends User implements Comparable<Customer> {
 	}
 
 	public void displayBasket() {
-		System.out.println("Basket of customer: " + getName());
+		System.out.println(" Basket of customer: " + getName());
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i) == null || basket.get(i).size() == 0)
 				continue;
-			System.out.println("Product Type" + " " + (i+1) + ": " + basket.get(i).get(0).getType());
+			System.out.printf(" Product Type %d : %s\n", (i+1), basket.get(i).get(0).getType());
 			int j = 0;
 			for(Product product: basket.get(i))
-				System.out.println( (++j) + ": " + product.getName());
+				System.out.printf(" %3d : %s\n", (++j), product.getName());
 		}		
 	}
 
 	public void printOrderHistory() {
-		System.out.print("Last Removed Product to Basket: ");
+		System.out.print(" Last Removed Product from Basket: ");
 
 		if(lastRemoved.isEmpty())
-			System.out.println("none");
+			System.out.println("None");
 		else
 			System.out.println(lastRemoved.peek().getName());
 
-		System.out.print("Last Added Product to Basket: ");
+		System.out.print(" Last Added Product to Basket: ");
 		if(lastAdded.isEmpty())
-			System.out.println("none");
+			System.out.println("None");
 		else
 			System.out.println(lastAdded.peek().getName());		
 	}
@@ -137,7 +137,7 @@ public class Customer extends User implements Comparable<Customer> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" User Type: Customer\n");
+		sb.append("\n User Type: Customer\n");
 		sb.append(" Branch: " + shoppingBranch.getBranchName() + "\n");
 		sb.append(super.toString());
 		return sb.toString();

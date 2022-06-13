@@ -27,6 +27,14 @@ public class BinaryTree<E> implements Serializable {
 	}
 
 	/**
+	 * Returns binary tree is empty or not.
+	 * @return true if empty, false otherwise
+	 */
+	public boolean isEmpty(){
+		return root == null;
+	}
+
+	/**
 	 *  Constructs a new binary tree with data in its root, leftTree as its left subtree, and rightTree as its right subtree
 	 * @param data The data of the root node
 	 * @param leftTree The left subtree

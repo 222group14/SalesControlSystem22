@@ -30,9 +30,9 @@ public class Furniture extends Product{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
-        sb.append("\nColor: " + getColor());
-        sb.append("\nWidth: " + getWidth());
-        sb.append("\nHeigth: " + getHeight());
+        sb.append("\n Color: " + getColor());
+        sb.append("\n Width: " + getWidth());
+        sb.append("\n Heigth: " + getHeight());
 
 
 		return sb.toString();

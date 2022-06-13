@@ -23,10 +23,10 @@ public class Book extends Product{
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nCategory: " + this.getClass().getName());
+		sb.append("\n Category: " + this.getClass().getName());
 		sb.append(super.toString());
-        sb.append("\nBook Kind: " + getKind());
-        sb.append("\nAuthor: " + getAuthor());
+        sb.append("\n Book Kind: " + getKind());
+        sb.append("\n Author: " + getAuthor());
 
 		return sb.toString();
 	}

@@ -1,7 +1,6 @@
 package src.structure;
 
 import java.util.PriorityQueue;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -134,11 +133,11 @@ public class Branch {
 	 */
 	public String getStringEmployees() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Employees:\n\n");
-		sb.append(String.format("%-20s %-20s %s\n", "Name", "Gender", "Age") );
-		sb.append("=====================================================================\n\n");
+		sb.append(" Employees:\n");
+		sb.append(String.format("  %-20s %-10s %s\n", "Name", "Gender", "Age") );
+		sb.append("------------------------------------------------------------\n");
 		for (var e : employees) 
-			sb.append(String.format("%-20s %-20s %d\n", 
+			sb.append(String.format("%  -20s %-10s %d\n", 
 				e.getName(), e.getGender(), e.getAge()));
 		return sb.toString();
 	}
@@ -149,11 +148,11 @@ public class Branch {
 	 */
 	public String getStringCustomers() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Customers:\n\n");
-		sb.append(String.format("%-20s %-20s %s\n", "Name", "Gender", "Age") );
-		sb.append("=====================================================================\n\n");
+		sb.append("\n------------------------- Customers ------------------------\n");
+		sb.append(String.format("  %-20s %10s %15s\n", "Name", "Gender", "Age") );
+		sb.append("------------------------------------------------------------\n");
 		for (var c : customers) 
-			sb.append(String.format("%-20s %-20s %d\n", 
+			sb.append(String.format("  %-20s %10s %12d\n", 
 				c.getName(), c.getGender(), c.getAge()));
 		return sb.toString();
 	}
@@ -164,11 +163,11 @@ public class Branch {
 	 */
 	public String getStringProducts() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Products:\n\n");
-		sb.append(String.format("%-20s %-20s %-20s %s\n", "Product Type", "Brand Name", "Product Name", "Stock") );
-		sb.append("=====================================================================\n\n");
+		sb.append("\n------------------------- Products -------------------------\n");
+		sb.append(String.format("  %-15s %-15s %-18s %s\n", "Product Type", "Brand Name", "Product Name", "Stock") );
+		sb.append("------------------------------------------------------------\n");
 		for (var p : products) 
-			sb.append(String.format("%-20s %-20s %-20s %d\n", 
+			sb.append(String.format("  %-15s %-15s %-19s %d\n", 
 				p.getType(), p.getBrand(), p.getName(), p.getStock()));
 		return sb.toString();
 	}
@@ -180,13 +179,13 @@ public class Branch {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("**********************************************************************\n");
-		sb.append("Branch Name: " + branchName);
-		sb.append("\nBranchManager: " + (manager == null ? "none" : manager.getName()));
+		sb.append("\n------------------------------------------------------------\n");
+		sb.append(" Branch Name: " + branchName);
+		sb.append("\n BranchManager: " + (manager == null ? "None" : manager.getName()));
 		sb.append(getStringEmployees());
 		sb.append(getStringCustomers());
 		sb.append(getStringProducts());
-		sb.append("**********************************************************************\n");
+		sb.append("------------------------------------------------------------\n");
 			return sb.toString();
 	}
 
