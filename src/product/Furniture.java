@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Furniture extends Product{
 
     /** 
@@ -76,6 +78,48 @@ public class Furniture extends Product{
     public String getColor(){
         return color;
     }
+
+	/**
+	 * Comparator class for sorting the furniture according to their color
+	 */
+	public static class compareByColor implements Comparator<Furniture> {
+		@Override
+		public int compare(Furniture arg0, Furniture arg1) {
+			return arg0.getColor().compareTo(arg1.getColor());			
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the furniture according to their width
+	 */
+	public static class compareByWidth implements Comparator<Furniture> {
+		@Override
+		public int compare(Furniture arg0, Furniture arg1) {
+			double comp = arg0.getWidth() - arg1.getWidth();
+            if (comp < 0.0) 
+                return -1;
+            else if (comp > 0.0)
+                return 1;
+            else
+                return 0;
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the furniture according to their height
+	 */
+	public static class compareByHeight implements Comparator<Furniture> {
+		@Override
+		public int compare(Furniture arg0, Furniture arg1) {
+			double comp = arg0.getHeight() - arg1.getHeight();
+            if (comp < 0.0) 
+                return -1;
+            else if (comp > 0.0)
+                return 1;
+            else
+                return 0;
+		}
+	}
 
     /**
 	 * Returns string of the properties of the product : 

@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Clothes extends Product {
  
 	/**
@@ -111,6 +113,36 @@ public class Clothes extends Product {
 	 */
 	public Gender getGender() {
 		return gender;
+	}
+
+	/**
+	 * Comparator class for sorting the clothes according to color (alhabetical order)
+	 */
+	public static class CompareByKind implements Comparator<Clothes> {
+		@Override
+		public int compare(Clothes arg0, Clothes arg1) {
+			return arg0.getColor().compareTo(arg1.getColor());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the clothes according to gender (alhabetical order)
+	 */
+	public static class CompareByGender implements Comparator<Clothes> {
+		@Override
+		public int compare(Clothes arg0, Clothes arg1) {
+			return arg0.getGender().compareTo(arg1.getGender());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the clothes according to material type (alhabetical order)
+	 */
+	public static class CompareByMaterialType implements Comparator<Clothes> {
+		@Override
+		public int compare(Clothes arg0, Clothes arg1) {
+			return arg0.getMaterialType().compareTo(arg1.getMaterialType());
+		}
 	}
 
 	/**

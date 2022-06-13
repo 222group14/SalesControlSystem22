@@ -9,9 +9,23 @@ import src.user.BranchEmployee;
 import src.user.BranchManager;
 import src.user.Customer;
 import java.util.Random;
+import java.util.TreeSet;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Test {
+	public static void testQuickSort() {
+		Branch branch = new Branch("branchName");
+		// get the specific type of products
+		TreeSet<Product> products = branch.getProducts(ProductType.DRINK);
+		ArrayList<Drink> v = new ArrayList<>(products.size());
+		// add the products into the array-list
+		for (var e : products)
+			v.add((Drink) e);
+		// sort the products with the comparator
+		Collections.sort(v, new Drink.compareByExpDate());
+	}
+
     /**
 	 * Tests all the public methods of classes
 	 */
@@ -254,7 +268,7 @@ public class Test {
 		Product product2 = new Clothes("tshirt", "zara", 111.8, Size.L, "matType1", "green", true, Gender.MALE,7);		
 		Product product5 = new Clothes("blouse", "mavi", 74, Size.M, "matType1", "white", true, Gender.FEMALE,6);		
 		Product product3 = new Drink("tea", "dogus", 12.6 , "11/02/2023", 1.5,10);
-		Product product4 = new Electronic("phone", "samsung", 1000.0, 200, false, 12.1, 21.0,5);
+		Product product4 = new Electronic("phone", "samsung", 1000.0, 200, false, 12.1, 21.0);
 
 		employee1.addProduct(product2);
 		employee1.addProduct(product5);

@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Book extends Product{
 	/**
 	 * The kind of book
@@ -40,6 +42,26 @@ public class Book extends Product{
     public String getAuthor(){
         return author;
     }
+
+	/**
+	 * Comparator class for sorting the books according to kind of the book (alhabetical order)
+	 */
+	public static class CompareByKind implements Comparator<Book> {
+		@Override
+		public int compare(Book arg0, Book arg1) {
+			return arg0.getKind().compareTo(arg1.getKind());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the books according author of the book (alhabetical order)
+	 */
+	public static class CompareByAuthor implements Comparator<Book> {
+		@Override
+		public int compare(Book arg0, Book arg1) {
+			return arg0.getAuthor().compareTo(arg1.getAuthor());
+		}
+	}
 
     @Override
 	public String toString() {

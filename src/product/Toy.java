@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Toy extends Product{
 
 	/**
@@ -59,6 +61,33 @@ public class Toy extends Product{
 	public String getKind(){
 		return kind;
 	}
+
+	/**
+	 * Comparator class for sorting the toys according to kind of toy (alhabetical order)
+	 */
+	public static class CompareByAuthor implements Comparator<Toy> {
+		@Override
+		public int compare(Toy arg0, Toy arg1) {
+			return arg0.getKind().compareTo(arg1.getKind());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the toys according to their playing age
+	 */
+	public static class compareByWidth implements Comparator<Toy> {
+		@Override
+		public int compare(Toy arg0, Toy arg1) {
+			int comp = arg0.getPlayingAge() - arg1.getPlayingAge();
+            if (comp < 0) 
+                return -1;
+            else if (comp > 0)
+                return 1;
+            else
+                return 0;
+		}
+	}
+
 
 	/**
 	 * Returns string of the properties of the product : 

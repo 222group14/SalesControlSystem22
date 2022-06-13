@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Drink extends Product {
 
 	/**
@@ -57,6 +59,16 @@ public class Drink extends Product {
 	 */
 	public double getSizeLiter(){
 		return liter;
+	}
+
+	/**
+	 * Comparator class for sorting the drinks according to expiry date
+	 */
+	public static class compareByExpDate implements Comparator<Drink> {
+		@Override
+		public int compare(Drink arg0, Drink arg1) {
+			return arg0.getExpDate().compareTo(arg1.getExpDate());			
+		}
 	}
 
 	/**

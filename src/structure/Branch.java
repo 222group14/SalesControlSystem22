@@ -3,6 +3,7 @@ package src.structure;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import src.bst.BinarySearchTree;
@@ -82,7 +83,7 @@ public class Branch {
 
 	/**
 	 * Getter for products
-	 * @return products as ArrayList of LinkedList
+	 * @return set of products
 	 */ 
 	public TreeSet<Product> getProducts(ProductType type) {
 		return products.get(type);
@@ -90,10 +91,18 @@ public class Branch {
 
 	/**
 	 * Getter for products
-	 * @return products as ArrayList of LinkedList
+	 * @return hashmap of set of products
 	 */ 
 	public HashMap<ProductType,TreeSet<Product>> getProducts() {
 		return products;
+	}
+
+	/**
+	 * Getter for products
+	 * @return products as ArrayList of LinkedList
+	 */ 
+	public ArrayList<Product> getProductsList(ProductType type) {
+		return new ArrayList<>(products.get(type));
 	}
 
 	/**

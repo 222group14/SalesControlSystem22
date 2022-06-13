@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Food extends Product {
 
 	/**
@@ -58,6 +60,16 @@ public class Food extends Product {
 	 */
 	public double getWeight(){
 		return weight;
+	}
+
+	/**
+	 * Comparator class for sorting the foods according to expiry date
+	 */
+	public static class compareByExpDate implements Comparator<Food> {
+		@Override
+		public int compare(Food arg0, Food arg1) {
+			return arg0.getExpDate().compareTo(arg1.getExpDate());			
+		}
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package src.product;
 
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 public class Product implements Comparable<Product> {
@@ -181,6 +182,53 @@ public class Product implements Comparable<Product> {
 		double r = this.entryPrice;
 		this.entryPrice = entryPrice;
 		return r;		
+	}
+
+	/**
+	 * Comparator class for sorting the products according to product name
+	 */
+	public static class compareByName implements Comparator<Product> {
+		@Override
+		public int compare(Product arg0, Product arg1) {
+			return arg0.getName().compareTo(arg1.getName());
+		}
+	}
+
+
+	/**
+	 * Comparator class for sorting the products according to brand of product
+	 */
+	public static class compareByBrand implements Comparator<Product> {
+		@Override
+		public int compare(Product arg0, Product arg1) {
+			return arg0.getBrand().compareTo(arg1.getBrand());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the products according to type of product
+	 */
+	public static class compareByType implements Comparator<Product> {
+		@Override
+		public int compare(Product arg0, Product arg1) {
+			return arg0.getType().compareTo(arg1.getType());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the products according to entryPrice
+	 */
+	public static class compareByPrice implements Comparator<Product> {
+		@Override
+		public int compare(Product arg0, Product arg1) {
+			double comp = arg0.getEntryPrice() - arg1.getEntryPrice();
+            if (comp < 0.0) 
+                return -1;
+            else if (comp > 0.0)
+                return 1;
+            else
+                return 0;
+		}
 	}
 
 	/**

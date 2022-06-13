@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Electronic extends Product{
     
     /**
@@ -44,27 +46,6 @@ public class Electronic extends Product{
     }
 
     /**
-	 * Constructs a Electronic object with given properties
-	 * @param name Name of the  electronic product 
-	 * @param brand Name of the brand
-	 * @param entryPrice Entry price for the product
-     * @param guaranteeTime Guarantee time of the electronic product 
-     * @param displayProduct Display state of the electronic product 
-     * @param width Width of the electronic product 
-     * @param height Height of the electronic product  
-     * @param numStock Number of stock for the product
-	 */
-    public Electronic(String name, String brand, double entryPrice,
-                        int guaranteeTime, boolean displayProduct
-                        , double width, double height, int numStock) {
-        super(name, brand, ProductType.ELECTRONIC, entryPrice, numStock);
-        this.guaranteeTime = guaranteeTime;
-        this.displayProduct = displayProduct;
-        this.width = width; 
-        this.height = height; 
-    }
-
-    /**
 	 * Returns the guarantee time of the electonic product
 	 * @return Guarantee time of the electonic product
 	 */
@@ -96,6 +77,38 @@ public class Electronic extends Product{
     public double getHeight(){
         return height;
     } 
+
+	/**
+	 * Comparator class for sorting the electornic products according to their width
+	 */
+	public static class compareByWidth implements Comparator<Electronic> {
+		@Override
+		public int compare(Electronic arg0, Electronic arg1) {
+			double comp = arg0.getWidth() - arg1.getWidth();
+            if (comp < 0.0) 
+                return -1;
+            else if (comp > 0.0)
+                return 1;
+            else
+                return 0;
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the electornic products according to their height
+	 */
+	public static class compareByHeight implements Comparator<Electronic> {
+		@Override
+		public int compare(Electronic arg0, Electronic arg1) {
+			double comp = arg0.getHeight() - arg1.getHeight();
+            if (comp < 0.0) 
+                return -1;
+            else if (comp > 0.0)
+                return 1;
+            else
+                return 0;
+		}
+	}
 
     /**
 	 * Returns string of the properties of the product : 

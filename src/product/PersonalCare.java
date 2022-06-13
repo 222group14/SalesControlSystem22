@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class PersonalCare extends Product{
 
 	/**
@@ -58,6 +60,16 @@ public class PersonalCare extends Product{
 	 */
 	public String getExpDate(){
 		return expDate;
+	}
+
+	/**
+	 * Comparator class for sorting the personal care products according to expiry date
+	 */
+	public static class compareByExpDate implements Comparator<PersonalCare> {
+		@Override
+		public int compare(PersonalCare arg0, PersonalCare arg1) {
+			return arg0.getExpDate().compareTo(arg1.getExpDate());			
+		}
 	}
 
 	/**
