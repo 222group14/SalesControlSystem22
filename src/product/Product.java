@@ -4,6 +4,10 @@ package src.product;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
+/**
+ * 
+ * A general Comparable Product class which can be extended for various kind of Products.
+ */ 
 public class Product implements Comparable<Product> {
 	/** 
 	 * Default number of stock
