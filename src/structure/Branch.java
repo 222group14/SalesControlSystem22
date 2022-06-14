@@ -210,11 +210,11 @@ public class Branch {
 		StringBuilder sb = new StringBuilder();
 		int k = 0;
 		sb.append("\n------------------------------ Products ------------------------------\n");
-		sb.append(String.format("\n      %-15s %-15s %-18s %-6s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock"));
+		sb.append(String.format("      %-15s %-15s %-15s %-10s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock"));
 		sb.append("----------------------------------------------------------------------\n");
 		for (var product : products.values()) 
 			for(var p : product )
-				sb.append(String.format(" %2d - %-15s %-15s %-18s %.2f %d\n", ++k, 
+				sb.append(String.format(" %2d - %-15s %-15s %-15s %-10.2f %d\n", ++k, 
 				p.getType(), p.getBrand(), p.getName(), p.getSalePrice(), p.getStock()));
 		sb.append("----------------------------------------------------------------------\n");
 		return sb.toString();

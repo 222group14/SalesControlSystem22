@@ -68,7 +68,7 @@ public class BranchManager extends User {
 		if (!flag)
 			return;
 	
-		System.err.printf("\n------------------ Branches of %-20s ------------------", company.getCompanyName());
+		System.err.printf("\n------------------ Branches of %-20s ------------------\n", company.getCompanyName());
 		System.out.printf(" %-20s %-20s\n", "Branch Name", "Branch Manager");
 		System.out.println("----------------------------------------------------------------------");
 		for(Branch branch: branches) {
@@ -86,7 +86,7 @@ public class BranchManager extends User {
 	 * Prints employees of manager's current branch.
 	 */ 
 	public void displayBranchEmployees() {
-		System.out.printf("\n------------------ Employees of %-20s ------------------", branch.getBranchName());
+		System.out.printf("\n------------------ Employees of %-20s ------------------\n", branch.getBranchName());
 		System.out.printf(" %-20s %-20s\n", "Employee Name", "Employee Username");
 		System.out.println("----------------------------------------------------------------------");
 		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();	

@@ -118,11 +118,7 @@ public class SCSystem {
             System.out.print(" Choice: ");
             inp = input.nextLine();
         }
-        input.close();
         System.out.print("\033[H\033[2J");
-        System.out.println("----------------------------------------------------------------------");
-        System.out.println("----------------------- SYSTEM TERMINATED... -------------------------");
-        System.out.println("----------------------------------------------------------------------");
     }
 
     /** ArrayList of noworking branch managers */

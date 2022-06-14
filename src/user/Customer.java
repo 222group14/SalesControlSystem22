@@ -199,13 +199,13 @@ public class Customer extends User implements Comparable<Customer> {
 	public void displayBasket() {
 		int k = 0;
 		System.out.printf("\n----------------- Basket of Customer %-15s -----------------", getName());
-		System.out.printf("\n      %-15s %-15s %-18s %-6s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock");
+		System.out.printf("\n      %-15s %-15s %-15s %-10s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock");
 		System.out.println("----------------------------------------------------------------------");
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i) == null || basket.get(i).size() == 0)
 				continue;
 			for(Product product: basket.get(i)){
-				System.out.printf(" %2d - %-15s %-15s %-18s %.2f %d\n", ++k, 
+				System.out.printf(" %2d - %-15s %-15s %-15s %-10.2f %d\n", ++k, 
 				product.getType(), product.getBrand(), product.getName(), product.getSalePrice(), product.getStock());
 			}
 		}
@@ -218,13 +218,13 @@ public class Customer extends User implements Comparable<Customer> {
 	public void purchaseBasket(){
 		double price = 0;
 		System.out.printf("\n----------------- Basket of Customer %-15s -----------------", getName());
-		System.out.printf("\n    %-15s %-15s %-18s %-6s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock");
+		System.out.printf("\n    %-15s %-15s %-15s %-10s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock");
 		System.out.println("----------------------------------------------------------------------");
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i) == null || basket.get(i).size() == 0)
 				continue;
 			for(Product product: basket.get(i)){
-				System.out.printf("    %-15s %-15s %-18s %.2f %d\n", 
+				System.out.printf("    %-15s %-15s %-15s %-10.2f %d\n", 
 				product.getType(), product.getBrand(), product.getName(), product.getSalePrice(), product.getStock());
 				try {				
 					product.decreaseStock();	
