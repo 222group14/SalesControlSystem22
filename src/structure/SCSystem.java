@@ -614,7 +614,7 @@ public class SCSystem {
                 BranchEmployee bEmployee = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
                 success = currManager.addBranchEmployee(bEmployee);
                 users.put(bEmployee.getUserName(), bEmployee);
-                if(success) System.out.println(" BRANCH EMPLOYEE IS ADDED SUCCESSFULLY.");
+                if(!success) System.out.println(" BRANCH EMPLOYEE IS ADDED SUCCESSFULLY.");
             }
             else if(inp.equals("2")){
                 currManager.displayBranchEmployees();
@@ -651,10 +651,7 @@ public class SCSystem {
                 Customer newCustomer = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
                success =  currManager.addCustomer(newCustomer);
                 users.put(newCustomer.getUserName(), newCustomer);
-                    if(success) {
-                        System.out.println(" CUSTOMER IS ADDED SUCCESSFULLY.");
-                        System.out.println(currManager.getBranch().getStringCustomers());
-                    }
+                    if(!success) System.out.println(" CUSTOMER IS ADDED SUCCESSFULLY.");
             }
             else if(inp.equals("4")){
                 System.out.println(currManager.getBranch().getStringCustomers());
