@@ -267,7 +267,7 @@ public class Customer extends User implements Comparable<Customer> {
 	 */ 
 	@Override
 	public int compareTo(Customer other) {
-		return getName().compareTo(other.getName());
+		return getUserName().compareTo(other.getUserName());
 	}
 
 	/**

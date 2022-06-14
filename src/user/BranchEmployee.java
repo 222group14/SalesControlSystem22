@@ -243,6 +243,6 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 */ 
 	@Override
 	public int compareTo(BranchEmployee other) {
-		return getName().compareTo(other.getName());
+		return getUserName().compareTo(other.getUserName());
 	}	
 }
