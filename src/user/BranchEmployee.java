@@ -51,9 +51,13 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 */
 	public boolean addProduct(Product p) {
 		HashMap<ProductType, TreeSet<Product>> products = branch.getProducts();
-		if(!products.containsKey(p.getType()))
-			products.put(p.getType(), new TreeSet<Product>());
-		return products.get(p.getType()).add(p);
+        if(!products.containsKey(p.getType()))
+            products.put(p.getType(), new TreeSet<Product>());
+        if(products.get(p.getType()).add(p))
+            return true;
+        Product prod = products.get(p.getType()).ceiling(p);
+        prod.setStock(prod.getStock()+p.getStock());
+        return true;
 	}
 
 	/**

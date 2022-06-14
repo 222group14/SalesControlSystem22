@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.sun.source.tree.IfTree;
 import src.product.Clothes;
 import src.product.Drink;
 import src.product.Electronic;
@@ -174,29 +173,29 @@ public class SCSystem {
         company.getAdministrator().connectBranches(branch1, branch4, 15.6);
 
 		Customer customer1 = new Customer("ali", 29, Gender.MALE, "mali53", "rizeliA_li53" , branch1);
-		Customer customer2 = new Customer("avni", 25, Gender.MALE, "avni.celik", "avn_1234" , branch1);
-		Customer customer3 = new Customer("emir", 25, Gender.MALE, "emir.efe34", "E_efe1903" , branch2);
+        Customer customer2 = new Customer("avni", 25, Gender.MALE, "avni.celik", "avn_1234" , branch1);
+        Customer customer3 = new Customer("emir", 25, Gender.MALE, "emir.efe34", "E_efe1903" , branch1);
         branchmng1.addCustomer(customer1);
         branchmng1.addCustomer(customer2);
         branchmng1.addCustomer(customer3);
 
-        Customer customer4 = new Customer("alper", 21, Gender.MALE, "alper", "Alper1234" , branch1);
-		Customer customer5 = new Customer("tümay", 25, Gender.FEMALE, "tümay", "d21rgaw31." , branch1);
-		Customer customer6 = new Customer("fatma", 22, Gender.FEMALE, "fatma", "dwar1231.q" , branch2);
+        Customer customer4 = new Customer("alper", 21, Gender.MALE, "alper", "Alper1234" , branch2);
+        Customer customer5 = new Customer("tümay", 25, Gender.FEMALE, "tümay", "d21rgaw31." , branch2);
+        Customer customer6 = new Customer("fatma", 22, Gender.FEMALE, "fatma", "dwar1231.q" , branch2);
         branchmng2.addCustomer(customer4);
         branchmng2.addCustomer(customer5);
         branchmng2.addCustomer(customer6);
 
-        Customer customer7 = new Customer("necip", 19, Gender.MALE, "neco", "dsarr21wqe." , branch1);
-		Customer customer8 = new Customer("oğuzhan", 30, Gender.MALE, "ozi", "mk21mw21." , branch1);
-		Customer customer9 = new Customer("elif", 25, Gender.FEMALE, "Elif", "E_lif2431." , branch2);
+        Customer customer7 = new Customer("necip", 19, Gender.MALE, "neco", "dsarr21wqe." , branch3);
+        Customer customer8 = new Customer("oğuzhan", 30, Gender.MALE, "ozi", "mk21mw21." , branch3);
+        Customer customer9 = new Customer("elif", 25, Gender.FEMALE, "Elif", "E_lif2431." , branch3);
         branchmng3.addCustomer(customer7);
         branchmng3.addCustomer(customer8);
         branchmng3.addCustomer(customer9);
 
-        Customer customer10 = new Customer("Umut", 28, Gender.MALE, "umut", "umut2001." , branch1);
-		Customer customer11 = new Customer("kerem", 31, Gender.MALE, "kerem", "13kere_m." , branch1);
-		Customer customer12 = new Customer("burcu", 23, Gender.FEMALE, "burcu", "weqe1wda." , branch2);
+        Customer customer10 = new Customer("Umut", 28, Gender.MALE, "umut", "umut2001." , branch4);
+        Customer customer11 = new Customer("kerem", 31, Gender.MALE, "kerem", "13kere_m." , branch4);
+        Customer customer12 = new Customer("burcu", 23, Gender.FEMALE, "burcu", "weqe1wda." , branch4);
         branchmng4.addCustomer(customer10);
         branchmng4.addCustomer(customer11);
         branchmng4.addCustomer(customer12);
@@ -443,6 +442,7 @@ public class SCSystem {
                         }
                         else if(inp2.equals("2")){
                             Set<String> usernames = registeredUsers.keySet();
+                            ArrayList<String> approvedList = new ArrayList<String>();
                             ArrayList<String> rejectedList = new ArrayList<String>();
                             for (Object username : usernames) {
                                 User user = registeredUsers.get(username);
@@ -465,7 +465,7 @@ public class SCSystem {
                                             }
                                         }
                                         users.put(user.getUserName(), user);
-                                        registeredUsers.remove(user.getUserName());
+                                        approvedList.add(user.getUserName());
                                         System.out.println(" REGISTRATION IS APPROVED!");
                                     }
                                     else if(inp3.equals("2")){
@@ -481,7 +481,9 @@ public class SCSystem {
                                 } while (flag2);
                             }
                             for (int i = 0; i < rejectedList.size(); i++)
-                            registeredUsers.remove(rejectedList.get(i));
+                                registeredUsers.remove(rejectedList.get(i));
+                            for (int i = 0; i < approvedList.size(); i++)
+                                registeredUsers.remove(approvedList.get(i));
                         }
                         else if(inp2.equals("3")){
                             registeredUsers.clear();
@@ -530,15 +532,47 @@ public class SCSystem {
                 else
                     System.err.println(" THERE IS NO BRANCH TO ADD BRANCH MANAGER!");                
             }
-            else if(inp.equals("5"))
+            else if(inp.equals("5")){
+                administrator.displayBranchGraph();
+                System.out.print("\n Choose Source Branch: ");
+                Branch source = chooseBranch();
+                System.out.print("\n Choose Destination Branch: ");
+                Branch destination = chooseBranch();
+
+                double weight;
+                do {
+                    System.out.print("\n Enter Weight: ");
+                    String d = input.nextLine();
+                    try {        
+                        weight = Double.parseDouble(d);
+                        if(weight < 0.0)            
+                            System.err.println(" WEIGHT MUST BE POSITIVE!");
+                        else
+                            break;        
+                    } catch (Exception e) {
+                        System.err.println(" INVALID WEIGHT FORMAT!");
+                    }
+                } while (true);
+
+                
+                if(administrator.connectBranches(source, destination, weight))
+                    System.out.println(" BRANCHES ARE CONNECTED SUCCESSFULLY!");
+                else
+                    System.out.println(" BRANCHES COULD NOT CONNECTED!");
+
+                System.out.println();
+                administrator.displayBranchGraph();
+                
+            }
+            else if(inp.equals("6")) 
                 administrator.displayBranches();
-            else if(inp.equals("6"))
-                administrator.displayBranchManagers();
             else if(inp.equals("7"))
-                administrator.displayEmployees();
+                administrator.displayBranchManagers();
             else if(inp.equals("8"))
-                administrator.displayCustomers();
+                administrator.displayEmployees();
             else if(inp.equals("9"))
+                administrator.displayCustomers();
+            else if(inp.equals("10"))
                 administrator.displayTotalSalesPrice();
             else
                 System.out.println(" INVALID OPERATION!");
@@ -604,7 +638,7 @@ public class SCSystem {
         printMenuHeader("bmanager");
         System.out.print(" Choice: ");
         String inp = input.nextLine();
-
+        
         boolean success;
         while(!inp.equals("0")){
             System.out.print("\033[H\033[2J");
@@ -614,7 +648,8 @@ public class SCSystem {
                 BranchEmployee bEmployee = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
                 success = currManager.addBranchEmployee(bEmployee);
                 users.put(bEmployee.getUserName(), bEmployee);
-                if(!success) System.out.println(" BRANCH EMPLOYEE IS ADDED SUCCESSFULLY.");
+                if(success) 
+                    System.out.println(" BRANCH EMPLOYEE IS ADDED SUCCESSFULLY.");
             }
             else if(inp.equals("2")){
                 currManager.displayBranchEmployees();
@@ -638,10 +673,11 @@ public class SCSystem {
                             }
 			            }
                         if(!flag){
-                            System.out.println(" Selected branch employee is removed successfully");
+                            System.out.println(" SELECTED BRANCH EMPLOYEE IS REMOVED SUCCESSFULLY!");
                             currManager.displayBranchEmployees();
                         }
-                        else System.err.println(" ENTER EXISTING BRANCH EMPLOYEE!");
+                        else 
+                            System.err.println(" ENTER EXISTING BRANCH EMPLOYEE!");
                     } while(flag);
                 }
             }
@@ -649,9 +685,12 @@ public class SCSystem {
                 System.out.println("\n Enter Customer Name To Add: ");
                 User usr = createUser();
                 Customer newCustomer = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
-               success =  currManager.addCustomer(newCustomer);
+                success = currManager.addCustomer(newCustomer);
                 users.put(newCustomer.getUserName(), newCustomer);
-                    if(!success) System.out.println(" CUSTOMER IS ADDED SUCCESSFULLY.");
+                if(success) {
+                    System.out.println(" CUSTOMER IS ADDED SUCCESSFULLY.");
+                    System.out.println(currManager.getBranch().getStringCustomers());
+                }
             }
             else if(inp.equals("4")){
                 System.out.println(currManager.getBranch().getStringCustomers());
@@ -673,13 +712,13 @@ public class SCSystem {
                                 flag = false;
                                 break;
                             }
-			            }
+			            } 
                         if(!flag){
-                            System.out.println(" Selected customer is removed successfully:");
+                            System.out.println(" SELECTED CUSTOMER IS REMOVED SUCCESSFULLY!");
                             System.out.println(currManager.getBranch().getStringCustomers());
                         }
                         else
-                        System.err.println(" ENTER EXISTING CUSTOMER!");  
+                            System.err.println(" ENTER EXISTING CUSTOMER!");  
                     }while(flag);
                 }
             }
@@ -871,7 +910,7 @@ public class SCSystem {
             System.out.println("----------------------------------------------------------------------");
             System.out.println("-  1 - Sign Up  ------------------------------------------------------");
             System.out.println("-  2 - Sign In  ------------------------------------------------------");
-            System.out.println("-  0 - Exit     ------------------------------------------------------");
+            System.out.println("-  0 - Exit  ---------------------------------------------------------");
             System.out.println("----------------------------------------------------------------------");
         }
         else if(menu.equals("admin")){
@@ -882,13 +921,15 @@ public class SCSystem {
             System.out.printf("-  %-66s-\n", "2 - Add Branch");
             System.out.printf("-  %-66s-\n", "3 - Remove Branch");
             System.out.printf("-  %-66s-\n", "4 - Set Branch Manager");
-            System.out.printf("-  %-66s-\n", "5 - Display Branches");
-            System.out.printf("-  %-66s-\n", "6 - Display Branch Managers");
-            System.out.printf("-  %-66s-\n", "7 - Display Branch Employees");
-            System.out.printf("-  %-66s-\n", "8 - Display Customers");
-            System.out.printf("-  %-66s-\n", "9 - Display Company Sales Price");
+            System.out.printf("-  %-66s-\n", "5 - Connect Branches");
+            System.out.printf("-  %-66s-\n", "6 - Display Branches");
+            System.out.printf("-  %-66s-\n", "7 - Display Branch Managers");
+            System.out.printf("-  %-66s-\n", "8 - Display Branch Employees");
+            System.out.printf("-  %-66s-\n", "9 - Display Customers");
+            System.out.printf("-  %-66s-\n", "10 - Display Company Sales Price");
             System.out.printf("-  %-66s-\n", "0 - Exit");
             System.out.println("----------------------------------------------------------------------");
+
         }
         else if(menu.equals("bemployee")){
             System.out.println("\n----------------------------------------------------------------------");

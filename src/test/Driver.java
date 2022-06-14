@@ -10,7 +10,7 @@ public class Driver {
 		Scanner input = new Scanner(System.in);
 		String inp, inp2;
 		do {
-			System.out.print("\033[H\033[2J");
+			System.out.print("\033[H2\033[2J");
 	        System.out.println("\n----------------------------------------------------------------------");
     	    System.out.println("-------------------------- SYSTEM DRIVER -----------------------------");
 			System.out.println("----------------------------------------------------------------------");

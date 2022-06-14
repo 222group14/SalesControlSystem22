@@ -234,6 +234,7 @@ public class DynamicBranchGraph implements DynamicGraph, Iterable<Branch> {
 			return false;
 		return this.insert(new Edge(id1, id2, weight));
 	}
+	
 	/**
 	 * Removes edge from graph.
 	 * @param id1 source
