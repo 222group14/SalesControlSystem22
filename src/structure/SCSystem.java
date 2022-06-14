@@ -498,15 +498,25 @@ public class SCSystem {
             }
             else if(inp.equals("2")){
                 System.out.print("\n Enter Branch Name: ");
-                inp = input.nextLine();                    
-                Branch newBranch = new Branch(inp);
-                System.out.println("\n Enter Informations Of Branch Manager:");
-                User usr = createUser();
-                BranchManager bManager = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), newBranch);
-                administrator.setBranchManager(newBranch, bManager);
-                administrator.addBranch(newBranch);
-                users.put(bManager.getUserName(), bManager);
-                System.out.println(" BRANCH IS ADDED SUCCESSFULLY!");
+                inp = input.nextLine();
+                flag = false;
+                for (Branch branch : company.getBranches()) {
+                    if(branch.getBranchName().equals(inp)){
+                        System.out.println(" BRANCH IS ALREADY ADDED!");
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+                    Branch newBranch = new Branch(inp);
+                    System.out.println("\n Enter Informations Of Branch Manager:");
+                    User usr = createUser();
+                    BranchManager bManager = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), newBranch);
+                    administrator.setBranchManager(newBranch, bManager);
+                    administrator.addBranch(newBranch);
+                    users.put(bManager.getUserName(), bManager);
+                    System.out.println(" BRANCH IS ADDED SUCCESSFULLY!");
+                }
             }
             else if(inp.equals("3")){
                 DynamicBranchGraph branches = company.getBranches();
