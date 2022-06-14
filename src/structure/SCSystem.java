@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.sun.source.tree.IfTree;
 import src.product.Clothes;
 import src.product.Drink;
 import src.product.Electronic;
@@ -545,7 +546,11 @@ public class SCSystem {
                                 break;
                             }
 			            }
-                        System.err.println(" ENTER EXISTING BRANCH EMPLOYEE!");  
+                        if(!flag){
+                            System.out.println("Selected branch employee is removed:");
+                            currManager.displayBranchEmployees();
+                        }
+                        else System.err.println(" ENTER EXISTING BRANCH EMPLOYEE!");
                     } while(flag);
                 }
             }
@@ -576,7 +581,12 @@ public class SCSystem {
                                 flag = false;
                                 break;
                             }
-			            } 
+			            }
+                        if(!flag){
+                            System.out.println("Selected customer is removed:");
+                            System.out.println(currManager.getBranch().getStringCustomers());
+                        }
+                        else
                         System.err.println(" ENTER EXISTING CUSTOMER!");  
                     }while(flag);
                 }
