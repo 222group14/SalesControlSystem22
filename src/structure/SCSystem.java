@@ -40,7 +40,7 @@ public class SCSystem {
         System.out.println("Creating company");
 		this.company = new Company("BIG SUPERMARKET");
     	initialUsers();
-        menu();
+        
     }
 
     private void initialUsers(){

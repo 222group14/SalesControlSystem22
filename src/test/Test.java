@@ -453,7 +453,7 @@ public class Test {
 	/**
 	 * Test Case: Tests the GUI
 	 */
-	public static void test4() {
-		new SCSystem();
+	public static void test4(SCSystem system) {
+		system.menu();
 	}
 }

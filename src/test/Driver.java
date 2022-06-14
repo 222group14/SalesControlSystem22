@@ -2,8 +2,11 @@ package src.test;
 
 import java.util.Scanner;
 
+import src.structure.SCSystem;
+
 public class Driver {
 	public static void main (String args[]) {
+		SCSystem system = new SCSystem();
 		Scanner input = new Scanner(System.in);
 		String inp, inp2;
 		do {
@@ -57,7 +60,7 @@ public class Driver {
 				} while (!inp2.equals("0"));
 			}
 			else if(inp.equals("2")){
-				Test.test4();
+				Test.test4(system);
 			}
 			else if(!inp.equals("0"))
 				System.out.println(" INVALID OPERATION!");
