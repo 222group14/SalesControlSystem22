@@ -112,7 +112,8 @@ public class DynamicBranchGraph implements DynamicGraph, Iterable<Branch> {
 	 */
 	@Override
 	public boolean insert ( Edge edge ) {
-		if ( branchMap.get(edge.getSource()) == null || branchMap.get(edge.getDest()) == null )
+		if ( branchMap.get(edge.getSource()) == null || branchMap.get(edge.getDest()) == null
+			 || isEdge(edge.getSource(), edge.getDest()))
 			return false;
 
 		edgeMap.get(edge.getSource()).add(edge);
