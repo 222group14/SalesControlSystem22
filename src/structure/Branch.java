@@ -74,8 +74,9 @@ public class Branch {
 		// make sure manager is not owner of another branch
 		if (newManagerBranch == null)
 			manager.setBranch(this);
-		else if (!newManagerBranch.equals(this))
+		else if (!newManagerBranch.getBranchName().equals(this.branchName)){
 			return false;
+		}
 		this.manager = manager;
 		return true;
 	}
