@@ -614,7 +614,7 @@ public class SCSystem {
                 BranchEmployee bEmployee = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
                 success = currManager.addBranchEmployee(bEmployee);
                 users.put(bEmployee.getUserName(), bEmployee);
-                if(success) System.out.println(" BRANCH MANAGER IS ADDED SUCCESSFULLY.");
+                if(success) System.out.println(" BRANCH EMPLOYEE IS ADDED SUCCESSFULLY.");
             }
             else if(inp.equals("2")){
                 currManager.displayBranchEmployees();
