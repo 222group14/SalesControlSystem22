@@ -1,7 +1,5 @@
 package src.structure;
 
-import java.util.ArrayList;
-
 import src.graph.*;
 import src.product.Product;
 import src.user.Administrator;

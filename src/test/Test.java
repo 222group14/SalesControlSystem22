@@ -1,29 +1,21 @@
 package src.test;
 
 import src.product.*;
-import src.structure.Branch;
-import src.structure.Company;
-import src.structure.SCSystem;
-import src.user.Administrator;
-import src.user.BranchEmployee;
-import src.user.BranchManager;
-import src.user.Customer;
+import src.structure.*;
+import src.user.*;
 import java.util.Random;
-import java.util.TreeSet;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 public class Test {
-	public static void testQuickSort() {
+
+	public static void useOfSorting() {
+		// A branch that contains products (not related to algorithm)
 		Branch branch = new Branch("branchName");
-		// get the specific type of products
-		TreeSet<Product> products = branch.getProducts(ProductType.DRINK);
-		ArrayList<Drink> v = new ArrayList<>(products.size());
-		// add the products into the array-list
-		for (var e : products)
-			v.add((Drink) e);
-		// sort the products with the comparator
-		Collections.sort(v, new Drink.compareByExpDate());
+		// get array of specific type of products  
+		Drink[] drinks = (Drink[]) branch.getProducts(ProductType.DRINK).toArray();
+		// sort the products by the comparator
+		Arrays.sort(drinks, new Drink.compareByExpDate());
 	}
 
     /**
@@ -113,10 +105,10 @@ public class Test {
 
 		System.out.println("\nBranch Manager adds new customers.");
 		Customer customer2 = new Customer("asli", 25, Gender.FEMALE, "asliii", "A_sli3106." , branch1);
-		Customer customer3 = new Customer("osman", 55, Gender.MALE, "0smanK.", "O.smancık2001p" , branch1);
-		Customer customer4 = new Customer("ali", 29, Gender.MALE, "mali53", "rizeliA_li53" , branch1);
-		Customer customer5 = new Customer("avni", 25, Gender.MALE, "avni.celik", "avn_1234" , branch1);
-		Customer customer6 = new Customer("emir", 25, Gender.MALE, "emir.efe34", "E_efe1903" , branch1);
+		// Customer customer3 = new Customer("osman", 55, Gender.MALE, "0smanK.", "O.smancik2001p" , branch1);
+		// Customer customer4 = new Customer("ali", 29, Gender.MALE, "mali53", "rizeliA_li53" , branch1);
+		// Customer customer5 = new Customer("avni", 25, Gender.MALE, "avni.celik", "avn_1234" , branch1);
+		// Customer customer6 = new Customer("emir", 25, Gender.MALE, "emir.efe34", "E_efe1903" , branch1);
 		System.out.println("\n" + branch1 + "\n-----------");
 
 		employee1.removeProduct(product2);
@@ -256,7 +248,7 @@ public class Test {
 
 		//Creating a branch manager
 		BranchManager manager1 = new BranchManager("manager1", 30, Gender.MALE, "mngr_1" , "m4n4g3r1" , branch1);	
-
+		admin1.setBranchManager(branch1, manager1);
     	//Creating an employee and customer.	
 		BranchEmployee employee1 = new BranchEmployee("elif", 30, Gender.FEMALE, "Elifabla" , "Elif2001." , branch1);
 		Customer customer1 = new Customer("ayse", 25, Gender.FEMALE, "a.ayse58" , "58A_ysesivas" ,branch1);
@@ -298,13 +290,9 @@ public class Test {
 	}
 
 	/**
-	 * Test Case: Tests the GUI
+	 * Tests the performance of the system
 	 */
-	public static void testN() {
-		SCSystem sys = new SCSystem();
-	}
-
-	public static void performanceTest() {
+	public static void test3() {
 		performanceTest(100);
 		System.out.println("---------------------------------------------");
 		performanceTest(1000);
@@ -314,12 +302,16 @@ public class Test {
 	}
 
 
+	/**
+	 * Tests the performance of the system
+	 * @param size input size
+	 */
 	private static void performanceTest(int size) {
 
 		System.out.println("Performance test for " + size + " dataset.\n");
 
-		Company comp1 = new Company("comp");
-		Administrator admin1 = new Administrator("adm1", 22, Gender.FEMALE, "", "", comp1);
+		// Company comp1 = new Company("comp");
+		// Administrator admin1 = new Administrator("adm1", 22, Gender.FEMALE, "", "", comp1);
 		Branch br1 = new Branch("br1");
 		BranchManager bm1 = new BranchManager("bm1", 33, Gender.MALE, "","",br1);
 
@@ -334,7 +326,6 @@ public class Test {
 		startTime = System.nanoTime();
 		// test bm's add employee
 		for(int i = 0; i < size; ++i) {
-
 			employees.add(new BranchEmployee(Integer.valueOf(rand.nextInt(99999)).toString(), rand.nextInt(99), Gender.OTHER,"","", br1));
 		}
 		endTime = System.nanoTime();
@@ -457,5 +448,12 @@ public class Test {
 		endTime = System.nanoTime();
 		System.out.print((endTime - startTime) / size + "ns\n");
 
+	}
+
+	/**
+	 * Test Case: Tests the GUI
+	 */
+	public static void test4() {
+		new SCSystem();
 	}
 }
