@@ -605,7 +605,7 @@ public class SCSystem {
         System.out.print(" Choice: ");
         String inp = input.nextLine();
 
-        boolean success=false;
+        boolean success;
         while(!inp.equals("0")){
             System.out.print("\033[H\033[2J");
             if(inp.equals("1")){
@@ -638,7 +638,7 @@ public class SCSystem {
                             }
 			            }
                         if(!flag){
-                            System.out.println("Selected branch employee is removed:");
+                            System.out.println(" Selected branch employee is removed successfully");
                             currManager.displayBranchEmployees();
                         }
                         else System.err.println(" ENTER EXISTING BRANCH EMPLOYEE!");
@@ -678,7 +678,7 @@ public class SCSystem {
                             }
 			            }
                         if(!flag){
-                            System.out.println("Selected customer is removed:");
+                            System.out.println(" Selected customer is removed successfully:");
                             System.out.println(currManager.getBranch().getStringCustomers());
                         }
                         else
