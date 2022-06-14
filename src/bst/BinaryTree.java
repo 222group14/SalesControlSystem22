@@ -8,7 +8,6 @@ import java.util.Scanner;
  *
  * @param <E> The type of data to be stored
  */
-@SuppressWarnings("serial")
 public class BinaryTree<E> implements Serializable {
 	
 	//Data Fields

@@ -8,7 +8,6 @@ package src.bst;
  *
  * @param <E> The type of data stored. Must be a Comparable type
  */
-@SuppressWarnings("serial")
 public class BinarySearchTreeWithRotate<E extends Comparable<E>>
 	extends BinarySearchTree<E> {
 	

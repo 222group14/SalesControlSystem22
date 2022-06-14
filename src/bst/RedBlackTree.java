@@ -6,7 +6,6 @@ package src.bst;
  *
  * @param <E> The data type of items stored in the tree. Must be Comparable
  */
-@SuppressWarnings("serial")
 public class RedBlackTree<E extends Comparable<E>>
 	extends BinarySearchTreeWithRotate<E> {
 	
