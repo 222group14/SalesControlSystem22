@@ -102,37 +102,37 @@ public class Electronic extends Product{
         return height;
     } 
 
-    /**
-     * Comparator class for sorting the electornic products according to their width
-     */
-    public static class compareByWidth implements Comparator<Electronic> {
-        @Override
-        public int compare(Electronic arg0, Electronic arg1) {
-            double comp = arg0.getWidth() - arg1.getWidth();
+	/**
+	 * Comparator class for sorting the electornic products according to their width
+	 */
+	public static class compareByWidth implements Comparator<Electronic> {
+		@Override
+		public int compare(Electronic arg0, Electronic arg1) {
+			double comp = arg0.getWidth() - arg1.getWidth();
             if (comp < 0.0) 
                 return -1;
             else if (comp > 0.0)
                 return 1;
             else
                 return 0;
-        }
-    }
+		}
+	}
 
-    /**
-     * Comparator class for sorting the electornic products according to their height
-     */
-    public static class compareByHeight implements Comparator<Electronic> {
-        @Override
-        public int compare(Electronic arg0, Electronic arg1) {
-            double comp = arg0.getHeight() - arg1.getHeight();
+	/**
+	 * Comparator class for sorting the electornic products according to their height
+	 */
+	public static class compareByHeight implements Comparator<Electronic> {
+		@Override
+		public int compare(Electronic arg0, Electronic arg1) {
+			double comp = arg0.getHeight() - arg1.getHeight();
             if (comp < 0.0) 
                 return -1;
             else if (comp > 0.0)
                 return 1;
             else
                 return 0;
-        }
-    }
+		}
+	}
 
     /**
 	 * Returns string of the properties of the product : 

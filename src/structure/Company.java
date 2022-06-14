@@ -28,33 +28,13 @@ public class Company {
 	private DynamicBranchGraph branches = new DynamicBranchGraph(false);
 
 	/**
-	 * An array of name of product types
-	 */
-	private ArrayList<String> productTypes = new ArrayList<String>(); 
-
-	/**
 	 * Constructor which takes company name
 	 * @param companyName company name
 	 */ 
 	public Company(String companyName) {
 		this.companyName = companyName;
-		productTypes.add("Book");
-		productTypes.add("Clothes");
-		productTypes.add("Drink");
-		productTypes.add("Electronic");
-		productTypes.add("Food");
-		productTypes.add("Furniture");
-		productTypes.add("Personal Care");
-		productTypes.add("Toy");
 	}
 
-	/**
-	 * Returns the array of name of product types
-	 * @return The productTypes array.
-	 */
-	public ArrayList<String> getProductTypes(){
-		return productTypes;
-	}
 
 	/**
 	 * Returns list of branches.

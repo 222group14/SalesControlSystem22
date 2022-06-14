@@ -40,7 +40,7 @@ public class Branch {
 	private BinarySearchTree<BranchEmployee> employees = new RedBlackTree<BranchEmployee>(); 	
 
 	/**
-	 * All Products that branch has
+	 * All Products that branch has with divided subsets with the usage of hashMap
 	 */ 
 	//private TreeSet<Product> products = new TreeSet<>(); 
 	private HashMap<ProductType,TreeSet<Product>> products = new HashMap<ProductType,TreeSet<Product>>();
@@ -90,7 +90,7 @@ public class Branch {
 
 	/**
 	 * Getter for products
-	 * @return products as ArrayList of LinkedList
+	 * @return set of products
 	 */ 
 	public TreeSet<Product> getProducts(ProductType type) {
 		return products.get(type);
@@ -98,9 +98,9 @@ public class Branch {
 
 	/**
 	 * Getter for products
-	 * @return products as ArrayList of LinkedList
+	 * @return hashmap of set of products
 	 */ 
-	public HashMap<ProductType, TreeSet<Product>> getProducts() {
+	public HashMap<ProductType,TreeSet<Product>> getProducts() {
 		return products;
 	}
 
