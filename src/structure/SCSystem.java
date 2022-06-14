@@ -717,12 +717,12 @@ public class SCSystem {
         System.out.print("\033[H\033[2J");    
     }
     
-
     private void sortBy(Object[] array, ProductType type){
         Scanner input = new Scanner(System.in);
         String inp;
         boolean flag;
         if(type.equals(ProductType.BOOK)){
+            Book[] arr = Arrays.copyOf(array, array.length, Book[].class);
             do {
                 flag = false;
                 printMenuHeader("compare");
@@ -731,20 +731,21 @@ public class SCSystem {
                 System.out.print(" Choice: ");
                 inp = input.nextLine();
                 if(inp.equals("1"))
-                    Arrays.sort((Book[])array, new Product.compareByBrand());
+                    Arrays.sort(arr, new Product.compareByBrand());
                 else if(inp.equals("2"))
-                    Arrays.sort((Book[])array, new Product.compareByName());
+                    Arrays.sort(arr, new Product.compareByName());
                 else if(inp.equals("3"))
-                    Arrays.sort((Book[])array, new Product.compareByPrice());
+                    Arrays.sort(arr, new Product.compareByPrice());
                 else if(inp.equals("4"))
-                    Arrays.sort((Book[])array, new Product.compareByType());
+                    Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
-                    Arrays.sort((Book[])array, new Book.CompareByAuthor());
+                    Arrays.sort(arr, new Book.CompareByAuthor());
                 else if(inp.equals("6"))
-                    Arrays.sort((Book[])array, new Book.CompareByKind());
+                    Arrays.sort(arr, new Book.CompareByKind());
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);
+            printProducts(arr);
         }
         else if(type.equals(ProductType.CLOTHES)){
             Clothes[] arr = Arrays.copyOf(array, array.length, Clothes[].class);
@@ -773,8 +774,10 @@ public class SCSystem {
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);
+            printProducts(arr);
         }
         else if(type.equals(ProductType.DRINK)){
+            Drink[] arr = Arrays.copyOf(array, array.length, Drink[].class);
             do {
                 flag = false;
                 printMenuHeader("compare");
@@ -782,20 +785,22 @@ public class SCSystem {
                 System.out.print(" Choice: ");
                 inp = input.nextLine();
                 if(inp.equals("1"))
-                    Arrays.sort((Drink[])array, new Product.compareByBrand());
+                    Arrays.sort(arr, new Product.compareByBrand());
                 else if(inp.equals("2"))
-                    Arrays.sort((Drink[])array, new Product.compareByName());
+                    Arrays.sort(arr, new Product.compareByName());
                 else if(inp.equals("3"))
-                    Arrays.sort((Drink[])array, new Product.compareByPrice());
+                    Arrays.sort(arr, new Product.compareByPrice());
                 else if(inp.equals("4"))
-                    Arrays.sort((Drink[])array, new Product.compareByType());
+                    Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
-                    Arrays.sort((Drink[])array, new Drink.compareByExpDate());
+                    Arrays.sort(arr, new Drink.compareByExpDate());
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);
+            printProducts(arr);
         }
         else if(type.equals(ProductType.ELECTRONIC)){
+            Electronic[] arr = Arrays.copyOf(array, array.length, Electronic[].class);
             do {
                 flag = false;
                 printMenuHeader("compare");
@@ -804,22 +809,24 @@ public class SCSystem {
                 System.out.print(" Choice: ");
                 inp = input.nextLine();
                 if(inp.equals("1"))
-                    Arrays.sort((Electronic[])array, new Product.compareByBrand());
+                    Arrays.sort(arr, new Product.compareByBrand());
                 else if(inp.equals("2"))
-                    Arrays.sort((Electronic[])array, new Product.compareByName());
+                    Arrays.sort(arr, new Product.compareByName());
                 else if(inp.equals("3"))
-                    Arrays.sort((Electronic[])array, new Product.compareByPrice());
+                    Arrays.sort(arr, new Product.compareByPrice());
                 else if(inp.equals("4"))
-                    Arrays.sort((Electronic[])array, new Product.compareByType());
+                    Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
-                    Arrays.sort((Electronic[])array, new Electronic.compareByHeight());
+                    Arrays.sort(arr, new Electronic.compareByHeight());
                 else if(inp.equals("6"))
-                    Arrays.sort((Electronic[])array, new Electronic.compareByWidth());
+                    Arrays.sort(arr, new Electronic.compareByWidth());
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);
+            printProducts(arr);
         }
         else if(type.equals(ProductType.FOOD)){
+            Food[] arr = Arrays.copyOf(array, array.length, Food[].class);
             do {
                 flag = false;
                 printMenuHeader("compare");
@@ -827,20 +834,22 @@ public class SCSystem {
                 System.out.print(" Choice: ");
                 inp = input.nextLine();
                 if(inp.equals("1"))
-                    Arrays.sort((Food[])array, new Product.compareByBrand());
+                    Arrays.sort(arr, new Product.compareByBrand());
                 else if(inp.equals("2"))
-                    Arrays.sort((Food[])array, new Product.compareByName());
+                    Arrays.sort(arr, new Product.compareByName());
                 else if(inp.equals("3"))
-                    Arrays.sort((Food[])array, new Product.compareByPrice());
+                    Arrays.sort(arr, new Product.compareByPrice());
                 else if(inp.equals("4"))
-                    Arrays.sort((Food[])array, new Product.compareByType());
+                    Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
-                    Arrays.sort((Food[])array, new Food.compareByExpDate());
+                    Arrays.sort(arr, new Food.compareByExpDate());
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);
+            printProducts(arr);
         }
         else if(type.equals(ProductType.FURNITURE)){
+            Furniture[] arr = Arrays.copyOf(array, array.length, Furniture[].class);
             do {
                 flag = false;
                 printMenuHeader("compare");
@@ -850,24 +859,26 @@ public class SCSystem {
                 System.out.print(" Choice: ");
                 inp = input.nextLine();
                 if(inp.equals("1"))
-                    Arrays.sort((Furniture[])array, new Product.compareByBrand());
+                    Arrays.sort(arr, new Product.compareByBrand());
                 else if(inp.equals("2"))
-                    Arrays.sort((Furniture[])array, new Product.compareByName());
+                    Arrays.sort(arr, new Product.compareByName());
                 else if(inp.equals("3"))
-                    Arrays.sort((Furniture[])array, new Product.compareByPrice());
+                    Arrays.sort(arr, new Product.compareByPrice());
                 else if(inp.equals("4"))
-                    Arrays.sort((Furniture[])array, new Product.compareByType());
+                    Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
-                    Arrays.sort((Furniture[])array, new Furniture.compareByColor());
+                    Arrays.sort(arr, new Furniture.compareByColor());
                 else if(inp.equals("6"))
-                    Arrays.sort((Furniture[])array, new Furniture.compareByHeight());
+                    Arrays.sort(arr, new Furniture.compareByHeight());
                 else if(inp.equals("7"))
-                    Arrays.sort((Furniture[])array, new Furniture.compareByWidth());
+                    Arrays.sort(arr, new Furniture.compareByWidth());
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);
+            printProducts(arr);
         }
         else if(type.equals(ProductType.PERSONALCARE)){
+            PersonalCare[] arr = Arrays.copyOf(array, array.length, PersonalCare[].class);
             do {
                 flag = false;
                 printMenuHeader("compare");
@@ -875,20 +886,22 @@ public class SCSystem {
                 System.out.print(" Choice: ");
                 inp = input.nextLine();
                 if(inp.equals("1"))
-                    Arrays.sort((PersonalCare[])array, new Product.compareByBrand());
+                    Arrays.sort(arr, new Product.compareByBrand());
                 else if(inp.equals("2"))
-                    Arrays.sort((PersonalCare[])array, new Product.compareByName());
+                    Arrays.sort(arr, new Product.compareByName());
                 else if(inp.equals("3"))
-                    Arrays.sort((PersonalCare[])array, new Product.compareByPrice());
+                    Arrays.sort(arr, new Product.compareByPrice());
                 else if(inp.equals("4"))
-                    Arrays.sort((PersonalCare[])array, new Product.compareByType());
+                    Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
-                    Arrays.sort((PersonalCare[])array, new PersonalCare.compareByExpDate());
+                    Arrays.sort(arr, new PersonalCare.compareByExpDate());
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);
+            printProducts(arr);
         }
         else if(type.equals(ProductType.TOY)){
+            Toy[] arr = Arrays.copyOf(array, array.length, Toy[].class);
             do {
                 flag = false;
                 printMenuHeader("compare");
@@ -897,26 +910,29 @@ public class SCSystem {
                 System.out.print(" Choice: ");
                 inp = input.nextLine();
                 if(inp.equals("1"))
-                    Arrays.sort((Toy[])array, new Product.compareByBrand());
+                    Arrays.sort(arr, new Product.compareByBrand());
                 else if(inp.equals("2"))
-                    Arrays.sort((Toy[])array, new Product.compareByName());
+                    Arrays.sort(arr, new Product.compareByName());
                 else if(inp.equals("3"))
-                    Arrays.sort((Toy[])array, new Product.compareByPrice());
+                    Arrays.sort(arr, new Product.compareByPrice());
                 else if(inp.equals("4"))
-                    Arrays.sort((Toy[])array, new Product.compareByType());
+                    Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
-                    Arrays.sort((Toy[])array, new Toy.CompareByAuthor());
+                    Arrays.sort(arr, new Toy.CompareByAuthor());
                 else if(inp.equals("6"))
-                    Arrays.sort((Toy[])array, new Toy.compareByWidth());
+                    Arrays.sort(arr, new Toy.compareByWidth());
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);
+            printProducts(arr);
         }
+    }
 
+    private void printProducts(Product[] arr){
         System.out.println("\n------------------------------ Products ------------------------------\n");
         System.out.println("----------------------------------------------------------------------\n");
-		for (int i = 0; i < array.length; i++)
-            System.out.println(array[i]);
+		for (int i = 0; i < arr.length; i++)
+            System.out.println(arr[i]);
         System.out.println("----------------------------------------------------------------------\n");
     }
 
