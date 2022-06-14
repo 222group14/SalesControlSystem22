@@ -1,10 +1,10 @@
 package src.user;
 
 import src.graph.*;
+import src.product.Gender;
 import src.structure.Branch;
 import src.structure.Company;
 import src.bst.*;
-import src.incommon.Gender;
 
 /**
  * 
@@ -81,7 +81,6 @@ public class Administrator extends User {
 				return branchManager;
 			}
 		}
-	
 		return null;
 	}
 
@@ -133,7 +132,9 @@ public class Administrator extends User {
 	 */ 
 	public void displayBranches() {
 		DynamicBranchGraph branches = company.getBranches();
+		System.err.println("\n------------------------------ Branches ------------------------------");
 		System.out.printf(" %-20s %-20s\n","Branch Name", "Branch Manager");
+		System.out.println("----------------------------------------------------------------------");
 		for(Branch branch: branches) {
 			System.out.printf(" %-20s ", branch.getBranchName());
 			if (branch.getBranchManager() != null) 
@@ -141,6 +142,20 @@ public class Administrator extends User {
 			else
 				System.out.println("None");
 		}
+		System.out.println("----------------------------------------------------------------------");
+	}
+
+	/**
+	 * Displays the total sales price of the company
+	 */
+	public void displayTotalSalesPrice(){
+		double total = 0.0;
+		for (Branch branch : company.getBranches())
+			total += branch.getSalesPrice();
+	
+		System.out.println("----------------------------------------------------------------------");
+		System.out.printf(" Total Amount Of Sales Of Company : %.2f\n", total);
+		System.out.println("----------------------------------------------------------------------");	
 	}
 
 	/**
@@ -158,16 +173,20 @@ public class Administrator extends User {
 	 */ 
 	public void displayCustomers() {
 		DynamicBranchGraph branches = company.getBranches();
-		System.out.println("\n Customers of " + company.getCompanyName());
+		System.err.printf("\n----------------- Customers of %-20s ------------------\n", company.getCompanyName());
+		System.out.printf(" %-20s %-20s %-20s\n","Branch Name", "Customer Name", "Customer Username");
+		System.out.println("----------------------------------------------------------------------");
 		for(Branch branch: branches) {
-			System.out.printf(" %s :\n", branch.getBranchName());
 			var customers = branch.getCustomers();
-
-			int i = 0;
-			for(Customer customer: customers) {
-				System.out.printf(" %3d - %s\n", ++i, customer.getName());
+			if(customers != null){
+				for(Customer customer: customers) {
+					System.out.printf(" %-20s %-20s %-20s\n", branch.getBranchName(), customer.getName(), customer.getUserName());
+				}
 			}
+			else
+				System.out.printf("%-20s %-20s\n", "None", "None");
 		}
+		System.out.println("----------------------------------------------------------------------");
 	}
 
 	/**
@@ -175,16 +194,21 @@ public class Administrator extends User {
 	 */ 
 	public void displayEmployees() {
 		DynamicBranchGraph branches = company.getBranches();
-		System.out.println("\n Employees of " + company.getCompanyName());
+		System.err.printf("\n------------------ Employees of %-19s ------------------\n", company.getCompanyName());
+		System.out.printf(" %-20s %-20s %-20s\n","Branch Name", "Employee Name", "Employee Username");
+		System.out.println("----------------------------------------------------------------------");
 		for(Branch branch: branches) {
-			System.out.printf(" %s :\n", branch.getBranchName());
-			BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
-
-			int i = 0;
-			for(BranchEmployee employee: employees) {
-				System.out.printf(" %3d - %s\n", ++i, employee.getName());
+			
+			BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();	
+			if(employees != null){
+				for(BranchEmployee employee : employees) {
+					System.out.printf(" %-20s %-20s %-20s\n", branch.getBranchName(), employee.getName(), employee.getUserName());
+				}
 			}
-		}	
+			else
+				System.out.printf("%-20s %-20s\n", "None", "None");
+		}
+		System.out.println("----------------------------------------------------------------------");
 	}
 
 	/**

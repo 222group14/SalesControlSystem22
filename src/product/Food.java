@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Food extends Product {
 
 	/**
@@ -17,14 +19,13 @@ public class Food extends Product {
      * (Number of stock is set to its default value 0)  
 	 * @param name Name of the food
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Food)
 	 * @param entryPrice Entry price for the product
      * @param expDate Expiry date of the food
 	 * @param weight Weight of the food
 	 */
-    public Food(String name, String brand, String type, double entryPrice, 
+    public Food(String name, String brand, double entryPrice, 
                  String expDate, double weight) {
-        super(name, brand, type, entryPrice);
+        super(name, brand, ProductType.FOOD, entryPrice);
         this.expDate = expDate;
 		this.weight = weight;
     }
@@ -33,15 +34,14 @@ public class Food extends Product {
 	 * Constructs a Food object with given properties
 	 * @param name Name of the food
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Food)
 	 * @param entryPrice Entry price for the product
      * @param expDate Expiry date of the food
 	 * @param weight Weight of the food
 	 * @param numStock Number of stock for the product
 	 */
-    public Food(String name, String brand, String type, double entryPrice, 
+    public Food(String name, String brand, double entryPrice, 
                  String expDate, double weight, int numStock) {
-        super(name, brand, type, entryPrice, numStock);
+        super(name, brand, ProductType.FOOD, entryPrice, numStock);
         this.expDate = expDate;
 		this.weight = weight;
     }
@@ -63,6 +63,16 @@ public class Food extends Product {
 	}
 
 	/**
+	 * Comparator class for sorting the foods according to expiry date
+	 */
+	public static class compareByExpDate implements Comparator<Food> {
+		@Override
+		public int compare(Food arg0, Food arg1) {
+			return arg0.getExpDate().compareTo(arg1.getExpDate());			
+		}
+	}
+
+	/**
 	 * Returns string of the properties of the product : 
 	 * Name, brand, type, entryprice, expiry date, weight
      * @return String of the properties of the product
@@ -70,10 +80,10 @@ public class Food extends Product {
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("\n Category: Food");
 		sb.append(super.toString());
         sb.append("\n Expiry Date: " + getExpDate());
-		sb.append("\n Weight(kg): " + getWeight());
-
+        sb.append(String.format("\n Weight: %.2f", getWeight()));
 		return sb.toString();
 	}
 

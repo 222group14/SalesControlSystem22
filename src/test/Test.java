@@ -1,7 +1,5 @@
 package src.test;
 
-import src.product.Clothes;
-import src.incommon.*;
 import src.product.*;
 import src.structure.Branch;
 import src.structure.Company;
@@ -11,9 +9,23 @@ import src.user.BranchEmployee;
 import src.user.BranchManager;
 import src.user.Customer;
 import java.util.Random;
+import java.util.TreeSet;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Test {
+	public static void testQuickSort() {
+		Branch branch = new Branch("branchName");
+		// get the specific type of products
+		TreeSet<Product> products = branch.getProducts(ProductType.DRINK);
+		ArrayList<Drink> v = new ArrayList<>(products.size());
+		// add the products into the array-list
+		for (var e : products)
+			v.add((Drink) e);
+		// sort the products with the comparator
+		Collections.sort(v, new Drink.compareByExpDate());
+	}
+
     /**
 	 * Tests all the public methods of classes
 	 */
@@ -55,7 +67,7 @@ public class Test {
 		System.out.println("\n" + company1 + "\n----------");
 
     	System.out.println("Creating a new product."); 		
-		Product product1 = new Clothes("clothes1", "brand1", "Clothes", 132.6, Size.XL, "matType1", "blue", false, Gender.FEMALE);
+		Product product1 = new Clothes("clothes1", "brand1", 132.6, Size.XL, "matType1", "blue", false, Gender.FEMALE);
 		System.out.println("\n" + product1 + "\n-----------");
 
     	System.out.println("Employee adds product to the branch. Branch after adding product."); 			
@@ -73,12 +85,12 @@ public class Test {
 
 
 		System.out.println("\nEmployees add new products.");
-		Product product2 = new Clothes("clothes2", "brand2", "Clothes", 111.8, Size.L, "matType1", "green", true, Gender.MALE);		
-		Product product3 = new Drink("tea", "brand3", "Drink", 12.6 , "11/02/2023", 1.5);
-		Product product4 = new Electronic("phone", "samsung", "Electronic", 1000.0, 200, false, 12.1, 21.0);
-		Product product5 = new Food("crisps", "ruffle", "Food", 132.6, "13/07/2023", 0.250);
-		Product product6 = new Furniture("furniture1", "ikea", "Furniture", 131.9, 142.1, 1.92, "black");
-		Product product7 = new PersonalCare("shampoo", "blendax", "Personal Care", 76.1, "For Dandruff Hair", "14/06/2024");
+		Product product2 = new Clothes("clothes2", "brand2", 111.8, Size.L, "matType1", "green", true, Gender.MALE);		
+		Product product3 = new Drink("tea", "brand3", 12.6 , "11/02/2023", 1.5);
+		Product product4 = new Electronic("phone", "samsung", 1000.0, 200, false, 12.1, 21.0);
+		Product product5 = new Food("crisps", "ruffle", 132.6, "13/07/2023", 0.250, 0);
+		Product product6 = new Furniture("furniture1", "ikea", 131.9, 142.1, 1.92, "black");
+		Product product7 = new PersonalCare("shampoo", "blendax", 76.1, "For Dandruff Hair", "14/06/2024");
 
 		employee5.addProduct(product2);
 		employee6.addProduct(product3);
@@ -111,15 +123,15 @@ public class Test {
 		System.out.println("\nEmployee removes product.");
 		System.out.println("\n" + branch1 + "\n-----------");
 
-		customer1.requestProduct(new Clothes("tshirt", "brand3", "Clothes", 113.9, Size.XL, "matType2", "gray", true, Gender.FEMALE));
-		customer2.requestProduct(new PersonalCare("cream", "nivea", "Personal Care", 13.8, "For dry skins", "22/03/2025"));
-		customer2.requestProduct(new Food("noodles", "brand5", "Food", 7.6, "15/02/2023", 0.4));
+		customer1.requestProduct(new Clothes("tshirt", "brand3", 113.9, Size.XL, "matType2", "gray", true, Gender.FEMALE));
+		customer2.requestProduct(new PersonalCare("cream", "nivea", 13.8, "For dry skins", "22/03/2025"));
+		customer2.requestProduct(new Food("noodles", "brand5", 7.6, "15/02/2023", 0.4, 0));
 		System.out.println("\nSome customers requested products. One of the employees display requested products.\n");
 
 		employee1.displayRequestedProducts();
 
 		System.out.println("\nEmployee adds requested product according to the priority.");		
-		employee1.addRequestedProducts();
+		employee1.addRequestedProducts(10);
 
 		System.out.println("\nManager displays products.\n");
 		manager1.displayProducts();
@@ -172,13 +184,13 @@ public class Test {
 		}
 		Customer customer1 = new Customer("ayse", 25, Gender.FEMALE, "a.ayse58" , "58A_ysesivas", branches.get(0));
 		
-		employees.get(0).addProduct(new Clothes("clothes1", "brand1", "Clothes", 132.6, Size.XL,
+		employees.get(0).addProduct(new Clothes("clothes1", "brand1", 132.6, Size.XL,
 									 "matType1", "blue", false, Gender.FEMALE));
-		employees.get(0).addProduct(new PersonalCare("cream", "nivea", "Personal Care", 13.8, "For dry skins", "22/03/2025"));
-		employees.get(0).addProduct(new Furniture("furniture1", "ikea", "Furniture", 131.9, 142.1, 1.92, "black"));
+		employees.get(0).addProduct(new PersonalCare("cream", "nivea", 13.8, "For dry skins", "22/03/2025"));
+		employees.get(0).addProduct(new Furniture("furniture1", "ikea", 131.9, 142.1, 1.92, "black"));
 
 		for(int i = 5; i < 15; ++i) {
-			employees.get(i).addProduct(new Electronic("phone", "samsung", "Electronic", 1000.0, 200, false, 12.1, 21.0));			
+			employees.get(i).addProduct(new Electronic("phone", "samsung", 1000.0, 200, false, 12.1, 21.0));			
 		}
 
 
@@ -224,7 +236,7 @@ public class Test {
 
 		System.out.println("\nCustomer requests an unexisted product of current branch which is electronic device, and gets branch suggestion\n");
 
-		Branch b = customer1.getBranchSuggestion(company1, new Electronic("phone", "samsung", "Electronic", 1000.0, 200, false, 12.1, 21.0));
+		Branch b = customer1.getBranchSuggestion(company1, new Electronic("phone", "samsung", 1000.0, 200, false, 12.1, 21.0));
 		System.out.println("Suggested(closest) branch according to the dijkstra is: " + b.getBranchName());
 	}
 
@@ -253,10 +265,10 @@ public class Test {
 		admin1.addBranch(branch1);
 
 		// Employees add new products.
-		Product product2 = new Clothes("tshirt", "zara", "Clothes", 111.8, Size.L, "matType1", "green", true, Gender.MALE,7);		
-		Product product5 = new Clothes("blouse", "mavi", "Clothes", 74, Size.M, "matType1", "white", true, Gender.FEMALE,6);		
-		Product product3 = new Drink("tea", "dogus", "Drink", 12.6 , "11/02/2023", 1.5,10);
-		Product product4 = new Electronic("phone", "samsung", "Electronic", 1000.0, 200, false, 12.1, 21.0,5);
+		Product product2 = new Clothes("tshirt", "zara", 111.8, Size.L, "matType1", "green", true, Gender.MALE,7);		
+		Product product5 = new Clothes("blouse", "mavi", 74, Size.M, "matType1", "white", true, Gender.FEMALE,6);		
+		Product product3 = new Drink("tea", "dogus", 12.6 , "11/02/2023", 1.5,10);
+		Product product4 = new Electronic("phone", "samsung", 1000.0, 200, false, 12.1, 21.0);
 
 		employee1.addProduct(product2);
 		employee1.addProduct(product5);
@@ -343,7 +355,7 @@ public class Test {
 
 		for(int i = 0; i < size; ++i) {
 
-			products.add(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", "type", (double) Integer.valueOf(rand.nextInt(99999))));
+			products.add(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", ProductType.OTHER, (double) Integer.valueOf(rand.nextInt(99999))));
 		}
 
 		System.out.print("average of inserting " + size +  " product = ");
@@ -362,7 +374,7 @@ public class Test {
 		// test request product(priority queue)
 		for(int i = 0; i < size; ++i) {
 
-			customers.get(i).requestProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", "type", (double) Integer.valueOf(rand.nextInt(99999))));
+			customers.get(i).requestProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", ProductType.OTHER, (double) Integer.valueOf(rand.nextInt(99999))));
 		}
 		endTime = System.nanoTime();
 
@@ -371,7 +383,7 @@ public class Test {
 		System.out.print("addRequestedProducts() = ");
 		startTime = System.nanoTime();			
 		// test add requested products
-		employees.get(0).addRequestedProducts();
+		employees.get(0).addRequestedProducts(10);
 		endTime = System.nanoTime();
 
 		System.out.print((endTime - startTime) / size + "ns\n");
@@ -435,13 +447,13 @@ public class Test {
 
 		System.out.print("inserting one product to full = ");
 		startTime = System.nanoTime();			
-		employees.get(2).addProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", "type", (double) Integer.valueOf(rand.nextInt(99999))));
+		employees.get(2).addProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", ProductType.OTHER, (double) Integer.valueOf(rand.nextInt(99999))));
 		endTime = System.nanoTime();
 		System.out.print((endTime - startTime) / size + "ns\n");
 
 		System.out.print("requesting one product to full = ");
 		startTime = System.nanoTime();			
-		customers.get(2).requestProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", "type", (double) Integer.valueOf(rand.nextInt(99999))));
+		customers.get(2).requestProduct(new Product(Integer.valueOf(rand.nextInt(99999)).toString(), "brand", ProductType.OTHER, (double) Integer.valueOf(rand.nextInt(99999))));
 		endTime = System.nanoTime();
 		System.out.print((endTime - startTime) / size + "ns\n");
 

@@ -1,4 +1,7 @@
+
 package src.product;
+
+import java.util.Comparator;
 
 public class Toy extends Product{
 
@@ -17,14 +20,13 @@ public class Toy extends Product{
 	 * (Number of stock is set to its default value 0)  
 	 * @param name Name of the toy
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Toy)
 	 * @param entryPrice Entry price for the product
      * @param playingAge Playing age of the toy
 	 * @param kind Kind of the toy 
 	 */
-    public Toy(String name, String brand, String type, double entryPrice,
+    public Toy(String name, String brand, double entryPrice,
 				int playingAge, String kind) {
-        super(name, brand, type, entryPrice);
+        super(name, brand, ProductType.TOY, entryPrice);
 		this.playingAge = playingAge;
 		this.kind = kind;              
     }
@@ -33,15 +35,14 @@ public class Toy extends Product{
 	 * Constructs a Toy object with given properties 
 	 * @param name Name of the toy
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Toy)
 	 * @param entryPrice Entry price for the product
      * @param playingAge Playing age of the toy
 	 * @param kind Kind of the toy 
 	 * @param numStock Number of stock for the product
 	 */
-    public Toy(String name, String brand, String type, double entryPrice,
+    public Toy(String name, String brand, double entryPrice,
 				int playingAge, String kind, int numStock) {
-        super(name, brand, type, entryPrice, numStock);
+        super(name, brand, ProductType.TOY, entryPrice, numStock);
 		this.playingAge = playingAge;
 		this.kind = kind;              
     }
@@ -63,6 +64,33 @@ public class Toy extends Product{
 	}
 
 	/**
+	 * Comparator class for sorting the toys according to kind of toy (alhabetical order)
+	 */
+	public static class CompareByAuthor implements Comparator<Toy> {
+		@Override
+		public int compare(Toy arg0, Toy arg1) {
+			return arg0.getKind().compareTo(arg1.getKind());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the toys according to their playing age
+	 */
+	public static class compareByWidth implements Comparator<Toy> {
+		@Override
+		public int compare(Toy arg0, Toy arg1) {
+			int comp = arg0.getPlayingAge() - arg1.getPlayingAge();
+            if (comp < 0) 
+                return -1;
+            else if (comp > 0)
+                return 1;
+            else
+                return 0;
+		}
+	}
+
+
+	/**
 	 * Returns string of the properties of the product : 
 	 * Name, brand, type, entryprice, playing age, kind
      * @return String of the properties of the product
@@ -70,10 +98,10 @@ public class Toy extends Product{
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("\n Category: Toy");
 		sb.append(super.toString());
 		sb.append("\n Playing Age: " + getPlayingAge());
 		sb.append("\n Kind: " + getKind());
-
 		return sb.toString();
 	}
 

@@ -2,15 +2,19 @@ package src.user;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.TreeSet;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.HashMap;
 
 import src.graph.DynamicBranchGraph;
 import src.graph.DijkstraAlgorithm;
-import src.incommon.Gender;
+import src.product.Gender;
 import src.product.Product;
+import src.product.ProductType;
 import src.structure.Branch;
 import src.structure.Company;
 
@@ -95,7 +99,7 @@ public class Customer extends User implements Comparable<Customer> {
 	 */ 
 	public boolean addProductToBasket(Product product) {
 		for(int i = 0; i < basket.size(); ++i) {
-			if(basket.get(i).get(0).getClass().equals(product.getClass())) {
+			if(basket.get(i).get(0) instanceof Product) {
 				lastAdded.push(product);
 
 				// insert from last removed
@@ -104,8 +108,9 @@ public class Customer extends User implements Comparable<Customer> {
 				return basket.get(i).add(product);
 			}
 		}
-		basket.add(new LinkedList<Product>());
-		return basket.get(basket.size() - 1).add(product);		
+		LinkedList<Product> newList = new LinkedList<Product>();
+		newList.add(product);
+		return basket.add(newList);		
 	}
 
 	/**
@@ -124,6 +129,47 @@ public class Customer extends User implements Comparable<Customer> {
 	}
 
 	/**
+	 * Finds the product according to its name
+	 * @param productName Name of the product
+	 * @return If the product is found, returns a reference for the product
+	 *  	associated with the given product name. Otherwise returns null.
+	 */
+	public Product findProductByName(String productName) {
+		HashMap<ProductType, TreeSet<Product>> products = shoppingBranch.getProducts();
+		// iterate through products
+		for (TreeSet<Product> treeSet : products.values()) {	
+			Iterator<Product> itr = treeSet.iterator();
+			while ( itr.hasNext() ) {
+				Product p = itr.next();
+				if (p.getName().equals(productName))
+					return p;
+			}		
+		}
+		return null;
+	}
+
+	/**
+	 * Finds the product according to its name
+	 * @param number order according to print list
+	 * @return If the product is found, returns a reference for the product
+	 *  	associated with the given product name. Otherwise returns null.
+	 */
+	public Product findProductFromBasketByOrder(int number) {
+		// iterate through products at basket
+		int j = 0;
+		for (LinkedList<Product> productList : basket) {	
+			Iterator<Product> itr = productList.iterator();
+			while (itr.hasNext()) {
+				Product p = itr.next();
+				j++;
+				if (number == j)
+					return p;
+			}		
+		}
+		return null;
+	}
+
+	/**
 	 * Customer requests product.
 	 * @param product product to be requested
 	 */ 
@@ -139,6 +185,10 @@ public class Customer extends User implements Comparable<Customer> {
 		System.out.println(shoppingBranch.getStringProducts());
 	}
 
+	/**
+	 * Returns basket is empty or not
+	 * @return  true if the basket is empty, false otherwise
+	 */
 	public boolean isBasketEmpty(){
 		return basket.isEmpty();
 	}
@@ -147,19 +197,19 @@ public class Customer extends User implements Comparable<Customer> {
 	 * Customer displays basket.
 	 */ 
 	public void displayBasket() {
-		System.out.printf("\n------------ Basket of Customer %-15s ------------\n", getName());
-		System.out.printf("  %-15s %-15s %-18s %s\n", "Product Type", "Brand Name", "Product Name", "Price");
-		System.out.println("------------------------------------------------------------");
+		int k = 0;
+		System.out.printf("\n----------------- Basket of Customer %-15s -----------------", getName());
+		System.out.printf("\n      %-15s %-15s %-18s %-6s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock");
+		System.out.println("----------------------------------------------------------------------");
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i) == null || basket.get(i).size() == 0)
 				continue;
-			int j = 0;
 			for(Product product: basket.get(i)){
-				System.out.printf("  %-15s %-15s %-18s %.2f\n", 
-				product.getType(), product.getBrand(), product.getName(), product.getSalePrice());
+				System.out.printf(" %2d - %-15s %-15s %-18s %.2f %d\n", ++k, 
+				product.getType(), product.getBrand(), product.getName(), product.getSalePrice(), product.getStock());
 			}
 		}
-		System.out.printf("------------------------------------------------------------\n");
+		System.out.println("----------------------------------------------------------------------");
 	}
 
 	/**
@@ -167,65 +217,47 @@ public class Customer extends User implements Comparable<Customer> {
 	 */
 	public void purchaseBasket(){
 		double price = 0;
-		System.out.printf("\n------------ Basket of Customer %15s ------------\n", getName());
-		System.out.printf("  %-15s %-15s %-18s %s\n", "Product Type", "Brand Name", "Product Name", "Price");
-		System.out.println("------------------------------------------------------------");
+		System.out.printf("\n----------------- Basket of Customer %-15s -----------------", getName());
+		System.out.printf("\n    %-15s %-15s %-18s %-6s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock");
+		System.out.println("----------------------------------------------------------------------");
 		for(int i = 0; i < basket.size(); ++i) {
 			if(basket.get(i) == null || basket.get(i).size() == 0)
 				continue;
-
 			for(Product product: basket.get(i)){
-				System.out.printf("  %-15s %-15s %-18s %.2f\n", 
-				product.getType(), product.getBrand(), product.getName(), product.getSalePrice());
-				price += product.getSalePrice();
-				product.decreaseStock();
+				System.out.printf("    %-15s %-15s %-18s %.2f %d\n", 
+				product.getType(), product.getBrand(), product.getName(), product.getSalePrice(), product.getStock());
+				try {				
+					product.decreaseStock();	
+					price += product.getSalePrice();
+				} catch (Exception e) {
+					System.out.println("    OUT OF STOCK!");
+					continue;
+				}
 			}
 		}
-		System.out.println("------------------------------------------------------------");
-		System.out.printf("\n Total Amount : %.2f\n", price);
-		System.out.println("------------------------------------------------------------");
-	}
-
-	/**
-	 * Customer purchases products that are in the basket.
-	 */
-	public void purchaseBasket(){
-		double price = 0;
-		int j = 0;
-		System.out.printf("\n");
-		System.out.printf(String.format("     %-15s %-15s %-18s %s\n", "Product Type", "Brand Name", "Product Name", "Price") );
-		System.out.printf("------------------------------------------------------------\n");
-
-		for(int i = 0; i < basket.size(); ++i){
-			if(basket.get(i) == null || basket.get(i).size() == 0)
-				continue;
-		
-			for(Product product: basket.get(i)){
-				System.out.printf("%2d : %-15s %-15s %-18s %.2f\n", (++j), product.getType(), product.getBrand(), product.getName(), product.getSalePrice());
-				price += product.getSalePrice();
-				product.decreaseStock();
-			}
-		}
-
-		System.out.printf("\nTotal Amount : %.2f\n", price);
+		basket.clear();
+		getShoppingBranch().addSale(price);
+		System.out.println("----------------------------------------------------------------------");
+		System.out.printf(" Total Amount : %.2f\n", price);
+		System.out.println("----------------------------------------------------------------------");
 	}
 
 	/**
 	 * Customer prints order history. It displays last removed and last added product to basket.
 	 */ 
 	public void printOrderHistory() {
+		System.out.println("----------------------------------------------------------------------");
 		System.out.print(" Last Removed Product from Basket: ");
-
 		if(lastRemoved.isEmpty())
 			System.out.println("None");
 		else
 			System.out.println(lastRemoved.peek().getName());
-
 		System.out.print(" Last Added Product to Basket: ");
 		if(lastAdded.isEmpty())
 			System.out.println("None");
 		else
-			System.out.println(lastAdded.peek().getName());		
+			System.out.println(lastAdded.peek().getName());	
+		System.out.println("----------------------------------------------------------------------");
 	}
 
 	/**

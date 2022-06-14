@@ -2,12 +2,12 @@ package src.user;
 
 import java.util.PriorityQueue;
 import java.util.TreeSet;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import src.incommon.Gender;
+import src.product.Gender;
 import src.product.Product;
+import src.product.ProductType;
 import src.structure.Branch;
 
 /**
@@ -50,7 +50,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 * @return True if the given product is not already contained in the branch stock
 	 */
 	public boolean addProduct(Product p) {
-		HashMap<String, TreeSet<Product>> products = branch.getProducts();
+		HashMap<ProductType, TreeSet<Product>> products = branch.getProducts();
 		if(!products.containsKey(p.getType()))
 			products.put(p.getType(), new TreeSet<Product>());
 		return products.get(p.getType()).add(p);
@@ -132,7 +132,7 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	 *  	associated with the given product name. Otherwise returns null.
 	 */
 	public Product findProductByName(String productName) {
-		HashMap<String,TreeSet<Product>> products = branch.getProducts();
+		HashMap<ProductType ,TreeSet<Product>> products = branch.getProducts();
 		// iterate through products
 		for (TreeSet<Product> treeSet : products.values()) {	
 			Iterator<Product> itr = treeSet.iterator();
@@ -145,15 +145,19 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 		return null;
 	}
 
+	
 	/**
-	 * Adds requested products
-	 * @return True if the products are inserted
+	 * It takes the first product from the requested products queue, sets its entry price to the given
+	 * entry price, and adds it to the products list
+	 * @param entryPrice The price at which the product was bought.
+	 * @return A boolean value.
 	 */
-	public boolean addRequestedProducts() {
+	public boolean addRequestedProducts(double entryPrice) {
 		PriorityQueue<Product> requestedProducts = branch.getRequestedProducts();
-		Product product = requestedProducts.peek();
+		Product product = requestedProducts.poll();
 		if(product == null)
 			return false;
+		product.setEntryPrice(entryPrice);
 		return addProduct(product);
 	}
 
@@ -170,13 +174,14 @@ public class BranchEmployee extends User implements Comparable<BranchEmployee> {
 	public void displayRequestedProducts() {
 		PriorityQueue<Product> products = branch.getRequestedProducts();
 		if(products.isEmpty())
-			System.err.println("\n There is no requested products!");
+			System.err.println("\n THERE IS NO REQUESTED PRODUCTS!");
 		else{
-			System.err.println("\n-------------------- Requested Products --------------------");
+			System.err.println("\n------------------------- Requested Products -------------------------");
 			System.out.printf("  %-20s %-15s\n", "Product Name", "Price");
+			System.out.println("----------------------------------------------------------------------");
 			for(Product product: products)	
-				System.out.printf("  %-20s %f\n", product.getName(), product.getSalePrice());
-			System.out.println("------------------------------------------------------------\n");
+				System.out.printf("  %-20s %.2f\n", product.getName(), product.getSalePrice());
+			System.out.println("----------------------------------------------------------------------");
 		}
 	}
 

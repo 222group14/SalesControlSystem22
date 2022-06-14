@@ -1,7 +1,6 @@
 package src.product;
 
-import src.incommon.Gender;
-import src.incommon.Size;
+import java.util.Comparator;
 
 public class Clothes extends Product {
  
@@ -35,7 +34,6 @@ public class Clothes extends Product {
      * (Number of stock is set to its default value 0)  
 	 * @param name Name of the cloth
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Clothes)
 	 * @param entryPrice Entry price for the product
      * @param size Size of the cloth
 	 * @param materialType Material Type of the cloth
@@ -43,10 +41,10 @@ public class Clothes extends Product {
 	 * @param summeryState Summery state of the cloth 
 	 * @param gender Gender of the cloth
 	 */
-	public Clothes(String name, String brand, String type, double entryPrice,
+	public Clothes(String name, String brand, double entryPrice,
 					 Size size, String materialType, String color, 
 					 boolean summeryState, Gender gender) {
-		super(name, brand, type, entryPrice);
+		super(name, brand, ProductType.CLOTHES, entryPrice);
 		this.size = size;
 		this.materialType = materialType;
 		this.color = color;
@@ -58,7 +56,6 @@ public class Clothes extends Product {
 	 * Constructs a Clothes object with given properties
 	 * @param name Name of the cloth
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Clothes)
 	 * @param entryPrice Entry price for the product
      * @param size Size of the cloth
 	 * @param materialType Material Type of the cloth
@@ -67,10 +64,10 @@ public class Clothes extends Product {
 	 * @param gender Gender of the cloth
 	 * @param numStock Number of stock for the product
 	 */
-	public Clothes(String name, String brand, String type, double entryPrice,
+	public Clothes(String name, String brand, double entryPrice,
 					 Size size, String materialType, String color, 
 					 boolean summeryState, Gender gender, int numStock) {
-		super(name, brand, type, entryPrice, numStock);
+		super(name, brand, ProductType.CLOTHES, entryPrice, numStock);
 		this.size = size;
 		this.materialType = materialType;
 		this.color = color;
@@ -119,6 +116,36 @@ public class Clothes extends Product {
 	}
 
 	/**
+	 * Comparator class for sorting the clothes according to color (alhabetical order)
+	 */
+	public static class CompareByKind implements Comparator<Clothes> {
+		@Override
+		public int compare(Clothes arg0, Clothes arg1) {
+			return arg0.getColor().compareTo(arg1.getColor());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the clothes according to gender (alhabetical order)
+	 */
+	public static class CompareByGender implements Comparator<Clothes> {
+		@Override
+		public int compare(Clothes arg0, Clothes arg1) {
+			return arg0.getGender().compareTo(arg1.getGender());
+		}
+	}
+
+	/**
+	 * Comparator class for sorting the clothes according to material type (alhabetical order)
+	 */
+	public static class CompareByMaterialType implements Comparator<Clothes> {
+		@Override
+		public int compare(Clothes arg0, Clothes arg1) {
+			return arg0.getMaterialType().compareTo(arg1.getMaterialType());
+		}
+	}
+
+	/**
 	 * Returns string of the properties of the product : 
 	 * Name, brand, type, entryprice, size, material type, color, summery state, gender
      * @return String of the properties of the product
@@ -126,6 +153,7 @@ public class Clothes extends Product {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("\n Category: Clothes");
 		sb.append(super.toString());
 		sb.append("\n Size: " + getSize());
 		sb.append("\n Material Type: " + getMaterialType());

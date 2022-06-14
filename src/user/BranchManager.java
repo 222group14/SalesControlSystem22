@@ -1,10 +1,10 @@
 package src.user;
 
 import src.bst.BinarySearchTree;
-import src.incommon.Gender;
 import src.structure.Branch;
 import src.structure.Company;
 import src.graph.DynamicBranchGraph;
+import src.product.Gender;
 
 public class BranchManager extends User {
 
@@ -67,9 +67,10 @@ public class BranchManager extends User {
 
 		if (!flag)
 			return;
-
-		
+	
+		System.err.printf("\n------------------ Branches of %-20s ------------------", company.getCompanyName());
 		System.out.printf(" %-20s %-20s\n", "Branch Name", "Branch Manager");
+		System.out.println("----------------------------------------------------------------------");
 		for(Branch branch: branches) {
 			System.out.printf(" %-20s ", branch.getBranchName());
 			if (branch.getBranchManager() != null) 
@@ -77,19 +78,26 @@ public class BranchManager extends User {
 			
 			else
 				System.out.println("None");
-		}		
+		}
+		System.out.println("----------------------------------------------------------------------");
 	}
 
 	/**
 	 * Prints employees of manager's current branch.
 	 */ 
 	public void displayBranchEmployees() {
-		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();
-		System.out.println("\n Employees of " + branch.getBranchName() + " : ");
-		int i = 0;
-		for (BranchEmployee employee: employees) {
-			System.out.printf(" %d - %s", ++i, employee.getName());
+		System.out.printf("\n------------------ Employees of %-20s ------------------", branch.getBranchName());
+		System.out.printf(" %-20s %-20s\n", "Employee Name", "Employee Username");
+		System.out.println("----------------------------------------------------------------------");
+		BinarySearchTree<BranchEmployee> employees = branch.getBranchEmployees();	
+		if(employees != null){
+			for(BranchEmployee employee : employees) {
+				System.out.printf(" %-20s %-20s\n", employee.getName(), employee.getUserName());
+			}
 		}
+		else
+			System.out.printf("%-20s %-20s\n", "None", "None");
+		System.out.println("----------------------------------------------------------------------");
 	}
 
 	/**
@@ -97,6 +105,15 @@ public class BranchManager extends User {
 	 */ 
 	public void displayProducts() {
 		System.out.println(branch.getStringProducts());
+	}
+
+	/**
+	 * Displays the total amount of sales of the branch
+	 */
+	public void displaySalesPrice(){
+		System.out.println("----------------------------------------------------------------------");
+		System.out.printf(" Total Amount Of Sales Of Branch : %.2f\n", branch.getSalesPrice());
+		System.out.println("----------------------------------------------------------------------");
 	}
 
 	/**

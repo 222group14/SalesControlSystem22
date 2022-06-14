@@ -3,13 +3,14 @@ package src.structure;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
 import src.bst.BinarySearchTree;
 import src.bst.RedBlackTree;
 import src.product.Product;
+import src.product.ProductType;
 import src.user.BranchEmployee;
 import src.user.BranchManager;
 import src.user.Customer;
@@ -28,6 +29,11 @@ public class Branch {
 	 */  
 	private BranchManager manager;
 	
+	/**
+	 * Total sale price of branch.
+	 */
+	private double salesPrice = 0.0;
+
 	/** 
 	 * Employees are keept in Red Black Tree to provide efficent search basis on employee name
 	 */
@@ -37,7 +43,7 @@ public class Branch {
 	 * All Products that branch has
 	 */ 
 	//private TreeSet<Product> products = new TreeSet<>(); 
-	private HashMap<String,TreeSet<Product>> products = new HashMap<String,TreeSet<Product>>();
+	private HashMap<ProductType,TreeSet<Product>> products = new HashMap<ProductType,TreeSet<Product>>();
 
 	/** 
 	 * Customers are keept in a skiplist according to their name. 
@@ -86,7 +92,7 @@ public class Branch {
 	 * Getter for products
 	 * @return products as ArrayList of LinkedList
 	 */ 
-	public TreeSet<Product> getProducts(String type) {
+	public TreeSet<Product> getProducts(ProductType type) {
 		return products.get(type);
 	}
 
@@ -94,10 +100,18 @@ public class Branch {
 	 * Getter for products
 	 * @return products as ArrayList of LinkedList
 	 */ 
-	public HashMap<String,TreeSet<Product>> getProducts() {
+	public HashMap<ProductType, TreeSet<Product>> getProducts() {
 		return products;
 	}
 
+	/**
+	 * Getter for products
+	 * @return products as ArrayList of LinkedList
+	 */ 
+	public ArrayList<Product> getProductsList(ProductType type) {
+		return new ArrayList<>(products.get(type));
+	}
+	
 	/**
 	 * Getter for branch name
 	 * @return branch name
@@ -129,6 +143,22 @@ public class Branch {
 	public PriorityQueue<Product> getRequestedProducts() {
 		return requestedProducts;
 	}
+
+	/**
+	 * Returns the total sales price of the products.
+	 * @return The total sales price of the products.
+	 */
+	public double getSalesPrice(){
+		return salesPrice;
+	}
+
+	/**
+	 * Adds the sales price to the total sales price.
+	 * @param salesPrice The price of the sale.
+	 */
+	public void addSale(double salesPrice){
+		this.salesPrice += salesPrice;
+	}
 	
 	/**
 	 * Checks if branch has that product.
@@ -145,12 +175,13 @@ public class Branch {
 	 */
 	public String getStringEmployees() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n------------------------- Employees ------------------------\n");
+		sb.append("\n------------------------------ Employees -----------------------------\n");
 		sb.append(String.format("  %-20s %-10s %s\n", "Name", "Gender", "Age") );
-		sb.append("------------------------------------------------------------\n");
+		sb.append("----------------------------------------------------------------------\n");
 		for (var e : employees) 
 			sb.append(String.format("  %-20s %-10s %d\n", 
 				e.getName(), e.getGender(), e.getAge()));
+		sb.append("----------------------------------------------------------------------\n");
 		return sb.toString();
 	}
 
@@ -160,12 +191,13 @@ public class Branch {
 	 */
 	public String getStringCustomers() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n------------------------- Customers ------------------------\n");
+		sb.append("\n------------------------------ Customers -----------------------------\n");
 		sb.append(String.format("  %-20s %10s %15s\n", "Name", "Gender", "Age") );
-		sb.append("------------------------------------------------------------\n");
+		sb.append("----------------------------------------------------------------------\n");
 		for (var c : customers) 
 			sb.append(String.format("  %-20s %10s %12d\n", 
 				c.getName(), c.getGender(), c.getAge()));
+		sb.append("----------------------------------------------------------------------\n");
 		return sb.toString();
 	}
 
@@ -176,13 +208,14 @@ public class Branch {
 	public String getStringProducts() {
 		StringBuilder sb = new StringBuilder();
 		int k = 0;
-		sb.append("\n------------------------- Products -------------------------\n");
-		sb.append(String.format("     %-15s %-15s %-15s %s\n", "Product Type", "Brand Name", "Product Name", "Price") );
-		sb.append("------------------------------------------------------------\n");
+		sb.append("\n------------------------------ Products ------------------------------\n");
+		sb.append(String.format("\n      %-15s %-15s %-18s %-6s %-5s\n", "Product Type", "Brand Name", "Product Name", "Price", "Stock"));
+		sb.append("----------------------------------------------------------------------\n");
 		for (var product : products.values()) 
 			for(var p : product )
-				sb.append(String.format(" %d - %-15s %-15s %-15s %.2f\n", ++k, 
-				p.getType(), p.getBrand(), p.getName(), p.getSalePrice()));
+				sb.append(String.format(" %2d - %-15s %-15s %-18s %.2f %d\n", ++k, 
+				p.getType(), p.getBrand(), p.getName(), p.getSalePrice(), p.getStock()));
+		sb.append("----------------------------------------------------------------------\n");
 		return sb.toString();
 	}
 
@@ -200,7 +233,7 @@ public class Branch {
 		sb.append(getStringCustomers());
 		sb.append(getStringProducts());
 		sb.append("------------------------------------------------------------\n");
-			return sb.toString();
+		return sb.toString();
 	}
 
 	/**

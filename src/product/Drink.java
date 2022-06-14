@@ -1,5 +1,7 @@
 package src.product;
 
+import java.util.Comparator;
+
 public class Drink extends Product {
 
 	/**
@@ -16,14 +18,13 @@ public class Drink extends Product {
      * (Number of stock is set to its default value 0)  
 	 * @param name Name of the drink
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Drink)
 	 * @param entryPrice Entry price for the product
      * @param expDate Expiry date of the drink
 	 * @param liter Liter of the drink
 	 */
-    public Drink(String name, String brand, String type, double entryPrice, 
+    public Drink(String name, String brand, double entryPrice, 
                  String expDate, double liter) {
-        super(name, brand, type, entryPrice);
+        super(name, brand, ProductType.DRINK, entryPrice);
         this.expDate = expDate;
 		this.liter = liter;
     }
@@ -32,15 +33,14 @@ public class Drink extends Product {
 	 * Constructs a Drink object with given properties 
 	 * @param name Name of the drink
 	 * @param brand Name of the brand
-	 * @param type Type of the product (Drink)
 	 * @param entryPrice Entry price for the product
      * @param expDate Expiry date of the drink
 	 * @param liter Liter of the drink
 	 * @param numStock Number of stock for the product
 	 */
-    public Drink(String name, String brand, String type, double entryPrice, 
+    public Drink(String name, String brand, double entryPrice, 
                  String expDate, double liter, int numStock) {
-        super(name, brand, type, entryPrice, numStock);
+        super(name, brand, ProductType.DRINK, entryPrice, numStock);
         this.expDate = expDate;
 		this.liter = liter;
     }
@@ -62,6 +62,16 @@ public class Drink extends Product {
 	}
 
 	/**
+	 * Comparator class for sorting the drinks according to expiry date
+	 */
+	public static class compareByExpDate implements Comparator<Drink> {
+		@Override
+		public int compare(Drink arg0, Drink arg1) {
+			return arg0.getExpDate().compareTo(arg1.getExpDate());			
+		}
+	}
+
+	/**
 	 * Returns string of the properties of the product : 
 	 * Name, brand, type, entryprice, expiry date, liter
      * @return String of the properties of the product
@@ -69,10 +79,10 @@ public class Drink extends Product {
     @Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("\n Category: Drink");
 		sb.append(super.toString());
-        sb.append("\n Expiry Date: " + getExpDate());
-		sb.append("\n Liter: " + getSizeLiter());
-
+		sb.append("\n Expire Date: " + getExpDate());
+        sb.append(String.format("\n Liter: %.2f", getSizeLiter()));
 		return sb.toString();
 	}
 
