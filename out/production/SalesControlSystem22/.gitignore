@@ -1,6 +1,0 @@
-# compiled class files
-bin/  
-*.class
-
-# vscode configuration
-.vscode/
