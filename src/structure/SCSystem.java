@@ -1,4 +1,4 @@
- package src.structure;
+package src.structure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +7,22 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
-import src.product.*;
-import src.user.*;
+import src.product.Clothes;
+import src.product.Drink;
+import src.product.Electronic;
+import src.product.Food;
+import src.product.Furniture;
+import src.product.Gender;
+import src.product.PersonalCare;
+import src.product.Product;
+import src.product.ProductType;
+import src.product.Size;
+import src.user.User;
 import src.graph.DynamicBranchGraph;
+import src.user.Administrator;
+import src.user.BranchEmployee;
+import src.user.BranchManager;
+import src.user.Customer;
 
 /**
  * Sales Constrol System
@@ -119,6 +132,9 @@ public class SCSystem {
             inp = input.nextLine();
         }
         System.out.print("\033[H\033[2J");
+        System.out.println("----------------------------------------------------------------------");
+        System.out.println("----------------------- SYSTEM TERMINATED... -------------------------");
+        System.out.println("----------------------------------------------------------------------");
     }
 
     /** ArrayList of noworking branch managers */
@@ -133,46 +149,45 @@ public class SCSystem {
         System.out.println("\n----------------------------------------------------------------------");
         System.out.println("---------------------------- USER SIGN UP ----------------------------");
         System.out.println("----------------------------------------------------------------------");
-        try (Scanner input = new Scanner(System.in)) {
-            boolean flag;
+        Scanner input = new Scanner(System.in);
+        boolean flag;
+        
+        User usr = createUser();
+        String userType = "";
+        do {
+            flag = false;        
+            System.out.printf("\n %-18s: M-m", "Branch Manager");
+            System.out.printf("\n %-18s: E-e", "Branch Employee");
+            System.out.printf("\n %-18s: C-c", "Customer");
+            System.out.print("\n Enter user type: ");
             
-            User usr = createUser();
-            String userType = "";
-            do {
-                flag = false;        
-                System.out.printf("\n %-18s: M-m", "Branch Manager");
-                System.out.printf("\n %-18s: E-e", "Branch Employee");
-                System.out.printf("\n %-18s: C-c", "Customer");
-                System.out.print("\n Enter user type: ");
-                
-                String inp = input.nextLine();
-                if(inp.equals("M") || inp.equals("m")
-                || inp.equals("E") || inp.equals("e")
-                || inp.equals("C") || inp.equals("c"))
-                    userType = inp.toUpperCase();
-                else{
-                    System.err.println(" INVALID USER TYPE!");
-                    flag = true;
-                }
-            } while (flag);
-
-            User newUser = null;
-            if(userType.equals("E"))
-                newUser = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), chooseBranch());
-            else if(userType.equals("M")){
-                newUser = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), new Branch("None"));
-                noworkingBranchManagers.add((BranchManager)newUser);
+            String inp = input.nextLine();
+            if(inp.equals("M") || inp.equals("m")
+            || inp.equals("E") || inp.equals("e")
+            || inp.equals("C") || inp.equals("c"))
+                userType = inp.toUpperCase();
+            else{
+                System.err.println(" INVALID USER TYPE!");
+                flag = true;
             }
-            else if(userType.equals("C"))
-                newUser = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), chooseBranch());
+        } while (flag);
 
-            System.out.print("\033[H\033[2J");
-            System.out.print("----------------------------------------------------------------------");
-            System.out.print(newUser);
-            System.out.println(" REGISTRATION REQUEST RECEIVED SUCCESSFULLY.");
-            System.out.println("----------------------------------------------------------------------");
-            return newUser;
+        User newUser = null;
+        if(userType.equals("E"))
+            newUser = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), chooseBranch());
+        else if(userType.equals("M")){
+            newUser = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), new Branch("None"));
+            noworkingBranchManagers.add((BranchManager)newUser);
         }
+        else if(userType.equals("C"))
+            newUser = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), chooseBranch());
+
+        System.out.print("\033[H\033[2J");
+        System.out.print("----------------------------------------------------------------------");
+        System.out.print(newUser);
+        System.out.println(" REGISTRATION REQUEST RECEIVED SUCCESSFULLY.");
+        System.out.println("----------------------------------------------------------------------");
+        return newUser;
     }
 
     /**
@@ -185,76 +200,75 @@ public class SCSystem {
         System.out.println("----------------------------------------------------------------------");
         System.out.println("-  0 - Exit  ---------------------------------------------------------");
         System.out.println("----------------------------------------------------------------------");
-        try (Scanner input = new Scanner(System.in)) {
-            boolean flag;
-            String username;
+        Scanner input = new Scanner(System.in);
+        boolean flag;
+        String username;
+        do {
+            flag = false;        
+            System.out.print("\n Enter username: ");
+            username = input.nextLine();
+            if(username.equals("0")){
+                System.out.print("\033[H\033[2J");
+                flag = true;
+                break;
+            }
+            if(!users.containsKey(username)){
+                if(registeredUsers.containsKey(username))
+                    break;
+                System.err.println(" THERE IS NO USER IN SYSTEM WITH THIS USERNAME!");
+                flag = true;
+            }
+        } while (flag);
+        
+        String password;
+        if(!flag){
             do {
                 flag = false;        
-                System.out.print("\n Enter username: ");
-                username = input.nextLine();
-                if(username.equals("0")){
+                System.out.print("\n Enter password: ");
+                password = input.nextLine();
+                if(password.equals("0")){
                     System.out.print("\033[H\033[2J");
                     flag = true;
                     break;
                 }
-                if(!users.containsKey(username)){
-                    if(registeredUsers.containsKey(username))
-                        break;
-                    System.err.println(" THERE IS NO USER IN SYSTEM WITH THIS USERNAME!");
-                    flag = true;
-                }
-            } while (flag);
-            
-            String password;
-            if(!flag){
-                do {
-                    flag = false;        
-                    System.out.print("\n Enter password: ");
-                    password = input.nextLine();
-                    if(password.equals("0")){
-                        System.out.print("\033[H\033[2J");
+                if(users.containsKey(username)){
+                    if(!users.get(username).getPassword().equals(password)){
+                        System.err.println(" WRONG PASSWORD!");
                         flag = true;
-                        break;
                     }
-                    if(users.containsKey(username)){
-                        if(!users.get(username).getPassword().equals(password)){
+                }
+                else{
+                    if(registeredUsers.containsKey(username)){
+                        flag = true;
+                        if(!registeredUsers.get(username).getPassword().equals(password))
                             System.err.println(" WRONG PASSWORD!");
-                            flag = true;
+                        else{
+                            System.out.print("\033[H\033[2J");
+                            System.out.println("----------------------------------------------------------------------");
+                            System.err.println(" YOUR REGISTRATION MUST BE APPROVED BY ADMINISTRATOR! ");
+                            System.out.println("----------------------------------------------------------------------");
+                            break;
                         }
                     }
-                    else{
-                        if(registeredUsers.containsKey(username)){
-                            flag = true;
-                            if(!registeredUsers.get(username).getPassword().equals(password))
-                                System.err.println(" WRONG PASSWORD!");
-                            else{
-                                System.out.print("\033[H\033[2J");
-                                System.out.println("----------------------------------------------------------------------");
-                                System.err.println(" YOUR REGISTRATION MUST BE APPROVED BY ADMINISTRATOR! ");
-                                System.out.println("----------------------------------------------------------------------");
-                                break;
-                            }
-                        }
-                    }
-                } while (flag);    
-            }
+                }
+            } while (flag);    
+        }
 
-            if(!flag){
-                System.out.print("\033[H\033[2J");
-                User currUser = users.get(username);
-                System.out.println("----------------------------------------------------------------------");
-                System.out.printf(" %s SIGNED IN SUCCESSFULLY.\n", username);
-                System.out.println("----------------------------------------------------------------------");
+        if(!flag){
+            System.out.print("\033[H\033[2J");
+            User currUser = users.get(username);
+            System.out.println("----------------------------------------------------------------------");
+            System.out.printf(" %s SIGNED IN SUCCESSFULLY.\n", username);
+            System.out.println("----------------------------------------------------------------------");
 
-                if(currUser instanceof Administrator)
-                    administratorMenu(company.getAdministrator());
-                else if(currUser instanceof BranchEmployee)
-                    branchEmployeeMenu((BranchEmployee)currUser);
-                else if(currUser instanceof BranchManager)
-                    branchManagerMenu((BranchManager)currUser);
-                else if(currUser instanceof Customer)
-                    customerMenu((Customer) currUser);
-            }
+            if(currUser instanceof Administrator)
+                administratorMenu(company.getAdministrator());
+            else if(currUser instanceof BranchEmployee)
+                branchEmployeeMenu((BranchEmployee)currUser);
+            else if(currUser instanceof BranchManager)
+                branchManagerMenu((BranchManager)currUser);
+            else if(currUser instanceof Customer)
+                customerMenu((Customer) currUser);
         }
     }
 
@@ -265,184 +279,183 @@ public class SCSystem {
      * @param administrator administrator of company
      */
     private void administratorMenu(Administrator administrator){
-        try (Scanner input = new Scanner(System.in)) {
-            boolean flag;
+        Scanner input = new Scanner(System.in);
+        boolean flag;
 
+        System.out.print("\033[H\033[2J");
+        printMenuHeader("admin");
+        System.out.print(" Choice: ");
+        String inp = input.nextLine();
+
+        while(!inp.equals("0")){
             System.out.print("\033[H\033[2J");
-            printMenuHeader("admin");
-            System.out.print(" Choice: ");
-            String inp = input.nextLine();
-
-            while(!inp.equals("0")){
-                System.out.print("\033[H\033[2J");
-                if(inp.equals("1")){
-                    String inp2;
-                    if(registeredUsers.size() == 0)
-                        System.out.println(" THERE IS NO REGISTRATION REQUEST!");
-                    else{
-                        do {
-                            flag = false;
-                            System.out.println("\n 1 - Approve All\n 2 - Approve Individually\n 3 - Reject All");
-                            System.out.print(" Choice: ");
-                            inp2 = input.nextLine();
-                            if(inp2.equals("1")){
-                                users.putAll(registeredUsers);
-                                registeredUsers.clear();
-                                System.out.println(" ALL REGISTRATION REQUESTS ARE APPROVED SUCCESSFULLY!");
-                            }
-                            else if(inp2.equals("2")){
-                                Set<String> usernames = registeredUsers.keySet();
-                                ArrayList<String> rejectedList = new ArrayList<String>();
-                                for (Object username : usernames) {
-                                    User user = registeredUsers.get(username);
-                                    System.out.println(user);
-                                    boolean flag2;
-                                    String inp3;
-                                    do {
-                                        flag2 = false;
-                                        System.out.println("\n 1 - Approve\n 2 - Reject\n 3 - Pass");
-                                        System.out.print(" Choice: ");
-                                        inp3 = input.nextLine(); 
-                                        if(inp3.equals("1")){
-                                            users.put(user.getUserName(), user);
-                                            registeredUsers.remove(user.getUserName());
-                                            System.out.println(" REGISTRATION IS APPROVED!");
-                                        }
-                                        else if(inp3.equals("2")){
-                                            rejectedList.add(user.getUserName());
-                                            System.out.println(" REGISTRATION IS REJECTED!");
-                                        }
-                                        else if(inp3.equals("3"))
-                                            System.out.println(" USER WILL BE EXAMINED LATER!");
-                                        else{            
-                                            System.err.println(" INVALID OPERATION!");
-                                            flag2 = true;
-                                        }
-                                    } while (flag2);
-                                }
-                                for (int i = 0; i < rejectedList.size(); i++)
-                                registeredUsers.remove(rejectedList.get(i));
-                            }
-                            else if(inp2.equals("3")){
-                                registeredUsers.clear();
-                                System.out.println("  ALL REGISTRATION REQUESTS ARE REJECTED SUCCESSFULLY!");
-                            }else{
-                                System.out.print("\033[H\033[2J");
-                                System.err.println(" INVALID OPERATION!");
-                                flag = true;
-                            }
-                        } while (flag);             
-                    }
-                }
-                else if(inp.equals("2")){
-                    System.out.print("\n Enter Branch Name: ");
-                    inp = input.nextLine();                    
-                    Branch newBranch = new Branch(inp);
-                    System.out.println("\n Enter Informations Of Branch Manager:");
-                    User usr = createUser();
-                    BranchManager bManager = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), newBranch);
-                    administrator.setBranchManager(newBranch, bManager);
-                    administrator.addBranch(newBranch);
-                    users.put(bManager.getUserName(), bManager);
-                    System.out.println(" BRANCH IS ADDED SUCCESSFULLY!");
-                }
-                else if(inp.equals("3")){
-                    DynamicBranchGraph branches = company.getBranches();
-                    if(branches.getNumV() == 0)
-                        System.out.println(" THERE IS NO BRANCH AT COMPANY TO REMOVE!");
-                    else{
-                        Branch choosenBranch = chooseBranch();
-                        if(branches.removeBranch(branches.getID(choosenBranch)))       
-                            System.out.println(" BRANCH IS REMOVED SUCCESSFULLY!");
-                    }
-                }
-                else if(inp.equals("4")){
-                    /* do{
+            if(inp.equals("1")){
+                String inp2;
+                if(registeredUsers.size() == 0)
+                    System.out.println(" THERE IS NO REGISTRATION REQUEST!");
+                else{
+                    do {
                         flag = false;
-                        System.out.println("\n 1 - Add New Branch Manager");
-                        System.out.println(" 2 - Add Noworking Branch Manager");
+                        System.out.println("\n 1 - Approve All\n 2 - Approve Individually\n 3 - Reject All");
                         System.out.print(" Choice: ");
-                        inp = input.nextLine();
-                        if(inp.equals("1")){
-                            Branch branch = chooseBranch();
-                            if(branch != null){
-                                System.out.println("\n Enter Informations Of Branch Manager:");
-                                User usr = createUser();
-                                BranchManager bManager = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), branch);
-                                noworkingBranchManagers.add(branch.getBranchManager());
-                                administrator.setBranchManager(branch, bManager);
-                                users.put(bManager.getUserName(), bManager);
-                                System.out.println(" BRANCH MANAGER " + bManager.getName() + " IS SET SUCCESSFULLY!");
-                            }
-                            else
-                                System.err.println(" THERE IS NO BRANCH TO ADD BRANCH MANAGER!");
+                        inp2 = input.nextLine();
+                        if(inp2.equals("1")){
+                            users.putAll(registeredUsers);
+                            registeredUsers.clear();
+                            System.out.println(" ALL REGISTRATION REQUESTS ARE APPROVED SUCCESSFULLY!");
                         }
-                        else if(inp.equals("2")){
-                            if(!noworkingBranchManagers.isEmpty()){
-                                int j = 0, ind = 1;
-                        		boolean flag2 = false; 
-                                System.err.println("\n--------------------- Noworking Branch Managers ----------------------");
-                        		System.out.println("----------------------------------------------------------------------");
-                                for (int i = 0; i < noworkingBranchManagers.size(); i++){ 
-                                    if(users.containsKey(noworkingBranchManagers.get(i).getUserName())){
-                                        System.out.printf(" %d - %s\n", ++j, noworkingBranchManagers.get(i).getName());
+                        else if(inp2.equals("2")){
+                            Set<String> usernames = registeredUsers.keySet();
+                            ArrayList<String> rejectedList = new ArrayList<String>();
+                            for (Object username : usernames) {
+                                User user = registeredUsers.get(username);
+                                System.out.println(user);
+                                boolean flag2;
+                                String inp3;
+                                do {
+                                    flag2 = false;
+                                    System.out.println("\n 1 - Approve\n 2 - Reject\n 3 - Pass");
+                                    System.out.print(" Choice: ");
+                                    inp3 = input.nextLine(); 
+                                    if(inp3.equals("1")){
+                                        users.put(user.getUserName(), user);
+                                        registeredUsers.remove(user.getUserName());
+                                        System.out.println(" REGISTRATION IS APPROVED!");
+                                    }
+                                    else if(inp3.equals("2")){
+                                        rejectedList.add(user.getUserName());
+                                        System.out.println(" REGISTRATION IS REJECTED!");
+                                    }
+                                    else if(inp3.equals("3"))
+                                        System.out.println(" USER WILL BE EXAMINED LATER!");
+                                    else{            
+                                        System.err.println(" INVALID OPERATION!");
                                         flag2 = true;
                                     }
-                                }    
-                                if(flag2){
-                                    do {
-                                        System.out.print(" Enter A Branch Manager: ");
-                                        String s = input.nextLine();
-                                        try {        
-                                            ind = Integer.parseInt(s);
-                                            if(ind < 1 || ind > j)            
-                                                System.err.println(" INVALID BRANCH MANAGER!");
-                                            else
-                                                break;     
-                                        } catch (Exception e) {
-                                            System.err.println(" INVALID INPUT!");
-                                            continue;
-                                        } 
-                                    } while (true);
-                                    Branch branch = chooseBranch();
-                                    if(branch != null){
-                                        System.out.println(ind);
-                                        BranchManager bManager = noworkingBranchManagers.remove(ind-1);
-                                        administrator.setBranchManager(branch, bManager);
-                                    }
-                                    else
-                                        System.err.println(" THERE IS NO BRANCH TO ADD BRANCH MANAGER!");
-                                }
-                                else                            
-                                    System.out.println(" THERE IS NO REGISTERED NOWORKING BRANCH MANAGER!"); 
+                                } while (flag2);
                             }
-                            else
-                                System.out.println(" THERE IS NO NOWORKING BRANCH MANAGER!");        
-                    		System.out.println("----------------------------------------------------------------------");
+                            for (int i = 0; i < rejectedList.size(); i++)
+                            registeredUsers.remove(rejectedList.get(i));
                         }
-                        else{
-                            System.out.println(" INVALID OPERATION!");
+                        else if(inp2.equals("3")){
+                            registeredUsers.clear();
+                            System.out.println("  ALL REGISTRATION REQUESTS ARE REJECTED SUCCESSFULLY!");
+                        }else{
+                            System.out.print("\033[H\033[2J");
+                            System.err.println(" INVALID OPERATION!");
                             flag = true;
                         }
-                    }while(flag); */                
+                    } while (flag);             
                 }
-                else if(inp.equals("5"))
-                    administrator.displayBranches();
-                else if(inp.equals("6"))
-                    administrator.displayBranchManagers();
-                else if(inp.equals("7"))
-                    administrator.displayEmployees();
-                else if(inp.equals("8"))
-                    administrator.displayCustomers();
-                else if(inp.equals("9"))
-                    administrator.displayTotalSalesPrice();
-                else
-                    System.out.println(" INVALID OPERATION!");
-
-                printMenuHeader("admin");
-                System.out.print(" Choice: ");
-                inp = input.nextLine();
             }
+            else if(inp.equals("2")){
+                System.out.print("\n Enter Branch Name: ");
+                inp = input.nextLine();                    
+                Branch newBranch = new Branch(inp);
+                System.out.println("\n Enter Informations Of Branch Manager:");
+                User usr = createUser();
+                BranchManager bManager = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), newBranch);
+                administrator.setBranchManager(newBranch, bManager);
+                administrator.addBranch(newBranch);
+                users.put(bManager.getUserName(), bManager);
+                System.out.println(" BRANCH IS ADDED SUCCESSFULLY!");
+            }
+            else if(inp.equals("3")){
+                DynamicBranchGraph branches = company.getBranches();
+                if(branches.getNumV() == 0)
+                    System.out.println(" THERE IS NO BRANCH AT COMPANY TO REMOVE!");
+                else{
+                    Branch choosenBranch = chooseBranch();
+                    if(branches.removeBranch(branches.getID(choosenBranch)))       
+                        System.out.println(" BRANCH IS REMOVED SUCCESSFULLY!");
+                }
+            }
+            else if(inp.equals("4")){
+                /* do{
+                    flag = false;
+                    System.out.println("\n 1 - Add New Branch Manager");
+                    System.out.println(" 2 - Add Noworking Branch Manager");
+                    System.out.print(" Choice: ");
+                    inp = input.nextLine();
+                    if(inp.equals("1")){
+                        Branch branch = chooseBranch();
+                        if(branch != null){
+                            System.out.println("\n Enter Informations Of Branch Manager:");
+                            User usr = createUser();
+                            BranchManager bManager = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), branch);
+                            noworkingBranchManagers.add(branch.getBranchManager());
+                            administrator.setBranchManager(branch, bManager);
+                            users.put(bManager.getUserName(), bManager);
+                            System.out.println(" BRANCH MANAGER " + bManager.getName() + " IS SET SUCCESSFULLY!");
+                        }
+                        else
+                            System.err.println(" THERE IS NO BRANCH TO ADD BRANCH MANAGER!");
+                    }
+                    else if(inp.equals("2")){
+                        if(!noworkingBranchManagers.isEmpty()){
+                            int j = 0, ind = 1;
+                    		boolean flag2 = false; 
+                            System.err.println("\n--------------------- Noworking Branch Managers ----------------------");
+                    		System.out.println("----------------------------------------------------------------------");
+                            for (int i = 0; i < noworkingBranchManagers.size(); i++){ 
+                                if(users.containsKey(noworkingBranchManagers.get(i).getUserName())){
+                                    System.out.printf(" %d - %s\n", ++j, noworkingBranchManagers.get(i).getName());
+                                    flag2 = true;
+                                }
+                            }    
+                            if(flag2){
+                                do {
+                                    System.out.print(" Enter A Branch Manager: ");
+                                    String s = input.nextLine();
+                                    try {        
+                                        ind = Integer.parseInt(s);
+                                        if(ind < 1 || ind > j)            
+                                            System.err.println(" INVALID BRANCH MANAGER!");
+                                        else
+                                            break;     
+                                    } catch (Exception e) {
+                                        System.err.println(" INVALID INPUT!");
+                                        continue;
+                                    } 
+                                } while (true);
+                                Branch branch = chooseBranch();
+                                if(branch != null){
+                                    System.out.println(ind);
+                                    BranchManager bManager = noworkingBranchManagers.remove(ind-1);
+                                    administrator.setBranchManager(branch, bManager);
+                                }
+                                else
+                                    System.err.println(" THERE IS NO BRANCH TO ADD BRANCH MANAGER!");
+                            }
+                            else                            
+                                System.out.println(" THERE IS NO REGISTERED NOWORKING BRANCH MANAGER!"); 
+                        }
+                        else
+                            System.out.println(" THERE IS NO NOWORKING BRANCH MANAGER!");        
+                		System.out.println("----------------------------------------------------------------------");
+                    }
+                    else{
+                        System.out.println(" INVALID OPERATION!");
+                        flag = true;
+                    }
+                }while(flag); */                
+            }
+            else if(inp.equals("5"))
+                administrator.displayBranches();
+            else if(inp.equals("6"))
+                administrator.displayBranchManagers();
+            else if(inp.equals("7"))
+                administrator.displayEmployees();
+            else if(inp.equals("8"))
+                administrator.displayCustomers();
+            else if(inp.equals("9"))
+                administrator.displayTotalSalesPrice();
+            else
+                System.out.println(" INVALID OPERATION!");
+
+            printMenuHeader("admin");
+            System.out.print(" Choice: ");
+            inp = input.nextLine();
         }
         System.out.print("\033[H\033[2J");
     }
@@ -454,37 +467,36 @@ public class SCSystem {
      * @param currEmployee current employee
      */
     private void branchEmployeeMenu(BranchEmployee currEmployee){
-        try (Scanner input = new Scanner(System.in)) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("\033[H\033[2J");
+        printMenuHeader("bemployee");
+        System.out.print(" Choice: ");
+        String inp = input.nextLine();
+        
+        while(!inp.equals("0")){
             System.out.print("\033[H\033[2J");
+            if(inp.equals("1"))
+                currEmployee.addProduct(createProduct());
+            else if(inp.equals("2")){
+                currEmployee.displayProducts();
+                System.out.print(" Enter The Product Name To Remove: ");
+                if(!currEmployee.removeProduct(input.nextLine()))
+                    System.err.println(" NONEXISTING PRODUCT!");;
+            }
+            else if(inp.equals("3")){
+                currEmployee.addRequestedProducts(inputEntryPrice());
+            }else if(inp.equals("4"))
+                currEmployee.displayProducts();
+            else if(inp.equals("5"))
+                currEmployee.displayRequestedProducts();
+            else{
+                System.out.println(" INVALID OPERATION!");
+            }
             printMenuHeader("bemployee");
             System.out.print(" Choice: ");
-            String inp = input.nextLine();
-            
-            while(!inp.equals("0")){
-                System.out.print("\033[H\033[2J");
-                if(inp.equals("1"))
-                    currEmployee.addProduct(createProduct());
-                else if(inp.equals("2")){
-                    currEmployee.displayProducts();
-                    System.out.print(" Enter The Product Name To Remove: ");
-                    if(!currEmployee.removeProduct(input.nextLine()))
-                        System.err.println(" NONEXISTING PRODUCT!");;
-                }
-                else if(inp.equals("3")){
-                    currEmployee.addRequestedProducts(inputEntryPrice());
-                }else if(inp.equals("4"))
-                    currEmployee.displayProducts();
-                else if(inp.equals("5"))
-                    currEmployee.displayRequestedProducts();
-                else{
-                    System.out.println(" INVALID OPERATION!");
-                }
-                printMenuHeader("bemployee");
-                System.out.print(" Choice: ");
-                inp = input.nextLine();
-            }
+            inp = input.nextLine();
         }
-
         System.out.print("\033[H\033[2J");
     }
 
@@ -495,93 +507,92 @@ public class SCSystem {
      * @param currManager current manager
      */
     private void branchManagerMenu(BranchManager currManager){
-        try (Scanner input = new Scanner(System.in)) {
-            boolean flag;
+        Scanner input = new Scanner(System.in);
+        boolean flag;
 
+        System.out.print("\033[H\033[2J");
+        printMenuHeader("bmanager");
+        System.out.print(" Choice: ");
+        String inp = input.nextLine();
+        
+        while(!inp.equals("0")){
             System.out.print("\033[H\033[2J");
+            if(inp.equals("1")){
+                System.out.println("\n Enter Branch Employee Name To Add: ");
+                User usr = createUser();
+                BranchEmployee bEmployee = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
+                currManager.addBranchEmployee(bEmployee);
+                users.put(bEmployee.getUserName(), bEmployee);
+            }
+            else if(inp.equals("2")){
+                currManager.displayBranchEmployees();
+                var branchEmployees = currManager.getBranch().getBranchEmployees();
+                if(branchEmployees.isEmpty())
+                    System.out.println("\n THERE IS NO BRANCH EMPLOYEE TO REMOVE!");
+                else{
+                    String inp2;
+                    do{
+                        flag = true;
+                        System.out.print("\n Enter Branch Employee Name To Remove: ");
+                        inp2 = input.nextLine();
+                        Iterator<BranchEmployee> itr = branchEmployees.iterator();
+                        while ( itr.hasNext() ) {
+                            BranchEmployee employee = itr.next();
+                            if (employee.getName().equals(inp2)){
+                                currManager.removeBranchEmployee(employee);
+                                users.remove(employee.getUserName());
+                                flag = false;
+                                break;
+                            }
+			            }
+                        System.err.println(" ENTER EXISTING BRANCH EMPLOYEE!");  
+                    } while(flag);
+                }
+            }
+            else if(inp.equals("3")){
+                System.out.println("\n Enter Customer Name To Add: ");
+                User usr = createUser();
+                Customer newCustomer = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
+                currManager.addCustomer(newCustomer);
+                users.put(newCustomer.getUserName(), newCustomer);
+            }
+            else if(inp.equals("4")){
+                System.out.println(currManager.getBranch().getStringCustomers());
+                var customers = currManager.getBranch().getCustomers();
+                if(customers.size() == 0)
+                    System.out.println(" THERE IS NO CUSTOMER TO REMOVE!");
+                else{
+                    String inp2;
+                    do{
+                        flag = true;
+                        System.out.print("\n Enter Customer Name To Remove: ");
+                        inp2 = input.nextLine();
+                        Iterator<Customer> itr = customers.iterator();
+                        while ( itr.hasNext() ) {
+                            Customer customer = itr.next();
+                            if (customer.getName().equals(inp2)){
+                                currManager.removeCustomer(customer);
+                                users.remove(customer.getUserName());
+                                flag = false;
+                                break;
+                            }
+			            } 
+                        System.err.println(" ENTER EXISTING CUSTOMER!");  
+                    }while(flag);
+                }
+            }
+            else if(inp.equals("5"))
+                currManager.displayBranchEmployees();
+            else if(inp.equals("6"))
+                currManager.displayProducts();
+            else if(inp.equals("7"))
+                currManager.displaySalesPrice();
+            else
+                System.out.println(" INVALID OPERATION!");
+
             printMenuHeader("bmanager");
             System.out.print(" Choice: ");
-            String inp = input.nextLine();
-            
-            while(!inp.equals("0")){
-                System.out.print("\033[H\033[2J");
-                if(inp.equals("1")){
-                    System.out.println("\n Enter Branch Employee Name To Add: ");
-                    User usr = createUser();
-                    BranchEmployee bEmployee = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
-                    currManager.addBranchEmployee(bEmployee);
-                    users.put(bEmployee.getUserName(), bEmployee);
-                }
-                else if(inp.equals("2")){
-                    currManager.displayBranchEmployees();
-                    var branchEmployees = currManager.getBranch().getBranchEmployees();
-                    if(branchEmployees.isEmpty())
-                        System.out.println("\n THERE IS NO BRANCH EMPLOYEE TO REMOVE!");
-                    else{
-                        String inp2;
-                        do{
-                            flag = true;
-                            System.out.print("\n Enter Branch Employee Name To Remove: ");
-                            inp2 = input.nextLine();
-                            Iterator<BranchEmployee> itr = branchEmployees.iterator();
-                            while ( itr.hasNext() ) {
-                                BranchEmployee employee = itr.next();
-                                if (employee.getName().equals(inp2)){
-                                    currManager.removeBranchEmployee(employee);
-                                    users.remove(employee.getUserName());
-                                    flag = false;
-                                    break;
-                                }
-            	            }
-                            System.err.println(" ENTER EXISTING BRANCH EMPLOYEE!");  
-                        } while(flag);
-                    }
-                }
-                else if(inp.equals("3")){
-                    System.out.println("\n Enter Customer Name To Add: ");
-                    User usr = createUser();
-                    Customer newCustomer = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
-                    currManager.addCustomer(newCustomer);
-                    users.put(newCustomer.getUserName(), newCustomer);
-                }
-                else if(inp.equals("4")){
-                    System.out.println(currManager.getBranch().getStringCustomers());
-                    var customers = currManager.getBranch().getCustomers();
-                    if(customers.size() == 0)
-                        System.out.println(" THERE IS NO CUSTOMER TO REMOVE!");
-                    else{
-                        String inp2;
-                        do{
-                            flag = true;
-                            System.out.print("\n Enter Customer Name To Remove: ");
-                            inp2 = input.nextLine();
-                            Iterator<Customer> itr = customers.iterator();
-                            while ( itr.hasNext() ) {
-                                Customer customer = itr.next();
-                                if (customer.getName().equals(inp2)){
-                                    currManager.removeCustomer(customer);
-                                    users.remove(customer.getUserName());
-                                    flag = false;
-                                    break;
-                                }
-            	            } 
-                            System.err.println(" ENTER EXISTING CUSTOMER!");  
-                        }while(flag);
-                    }
-                }
-                else if(inp.equals("5"))
-                    currManager.displayBranchEmployees();
-                else if(inp.equals("6"))
-                    currManager.displayProducts();
-                else if(inp.equals("7"))
-                    currManager.displaySalesPrice();
-                else
-                    System.out.println(" INVALID OPERATION!");
-
-                printMenuHeader("bmanager");
-                System.out.print(" Choice: ");
-                inp = input.nextLine();
-            }
+            inp = input.nextLine();
         }
         System.out.print("\033[H\033[2J");
     }
@@ -593,136 +604,135 @@ public class SCSystem {
      * @param currCustomer customer
      */
     private void customerMenu(Customer currCustomer){
-        try (Scanner input = new Scanner(System.in)) {
-            boolean flag;
-            String inp, inp2;
+        Scanner input = new Scanner(System.in);
+        boolean flag;
+        String inp, inp2;
 
+        System.out.print("\033[H\033[2J");
+        printMenuHeader("customer");
+        System.out.print(" Choice: ");
+        inp = input.nextLine();
+        
+        while(!inp.equals("0")){
             System.out.print("\033[H\033[2J");
+            if(inp.equals("1")){
+                printMenuHeader("products");
+                System.out.println(" 0 - Back To Menu");
+                do {
+                    flag = false;                
+                    System.out.print("\n Choice: ");
+                    inp2 = input.nextLine();    
+                    if(inp2.equals("0")){
+                        flag = true;
+                        break;
+                    }
+                    else if(inp2.equals("1"))
+                        flag = printProducts(currCustomer.getShoppingBranch(), ProductType.BOOK);
+                    else if(inp2.equals("2"))
+                        flag = printProducts(currCustomer.getShoppingBranch(), ProductType.CLOTHES);
+                    else if(inp2.equals("3"))
+                        flag = printProducts(currCustomer.getShoppingBranch(), ProductType.DRINK);
+                    else if(inp2.equals("4"))                    
+                        flag = printProducts(currCustomer.getShoppingBranch(), ProductType.ELECTRONIC);
+                    else if(inp2.equals("5"))
+                        flag = printProducts(currCustomer.getShoppingBranch(), ProductType.FOOD);
+                    else if(inp2.equals("6"))        
+                        flag = printProducts(currCustomer.getShoppingBranch(), ProductType.FURNITURE);
+                    else if(inp2.equals("7")) 
+                        flag = printProducts(currCustomer.getShoppingBranch(), ProductType.PERSONALCARE);
+                    else if(inp2.equals("8")) 
+                        flag = printProducts(currCustomer.getShoppingBranch(), ProductType.TOY);
+                    else{
+                        System.out.println(" INVALID INPUT!");
+                        flag = true;
+                    }
+                } while (flag);
+                
+                if(!flag){
+                    do{ 
+                        System.out.println("\n 1 - Add Product To Basket");
+                        System.out.println(" 2 - Request Product");
+                        System.out.println(" 3 - Branch Suggestion For Product That Not Available ");
+                        System.out.println(" 0 - Back To Menu");
+                        System.out.print(" Choice: ");
+                        inp = input.nextLine();
+                        if(inp.equals("1")){
+                            System.out.print("\n Enter Product Name: ");
+                            Product product = currCustomer.findProductByName(input.nextLine());
+                            if(product != null){
+                                if(!currCustomer.addProductToBasket(product))
+                                    System.out.println(" INVALID PRODUCT!");
+                            }
+                            else
+                                System.out.println(" INVALID PRODUCT!");
+                        }
+                        else if(inp.equals("2")){
+                            Product p = inProduct("");
+                            currCustomer.requestProduct(p);
+                            System.out.println(" PRODUCT IS REQUESTED FROM BRANCH!");
+                        }
+                        else if(inp.equals("3")){
+                            Branch branch = currCustomer.getBranchSuggestion(company, inProduct("create"));
+                            if(branch == null)
+                                System.out.println(" PRODUCT COULD NOT BE FOUND IN ANY BRANCH!");
+                            else
+                                System.out.printf(" The Closest Branch is %s.\n", branch.getBranchName());
+                        }
+                        else if(!inp.equals("0"))
+                            System.out.println(" INVALID OPERATION!");
+                    }while(!inp.equals("0"));
+                }
+            }
+            else if(inp.equals("2")){
+                currCustomer.displayBasket();
+                if(currCustomer.isBasketEmpty()){
+                    System.err.println("\n THERE IS NO PRODUCT AT BASKET!");
+                }
+                else{
+                    do {
+                        System.out.println("\n 1 - Buy Products"); 
+                        System.out.println(" 2 - Remove Product From Basket");
+                        System.out.println(" 0 - Back To Menu");
+                        System.out.print("\n Choice: ");
+                        inp = input.nextLine();
+                        if(inp.equals("1"))
+                            currCustomer.purchaseBasket();
+                        else if(inp.equals("2")){
+                            int number;
+                            do {
+                                System.out.print("\n Enter Product Number: ");
+                                String n = input.nextLine();
+                                try {
+                                    number = Integer.parseInt(n);
+                                    if(number < 1)            
+                                        System.err.println(" PRODUCT MUST BE POSITIVE!");
+                                    else
+                                        break;        
+                                } catch (Exception e) {
+                                    System.err.println(" INVALID PRODUCT NUMBER!");
+                                }    
+                            } while (true);
+                            Product product = currCustomer.findProductFromBasketByOrder(number);
+                            if(product != null){
+                                if(!currCustomer.removeProductFromBasket(product))
+                                    System.out.println(" INVALID PRODUCT!");
+                            }
+                            else
+                                System.out.println(" INVALID PRODUCT!");
+                        }
+                        else if(!inp.equals("0"))
+                            System.out.println(" INVALID OPERATION!");
+                    } while (!inp.equals("0"));
+                }
+            }
+            else if(inp.equals("3"))
+                currCustomer.printOrderHistory();
+            else if(!inp.equals("0"))
+                System.out.println("\n INVALID OPERATION!");
+            
             printMenuHeader("customer");
             System.out.print(" Choice: ");
             inp = input.nextLine();
-            
-            while(!inp.equals("0")){
-                System.out.print("\033[H\033[2J");
-                if(inp.equals("1")){
-                    printMenuHeader("products");
-                    System.out.println(" 0 - Back To Menu");
-                    do {
-                        flag = false;                
-                        System.out.print("\n Choice: ");
-                        inp2 = input.nextLine();    
-                        if(inp2.equals("0")){
-                            flag = true;
-                            break;
-                        }
-                        else if(inp2.equals("1"))
-                            flag = printProducts(currCustomer.getShoppingBranch(), ProductType.BOOK);
-                        else if(inp2.equals("2"))
-                            flag = printProducts(currCustomer.getShoppingBranch(), ProductType.CLOTHES);
-                        else if(inp2.equals("3"))
-                            flag = printProducts(currCustomer.getShoppingBranch(), ProductType.DRINK);
-                        else if(inp2.equals("4"))                    
-                            flag = printProducts(currCustomer.getShoppingBranch(), ProductType.ELECTRONIC);
-                        else if(inp2.equals("5"))
-                            flag = printProducts(currCustomer.getShoppingBranch(), ProductType.FOOD);
-                        else if(inp2.equals("6"))        
-                            flag = printProducts(currCustomer.getShoppingBranch(), ProductType.FURNITURE);
-                        else if(inp2.equals("7")) 
-                            flag = printProducts(currCustomer.getShoppingBranch(), ProductType.PERSONALCARE);
-                        else if(inp2.equals("8")) 
-                            flag = printProducts(currCustomer.getShoppingBranch(), ProductType.TOY);
-                        else{
-                            System.out.println(" INVALID INPUT!");
-                            flag = true;
-                        }
-                    } while (flag);
-                    
-                    if(!flag){
-                        do{ 
-                            System.out.println("\n 1 - Add Product To Basket");
-                            System.out.println(" 2 - Request Product");
-                            System.out.println(" 3 - Branch Suggestion For Product That Not Available ");
-                            System.out.println(" 0 - Back To Menu");
-                            System.out.print(" Choice: ");
-                            inp = input.nextLine();
-                            if(inp.equals("1")){
-                                System.out.print("\n Enter Product Name: ");
-                                Product product = currCustomer.findProductByName(input.nextLine());
-                                if(product != null){
-                                    if(!currCustomer.addProductToBasket(product))
-                                        System.out.println(" INVALID PRODUCT!");
-                                }
-                                else
-                                    System.out.println(" INVALID PRODUCT!");
-                            }
-                            else if(inp.equals("2")){
-                                Product p = inProduct("");
-                                currCustomer.requestProduct(p);
-                                System.out.println(" PRODUCT IS REQUESTED FROM BRANCH!");
-                            }
-                            else if(inp.equals("3")){
-                                Branch branch = currCustomer.getBranchSuggestion(company, inProduct("create"));
-                                if(branch == null)
-                                    System.out.println(" PRODUCT COULD NOT BE FOUND IN ANY BRANCH!");
-                                else
-                                    System.out.printf(" The Closest Branch is %s.\n", branch.getBranchName());
-                            }
-                            else if(!inp.equals("0"))
-                                System.out.println(" INVALID OPERATION!");
-                        }while(!inp.equals("0"));
-                    }
-                }
-                else if(inp.equals("2")){
-                    currCustomer.displayBasket();
-                    if(currCustomer.isBasketEmpty()){
-                        System.err.println("\n THERE IS NO PRODUCT AT BASKET!");
-                    }
-                    else{
-                        do {
-                            System.out.println("\n 1 - Buy Products"); 
-                            System.out.println(" 2 - Remove Product From Basket");
-                            System.out.println(" 0 - Back To Menu");
-                            System.out.print("\n Choice: ");
-                            inp = input.nextLine();
-                            if(inp.equals("1"))
-                                currCustomer.purchaseBasket();
-                            else if(inp.equals("2")){
-                                int number;
-                                do {
-                                    System.out.print("\n Enter Product Number: ");
-                                    String n = input.nextLine();
-                                    try {
-                                        number = Integer.parseInt(n);
-                                        if(number < 1)            
-                                            System.err.println(" PRODUCT MUST BE POSITIVE!");
-                                        else
-                                            break;        
-                                    } catch (Exception e) {
-                                        System.err.println(" INVALID PRODUCT NUMBER!");
-                                    }    
-                                } while (true);
-                                Product product = currCustomer.findProductFromBasketByOrder(number);
-                                if(product != null){
-                                    if(!currCustomer.removeProductFromBasket(product))
-                                        System.out.println(" INVALID PRODUCT!");
-                                }
-                                else
-                                    System.out.println(" INVALID PRODUCT!");
-                            }
-                            else if(!inp.equals("0"))
-                                System.out.println(" INVALID OPERATION!");
-                        } while (!inp.equals("0"));
-                    }
-                }
-                else if(inp.equals("3"))
-                    currCustomer.printOrderHistory();
-                else if(!inp.equals("0"))
-                    System.out.println("\n INVALID OPERATION!");
-                
-                printMenuHeader("customer");
-                System.out.print(" Choice: ");
-                inp = input.nextLine();
-            }
         }
         System.out.print("\033[H\033[2J");    
     }
@@ -831,68 +841,67 @@ public class SCSystem {
      * @return A new User object
      */
     private User createUser(){
-        try (Scanner input = new Scanner(System.in)) {
-            String name, username, password;
-            Gender gender = null;
-            int age;        
-            boolean flag;
+        Scanner input = new Scanner(System.in);
+        String name, username, password;
+        Gender gender = null;
+        int age;        
+        boolean flag;
 
-            System.out.print(" Enter Name: ");
-            name = input.nextLine();
+        System.out.print(" Enter Name: ");
+        name = input.nextLine();
 
-            do {
-                System.out.print("\n Enter Age: ");
-                String a = input.nextLine();
-                try {        
-                    age = Integer.parseInt(a);
-                    if(age < 1)            
-                        System.err.println(" AGE MUST BE POSITIVE VALUE!");
-                    else
-                        break;        
-                } catch (Exception e) {
-                    System.err.println(" INVALID AGE FORMAT!");
-                }    
-            } while (true);
-            
-            do {        
-                flag = false;
-                System.out.println("\n Male: M-m   Female: F-f   Other: O-o");
-                System.out.print(" Enter Gender: ");
-                String gen = input.nextLine();
+        do {
+            System.out.print("\n Enter Age: ");
+            String a = input.nextLine();
+            try {        
+                age = Integer.parseInt(a);
+                if(age < 1)            
+                    System.err.println(" AGE MUST BE POSITIVE VALUE!");
+                else
+                    break;        
+            } catch (Exception e) {
+                System.err.println(" INVALID AGE FORMAT!");
+            }    
+        } while (true);
+        
+        do {        
+            flag = false;
+            System.out.println("\n Male: M-m   Female: F-f   Other: O-o");
+            System.out.print(" Enter Gender: ");
+            String gen = input.nextLine();
 
-                if(gen.equals("M") || gen.equals("m"))
-                    gender = Gender.MALE;
-                else if(gen.equals("F") || gen.equals("f"))
-                    gender = Gender.FEMALE;
-                else if(gen.equals("O") || gen.equals("o"))
-                    gender = Gender.OTHER;
-                else{
-                    System.err.println(" INVALID GENDER TYPE!");
-                    flag = true;
-                }
-            } while (flag);
-            
-            do {
-                flag = false;        
-                System.out.print("\n Enter Username: ");
-                username = input.nextLine();
-                if(users.containsKey(username)){
-                    System.err.println(" THIS USERNAME IS TAKEN ALREADY!");
-                    flag = true;
-                }  
-            } while (flag);
-            
-            do {
-                flag = false;        
-                System.out.print("\n Enter Password(Min 8 Charachters): ");
-                password = input.nextLine(); 
-                if(password.length() < 8){
-                    System.err.println(" WEAK PASSWORD IN LENGTH!");
-                    flag = true;
-                }  
-            } while (flag);
-            return new User(name, age, gender, username, password);
-        }
+            if(gen.equals("M") || gen.equals("m"))
+                gender = Gender.MALE;
+            else if(gen.equals("F") || gen.equals("f"))
+                gender = Gender.FEMALE;
+            else if(gen.equals("O") || gen.equals("o"))
+                gender = Gender.OTHER;
+            else{
+                System.err.println(" INVALID GENDER TYPE!");
+                flag = true;
+            }
+        } while (flag);
+        
+        do {
+            flag = false;        
+            System.out.print("\n Enter Username: ");
+            username = input.nextLine();
+            if(users.containsKey(username)){
+                System.err.println(" THIS USERNAME IS TAKEN ALREADY!");
+                flag = true;
+            }  
+        } while (flag);
+        
+        do {
+            flag = false;        
+            System.out.print("\n Enter Password(Min 8 Charachters): ");
+            password = input.nextLine(); 
+            if(password.length() < 8){
+                System.err.println(" WEAK PASSWORD IN LENGTH!");
+                flag = true;
+            }  
+        } while (flag);
+        return new User(name, age, gender, username, password);
     }
   
     /**
@@ -900,42 +909,41 @@ public class SCSystem {
      * @return A new product
      */
     private Product inProduct(String usageAim){
-        try (Scanner input = new Scanner(System.in)) {
-            String name, brand, type;
-            double entryPrice;
-            ProductType pType = null;
+        Scanner input = new Scanner(System.in);
+        String name, brand, type;
+        double entryPrice;
+        ProductType pType = null;
 
-            System.out.print("\n Enter Product Name: ");
-            name = input.nextLine();
+        System.out.print("\n Enter Product Name: ");
+        name = input.nextLine();
 
-            System.out.print("\n Enter Brand Name: ");
-            brand = input.nextLine();
+        System.out.print("\n Enter Brand Name: ");
+        brand = input.nextLine();
 
-      
-            printMenuHeader("products");
-            do {
-                System.out.print("\n Enter Type: ");
-                type = input.nextLine();
-                try {        
-                    int t = Integer.parseInt(type);
-                    if(t < 1 || t > 8)            
-                        System.err.println(" INVALID CATEGORY!");
-                    else{
-                        ProductType[] pTypes = ProductType.values(); 
-                        pType = ProductType.valueOf(pTypes[t-1].toString());
-                        break;
-                    }        
-                } catch (Exception e) {
-                    System.err.println(" INVALID INPUT!");
-                } 
-            } while (true);
+       
+        printMenuHeader("products");
+        do {
+            System.out.print("\n Enter Type: ");
+            type = input.nextLine();
+            try {        
+                int t = Integer.parseInt(type);
+                if(t < 1 || t > 8)            
+                    System.err.println(" INVALID CATEGORY!");
+                else{
+                    ProductType[] pTypes = ProductType.values(); 
+                    pType = ProductType.valueOf(pTypes[t-1].toString());
+                    break;
+                }        
+            } catch (Exception e) {
+                System.err.println(" INVALID INPUT!");
+            } 
+        } while (true);
 
-            if(usageAim.equals("create"))
-                entryPrice = inputEntryPrice();
-            else
-                entryPrice = 0.0;
-            return new Product(name, brand, pType, entryPrice);
-        }
+        if(usageAim.equals("create"))
+            entryPrice = inputEntryPrice();
+        else
+            entryPrice = 0.0;
+        return new Product(name, brand, pType, entryPrice);
     }
 
     /**
@@ -945,22 +953,21 @@ public class SCSystem {
      * @return The entry price.
      */
     private double inputEntryPrice(){
-        try (Scanner input = new Scanner(System.in)) {
-            double entryPrice;
-            do {
-                System.out.print("\n Enter Entry Price: ");
-                String d = input.nextLine();
-                try {        
-                    entryPrice = Double.parseDouble(d);
-                    if(entryPrice < 0.0)            
-                        System.err.println(" ENTRY PRICE MUST BE POSITIVE!");
-                    else
-                        return entryPrice;        
-                } catch (Exception e) {
-                    System.err.println(" INVALID PRICE FORMAT!");
-                }    
-            } while (true);
-        }
+        Scanner input = new Scanner(System.in);
+        double entryPrice;
+        do {
+            System.out.print("\n Enter Entry Price: ");
+            String d = input.nextLine();
+            try {        
+                entryPrice = Double.parseDouble(d);
+                if(entryPrice < 0.0)            
+                    System.err.println(" ENTRY PRICE MUST BE POSITIVE!");
+                else
+                    return entryPrice;        
+            } catch (Exception e) {
+                System.err.println(" INVALID PRICE FORMAT!");
+            }    
+        } while (true);
     }
     
    /**
@@ -968,26 +975,25 @@ public class SCSystem {
     * @return A Product object.
     */
     private Product createProduct(){
-        try (Scanner input = new Scanner(System.in)) {
-            int stock;
+        Scanner input = new Scanner(System.in);
+        int stock;
 
-            Product p = inProduct("create");
-            do {
-                System.out.print("\n Enter Stock: ");
-                String s = input.nextLine();
-                try {
-                    stock = Integer.parseInt(s);
-                    if(stock < 1)            
-                        System.err.println(" STOCK MUST BE POSITIVE!");
-                    else
-                        break;        
-                } catch (Exception e) {
-                    System.err.println(" INVALID STOCK!");
-                }    
-            } while (true);
-            p.setStock(stock);
-            return p;
-        }
+        Product p = inProduct("create");
+        do {
+            System.out.print("\n Enter Stock: ");
+            String s = input.nextLine();
+            try {
+                stock = Integer.parseInt(s);
+                if(stock < 1)            
+                    System.err.println(" STOCK MUST BE POSITIVE!");
+                else
+                    break;        
+            } catch (Exception e) {
+                System.err.println(" INVALID STOCK!");
+            }    
+        } while (true);
+        p.setStock(stock);
+        return p;
     }
 
     /**
@@ -996,31 +1002,30 @@ public class SCSystem {
      * @return a Branch object.
      */
     private Branch chooseBranch(){
-        try (Scanner input = new Scanner(System.in)) {
-            boolean flag;
-            String branchName;
+        Scanner input = new Scanner(System.in);
+        boolean flag;
+        String branchName;
 
-            System.out.println("\n Existing Branches");
-            company.getAdministrator().displayBranches();
+        System.out.println("\n Existing Branches");
+        company.getAdministrator().displayBranches();
 
-            DynamicBranchGraph branches = company.getBranches();
-            if(branches.getNumV() == 0)
-                System.out.println(" THERE IS NO BRANCH AT COMPANY!");
-            else{    
-                do {
-                    flag = true;        
-                    System.out.print("\n Enter Branch Name: ");
-                    branchName = input.nextLine();           
-                    Iterator<Branch> itr = branches.iterator();
-            	    while ( itr.hasNext() ) {
-            		    Branch branch = itr.next();
-            		    if (branchName.equals(branch.getBranchName()))
-            			    return branch;
-            	    }	         
-                    if(flag)
-                        System.err.println(" ENTER EXISTING BRANCH NAME!");
-                } while (flag);
-            }
+        DynamicBranchGraph branches = company.getBranches();
+        if(branches.getNumV() == 0)
+            System.out.println(" THERE IS NO BRANCH AT COMPANY!");
+        else{    
+            do {
+                flag = true;        
+                System.out.print("\n Enter Branch Name: ");
+                branchName = input.nextLine();           
+                Iterator<Branch> itr = branches.iterator();
+			    while ( itr.hasNext() ) {
+				    Branch branch = itr.next();
+				    if (branchName.equals(branch.getBranchName()))
+					    return branch;
+			    }	         
+                if(flag)
+                    System.err.println(" ENTER EXISTING BRANCH NAME!");
+            } while (flag);
         }
         return null;
     }
