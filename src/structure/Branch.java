@@ -166,6 +166,8 @@ public class Branch {
 	 * @return True if branch has that product.
 	 */ 
 	public boolean hasProduct(Product p) {
+		if ( products.get(p.getType()) == null )
+			return false;
 		return products.get(p.getType()).contains(p); 
 	}
 
