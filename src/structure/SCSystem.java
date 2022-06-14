@@ -747,6 +747,7 @@ public class SCSystem {
             } while (flag);
         }
         else if(type.equals(ProductType.CLOTHES)){
+            Clothes[] arr = Arrays.copyOf(array, array.length, Clothes[].class);
             do {
                 flag = false;
                 printMenuHeader("compare");
@@ -756,19 +757,19 @@ public class SCSystem {
                 System.out.print(" Choice: ");
                 inp = input.nextLine();
                 if(inp.equals("1"))
-                    Arrays.sort((Clothes[])array, new Product.compareByBrand());
+                    Arrays.sort(arr, new Product.compareByBrand());
                 else if(inp.equals("2"))
-                    Arrays.sort((Clothes[])array, new Product.compareByName());
+                    Arrays.sort(arr, new Product.compareByName());
                 else if(inp.equals("3"))
-                    Arrays.sort((Clothes[])array, new Product.compareByPrice());
+                    Arrays.sort(arr, new Product.compareByPrice());
                 else if(inp.equals("4"))
-                    Arrays.sort((Clothes[])array, new Product.compareByType());
+                    Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
-                    Arrays.sort((Clothes[])array, new Clothes.CompareByGender());
+                    Arrays.sort(arr, new Clothes.CompareByGender());
                 else if(inp.equals("6"))
-                    Arrays.sort((Clothes[])array, new Clothes.CompareByKind());
+                    Arrays.sort(arr, new Clothes.CompareByKind());
                 else if(inp.equals("7"))
-                    Arrays.sort((Clothes[])array, new Clothes.CompareByMaterialType());
+                    Arrays.sort(arr, new Clothes.CompareByMaterialType());
                 else
                     System.out.println(" INVALID OPERATION!");
             } while (flag);

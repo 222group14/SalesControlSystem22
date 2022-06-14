@@ -89,7 +89,6 @@ public class Toy extends Product{
 		}
 	}
 
-
 	/**
 	 * Returns string of the properties of the product : 
 	 * Name, brand, type, entryprice, playing age, kind
