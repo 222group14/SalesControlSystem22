@@ -694,7 +694,9 @@ public class SCSystem {
                             } while (true);
                             Product product = currCustomer.findProductFromBasketByOrder(number);
                             if(product != null){
-                                if(!currCustomer.removeProductFromBasket(product))
+                                if(currCustomer.removeProductFromBasket(product))
+                                    currCustomer.displayBasket();
+                                else
                                     System.out.println(" INVALID PRODUCT!");
                             }
                             else
@@ -742,8 +744,10 @@ public class SCSystem {
                     Arrays.sort(arr, new Book.CompareByAuthor());
                 else if(inp.equals("6"))
                     Arrays.sort(arr, new Book.CompareByKind());
-                else
+                else{
                     System.out.println(" INVALID OPERATION!");
+                    flag = true;
+                }
             } while (flag);
             printProducts(arr);
         }
@@ -771,8 +775,10 @@ public class SCSystem {
                     Arrays.sort(arr, new Clothes.CompareByKind());
                 else if(inp.equals("7"))
                     Arrays.sort(arr, new Clothes.CompareByMaterialType());
-                else
+                else{
                     System.out.println(" INVALID OPERATION!");
+                    flag = true;
+                }
             } while (flag);
             printProducts(arr);
         }
@@ -794,8 +800,10 @@ public class SCSystem {
                     Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
                     Arrays.sort(arr, new Drink.compareByExpDate());
-                else
+                else{
                     System.out.println(" INVALID OPERATION!");
+                    flag = true;
+                }
             } while (flag);
             printProducts(arr);
         }
@@ -820,8 +828,10 @@ public class SCSystem {
                     Arrays.sort(arr, new Electronic.compareByHeight());
                 else if(inp.equals("6"))
                     Arrays.sort(arr, new Electronic.compareByWidth());
-                else
+                else{
                     System.out.println(" INVALID OPERATION!");
+                    flag = true;
+                }
             } while (flag);
             printProducts(arr);
         }
@@ -843,8 +853,10 @@ public class SCSystem {
                     Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
                     Arrays.sort(arr, new Food.compareByExpDate());
-                else
+                else{
                     System.out.println(" INVALID OPERATION!");
+                    flag = true;
+                }
             } while (flag);
             printProducts(arr);
         }
@@ -872,8 +884,10 @@ public class SCSystem {
                     Arrays.sort(arr, new Furniture.compareByHeight());
                 else if(inp.equals("7"))
                     Arrays.sort(arr, new Furniture.compareByWidth());
-                else
+                else{
                     System.out.println(" INVALID OPERATION!");
+                    flag = true;
+                }
             } while (flag);
             printProducts(arr);
         }
@@ -895,8 +909,10 @@ public class SCSystem {
                     Arrays.sort(arr, new Product.compareByType());
                 else if(inp.equals("5"))
                     Arrays.sort(arr, new PersonalCare.compareByExpDate());
-                else
+                else{
                     System.out.println(" INVALID OPERATION!");
+                    flag = true;
+                }
             } while (flag);
             printProducts(arr);
         }
@@ -921,16 +937,22 @@ public class SCSystem {
                     Arrays.sort(arr, new Toy.CompareByAuthor());
                 else if(inp.equals("6"))
                     Arrays.sort(arr, new Toy.compareByWidth());
-                else
+                else{
                     System.out.println(" INVALID OPERATION!");
+                    flag = true;
+                }
             } while (flag);
             printProducts(arr);
         }
     }
 
+    /**
+     * Print products of array
+     * @param arr The array of products to be printed
+     */
     private void printProducts(Product[] arr){
-        System.out.println("\n------------------------------ Products ------------------------------\n");
-        System.out.println("----------------------------------------------------------------------\n");
+        System.out.println("\n------------------------------ Products ------------------------------");
+        System.out.println("----------------------------------------------------------------------");
 		for (int i = 0; i < arr.length; i++)
             System.out.println(arr[i]);
         System.out.println("----------------------------------------------------------------------\n");
@@ -1235,6 +1257,10 @@ public class SCSystem {
         }
         return null;
     }
+
+    /**
+     * Initial company is created
+     */
     private void initialCompany(){
         Administrator admin1 = new Administrator("admin1", 30, Gender.FEMALE, "ADMIN" , "adminscs." , company);    	
     	System.out.println("\n" + admin1 + "\n");
