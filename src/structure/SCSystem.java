@@ -40,42 +40,100 @@ public class SCSystem {
     public SCSystem () {
         System.out.println("Creating company");
 		this.company = new Company("BIG SUPERMARKET");
-    	initialUsers();
-        
+    	initialCompany();
     }
 
-    private void initialUsers(){
-        Administrator admin1 = new Administrator("admin1", 30, Gender.FEMALE, "ADMIN" , "adminsc." , company);    	
+    private void initialCompany(){
+        Administrator admin1 = new Administrator("admin1", 30, Gender.FEMALE, "ADMIN" , "adminscs." , company);    	
     	System.out.println("\n" + admin1 + "\n");
 
 		Branch branch1 = new Branch("branch1");
         admin1.addBranch(branch1);
 
-		BranchManager branchmng1 = new BranchManager("tarık", 10, Gender.MALE, "tarik.mng", "12345679", branch1);
+        Branch branch2 = new Branch("branch2");
+        admin1.addBranch(branch2);
+        
+        Branch branch3 = new Branch("branch3");
+        admin1.addBranch(branch3);
+        
+        Branch branch4 = new Branch("branch4");
+        admin1.addBranch(branch4);
+	
+
+		BranchManager branchmng1 = new BranchManager("tarık", 31, Gender.MALE, "tarik.mng", "12345679", branch1);
 		admin1.setBranchManager(branch1, branchmng1);
         
-		Branch branch2 = new Branch("branch2");
-        admin1.addBranch(branch2);
-	
-		BranchManager branchmng2 = new BranchManager("osman", 10, Gender.MALE, "mngrOsmn", "ew1221we", branch2);
+		BranchManager branchmng2 = new BranchManager("osman", 45, Gender.MALE, "mngrOsmn", "ew1221we", branch2);
 		admin1.setBranchManager(branch2, branchmng2);
+
+        BranchManager branchmng3 = new BranchManager("irem", 39, Gender.FEMALE, "mngrIrem", "qwer1234", branch3);
+		admin1.setBranchManager(branch3, branchmng3);
+
+        BranchManager branchmng4 = new BranchManager("arda", 43, Gender.MALE, "mngrArda", "1903arda.", branch4);
+		admin1.setBranchManager(branch4, branchmng4);
         
         BranchEmployee bemp1 = new BranchEmployee("sevim", 24, Gender.FEMALE, "Sevim7" ,  "Sevim2001." , branch1);
         branchmng1.addBranchEmployee(bemp1);
 
-        BranchEmployee bemp2 = new BranchEmployee("osman", 24, Gender.MALE, "Osmanpzr" , " Osman3002." ,branch2);
-        branchmng2.addBranchEmployee(bemp2);
+        BranchEmployee bemp2 = new BranchEmployee("osman", 24, Gender.MALE, "Osmanpzr" , " Osman3002." ,branch1);
+        branchmng1.addBranchEmployee(bemp2);
 
-        BranchEmployee bemp3 = new BranchEmployee("asli", 25, Gender.FEMALE, "asliii", "A_sli3106." , branch2);
-        branchmng2.addBranchEmployee(bemp3);
+        BranchEmployee bemp3 = new BranchEmployee("asli", 25, Gender.FEMALE, "asliii", "A_sli3106." , branch1);
+        branchmng1.addBranchEmployee(bemp3);
 
-        Product product1 = new Clothes("clothes1", "brand1", 132.6, Size.XL, "matType1", "blue", false, Gender.FEMALE, 1);
-        Product product2 = new Clothes("clothes2", "brand2", 111.8, Size.L, "matType1", "green", true, Gender.MALE, 4);		
-		Product product3 = new Drink("tea", "brand3", 12.6 , "11/02/2023", 1.5, 45);
-		Product product4 = new Electronic("phone", "samsung", 1000.0, 200, false, 12.1, 21.0, 42);
-		Product product5 = new Food("crisps", "ruffle", 132.6, "13/07/2023", 0.250, 4);
-		Product product6 = new Furniture("furniture1", "ikea",  131.9, 142.1, 1.92, "black", 4);
-		Product product7 = new PersonalCare("shampoo", "blendax", 76.1, "For Dandruff Hair", "14/06/2024",3);
+
+        BranchEmployee bemp4 = new BranchEmployee("sema", 26, Gender.FEMALE, "semaa" ,  "s_ema2121." , branch2);
+        branchmng2.addBranchEmployee(bemp4);
+
+        BranchEmployee bemp5 = new BranchEmployee("şevval", 27, Gender.FEMALE, "Sevval" , "DQWeb21s." ,branch2);
+        branchmng2.addBranchEmployee(bemp5);
+
+        BranchEmployee bemp6 = new BranchEmployee("burak", 29, Gender.MALE, "burakk", "B_urak3106." , branch2);
+        branchmng2.addBranchEmployee(bemp6);
+
+
+        BranchEmployee bemp7 = new BranchEmployee("eray", 24, Gender.MALE, "Eray7" ,  "eray2001." , branch3);
+        branchmng3.addBranchEmployee(bemp7);
+
+        BranchEmployee bemp8 = new BranchEmployee("M.emre", 24, Gender.MALE, "emre07" , "Emre0707." ,branch3);
+        branchmng3.addBranchEmployee(bemp8);
+
+        BranchEmployee bemp9 = new BranchEmployee("esra", 25, Gender.FEMALE, "Esra", "eWQEwq212." , branch3);
+        branchmng3.addBranchEmployee(bemp9);
+
+
+        BranchEmployee bemp10 = new BranchEmployee("furkan", 24, Gender.MALE, "furki" ,  "Furki2001." , branch4);
+        branchmng4.addBranchEmployee(bemp10);
+
+        BranchEmployee bemp11 = new BranchEmployee("eray", 24, Gender.MALE, "erayoz" , "E_ray1515." ,branch4);
+        branchmng4.addBranchEmployee(bemp11);
+
+        BranchEmployee bemp12 = new BranchEmployee("mehmet", 25, Gender.MALE, "memo", "dsa21A41." , branch4);
+        branchmng4.addBranchEmployee(bemp12);
+
+        Product product1 = new Clothes("T_shirt", "mavi", 100, Size.XL, "matType1", "blue", true, Gender.FEMALE, 1);
+        Product product2 = new Clothes("Short", "mavi", 111.8, Size.L, "matType1", "green", true, Gender.MALE, 4);		
+		Product product3 = new Drink("tea", "çaykur", 12.6 , "11/02/2023", 1.5, 45);
+		Product product4 = new Electronic("phone", "samsung", 4000, 200, false, 12.1, 21.0, 42);
+		Product product5 = new Food("crisps", "ruffle", 8, "13/07/2023", 0.250, 4);
+		Product product6 = new Furniture("table", "ikea",  200, 142.1, 1.30, "black", 4);
+		Product product7 = new PersonalCare("shampoo", "blendax", 40, "For Dandruff Hair", "14/06/2024",3);
+        Product product8 = new Clothes("Dress", "mavi", 250, Size.S, "matType1", "red", true, Gender.FEMALE, 10);
+        Product product9 = new Clothes("Jeans", "mavi", 200, Size.M, "matType1", "blue", false, Gender.MALE, 13);	
+        Product product10 = new Clothes("Jeans", "mavi", 200, Size.L, "matType1", "blue", false, Gender.MALE, 9);	
+        Product product11 = new Clothes("Jeans", "mavi", 200, Size.S, "matType1", "blue", false, Gender.MALE, 14);	
+        Product product12 = new Clothes("T_shirt", "mavi", 100, Size.L, "matType1", "blue", true, Gender.FEMALE, 15);
+        Product product13 = new Clothes("T_shirt", "mavi", 100, Size.S, "matType1", "blue", true, Gender.FEMALE, 6);
+        Product product14 = new PersonalCare("shampoo", "clear", 45, "For Dandruff Hair", "16/08/2024",15);
+        Product product15 = new PersonalCare("shampoo", "haci sakir", 30, "For Dandruff Hair", "15/05/2024",20);
+        Product product16 = new Furniture("wardrobe", "ikea",  1200, 90, 2, "black", 6);
+        Product product17 = new Furniture("sofa", "ikea",  2000, 90, 1, "grey", 11);
+        Product product18 = new Food("crisps", "lays", 9, "13/05/2023", 0.250, 7);
+        Product product19 = new Food("ice-cream", "algida", 8.5, "13/07/2023", 0.190, 16);
+        Product product20 = new Drink("coke", "coca cola", 11 , "16/08/2023", 1.5, 45);
+        Product product21 = new Drink("water", "erikli", 1.5 , "19/03/2023", 0.5, 50);
+        Product product22 = new Electronic("phone", "apple", 6000, 200, false, 5.1, 14.0, 11);
+
 
         bemp1.addProduct(product2);
         bemp1.addProduct(product3);
@@ -83,26 +141,95 @@ public class SCSystem {
         bemp1.addProduct(product5);
         bemp1.addProduct(product6);
         bemp1.addProduct(product7);
-        bemp3.addProduct(product1);
+        bemp1.addProduct(product1);
+
+        bemp4.addProduct(product8);
+        bemp4.addProduct(product9);
+        bemp4.addProduct(product10);
+        bemp4.addProduct(product14);
+        bemp4.addProduct(product16);
+        bemp4.addProduct(product17);
+        bemp4.addProduct(product18);
+
+        bemp7.addProduct(product19);
+        bemp7.addProduct(product20);
+        bemp7.addProduct(product11);
+        bemp7.addProduct(product12);
+        bemp7.addProduct(product6);
+        bemp7.addProduct(product7);
+        bemp7.addProduct(product1);
+
+        bemp10.addProduct(product21);
+        bemp10.addProduct(product22);
+        bemp10.addProduct(product13);
+        bemp10.addProduct(product15);
+        bemp10.addProduct(product6);
+        bemp10.addProduct(product7);
+        bemp10.addProduct(product1);
+        
 
         company.getAdministrator().connectBranches(branch1, branch2, 12.2);
+        company.getAdministrator().connectBranches(branch2, branch3, 10.9);
+        company.getAdministrator().connectBranches(branch2, branch4, 8.7);
+        company.getAdministrator().connectBranches(branch1, branch4, 15.6);
 
 		Customer customer1 = new Customer("ali", 29, Gender.MALE, "mali53", "rizeliA_li53" , branch1);
 		Customer customer2 = new Customer("avni", 25, Gender.MALE, "avni.celik", "avn_1234" , branch1);
 		Customer customer3 = new Customer("emir", 25, Gender.MALE, "emir.efe34", "E_efe1903" , branch2);
         branchmng1.addCustomer(customer1);
         branchmng1.addCustomer(customer2);
-        branchmng2.addCustomer(customer3);
+        branchmng1.addCustomer(customer3);
+
+        Customer customer4 = new Customer("alper", 21, Gender.MALE, "alper", "Alper1234" , branch1);
+		Customer customer5 = new Customer("tümay", 25, Gender.FEMALE, "tümay", "d21rgaw31." , branch1);
+		Customer customer6 = new Customer("fatma", 22, Gender.FEMALE, "fatma", "dwar1231.q" , branch2);
+        branchmng2.addCustomer(customer4);
+        branchmng2.addCustomer(customer5);
+        branchmng2.addCustomer(customer6);
+
+        Customer customer7 = new Customer("necip", 19, Gender.MALE, "neco", "dsarr21wqe." , branch1);
+		Customer customer8 = new Customer("oğuzhan", 30, Gender.MALE, "ozi", "mk21mw21." , branch1);
+		Customer customer9 = new Customer("elif", 25, Gender.FEMALE, "Elif", "E_lif2431." , branch2);
+        branchmng3.addCustomer(customer7);
+        branchmng3.addCustomer(customer8);
+        branchmng3.addCustomer(customer9);
+
+        Customer customer10 = new Customer("Umut", 28, Gender.MALE, "umut", "umut2001." , branch1);
+		Customer customer11 = new Customer("kerem", 31, Gender.MALE, "kerem", "13kere_m." , branch1);
+		Customer customer12 = new Customer("burcu", 23, Gender.FEMALE, "burcu", "weqe1wda." , branch2);
+        branchmng4.addCustomer(customer10);
+        branchmng4.addCustomer(customer11);
+        branchmng4.addCustomer(customer12);
 
         users.put(admin1.getUserName(), admin1);
         users.put(branchmng1.getUserName(), branchmng1);
         users.put(branchmng2.getUserName(), branchmng2);
+        users.put(branchmng3.getUserName(), branchmng3);
+        users.put(branchmng4.getUserName(), branchmng4);
         users.put(customer1.getUserName(), customer1);
         users.put(customer2.getUserName(), customer2);
         users.put(customer3.getUserName(), customer3);
+        users.put(customer4.getUserName(), customer4);
+        users.put(customer5.getUserName(), customer5);
+        users.put(customer6.getUserName(), customer6);
+        users.put(customer7.getUserName(), customer7);
+        users.put(customer8.getUserName(), customer8);
+        users.put(customer9.getUserName(), customer9);
+        users.put(customer10.getUserName(), customer10);
+        users.put(customer11.getUserName(), customer11);
+        users.put(customer12.getUserName(), customer12);
         users.put(bemp1.getUserName(), bemp1);
         users.put(bemp2.getUserName(), bemp2);
         users.put(bemp3.getUserName(), bemp3);
+        users.put(bemp4.getUserName(), bemp4);
+        users.put(bemp5.getUserName(), bemp5);
+        users.put(bemp6.getUserName(), bemp6);
+        users.put(bemp7.getUserName(), bemp7);
+        users.put(bemp8.getUserName(), bemp8);
+        users.put(bemp9.getUserName(), bemp9);
+        users.put(bemp10.getUserName(), bemp10);
+        users.put(bemp11.getUserName(), bemp11);
+        users.put(bemp12.getUserName(), bemp12);
     }
 
     /**
@@ -138,9 +265,6 @@ public class SCSystem {
         System.out.println("----------------------------------------------------------------------");
     }
 
-    /** ArrayList of noworking branch managers */
-    private ArrayList<BranchManager> noworkingBranchManagers = new ArrayList<BranchManager>();
-
     /**
      * It creates an user to register the system.
      * @return A User object.
@@ -173,15 +297,14 @@ public class SCSystem {
             }
         } while (flag);
 
+        Branch branch = chooseBranch();
         User newUser = null;
         if(userType.equals("E"))
-            newUser = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), chooseBranch());
-        else if(userType.equals("M")){
-            newUser = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), new Branch("None"));
-            noworkingBranchManagers.add((BranchManager)newUser);
-        }
+            newUser = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), branch);
+        else if(userType.equals("M"))
+            newUser = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), new Branch(branch.getBranchName()));
         else if(userType.equals("C"))
-            newUser = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), chooseBranch());
+            newUser = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), branch);
 
         System.out.print("\033[H\033[2J");
         System.out.print("----------------------------------------------------------------------");
@@ -301,7 +424,20 @@ public class SCSystem {
                         System.out.print(" Choice: ");
                         inp2 = input.nextLine();
                         if(inp2.equals("1")){
-                            users.putAll(registeredUsers);
+                            Iterator<User> itr1 = registeredUsers.values().iterator();
+                            while(itr1.hasNext()){
+                                User u = (User)itr1.next();
+                                if(u instanceof BranchManager){
+                                    BranchManager bm = (BranchManager)u;
+                                    Iterator<Branch> itr2 = company.getBranches().branchIterator();
+                                    while(itr2.hasNext()){
+                                        Branch b = (Branch)itr2.next();
+                                        if(b.getBranchName().equals(bm.getBranch().getBranchName()))
+                                            administrator.setBranchManager(b, bm);
+                                    }
+                                }
+                                users.put(u.getUserName(), u);
+                            }
                             registeredUsers.clear();
                             System.out.println(" ALL REGISTRATION REQUESTS ARE APPROVED SUCCESSFULLY!");
                         }
@@ -319,6 +455,15 @@ public class SCSystem {
                                     System.out.print(" Choice: ");
                                     inp3 = input.nextLine(); 
                                     if(inp3.equals("1")){
+                                        if(user instanceof BranchManager){
+                                            BranchManager bm = (BranchManager)user;
+                                            Iterator<Branch> itr2 = company.getBranches().branchIterator();
+                                            while(itr2.hasNext()){
+                                                Branch b = (Branch)itr2.next();
+                                                if(b.getBranchName().equals(bm.getBranch().getBranchName()))
+                                                    bm = administrator.setBranchManager(b, bm);
+                                            }
+                                        }
                                         users.put(user.getUserName(), user);
                                         registeredUsers.remove(user.getUserName());
                                         System.out.println(" REGISTRATION IS APPROVED!");
@@ -372,74 +517,18 @@ public class SCSystem {
                 }
             }
             else if(inp.equals("4")){
-                /* do{
-                    flag = false;
-                    System.out.println("\n 1 - Add New Branch Manager");
-                    System.out.println(" 2 - Add Noworking Branch Manager");
-                    System.out.print(" Choice: ");
-                    inp = input.nextLine();
-                    if(inp.equals("1")){
-                        Branch branch = chooseBranch();
-                        if(branch != null){
-                            System.out.println("\n Enter Informations Of Branch Manager:");
-                            User usr = createUser();
-                            BranchManager bManager = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), branch);
-                            noworkingBranchManagers.add(branch.getBranchManager());
-                            administrator.setBranchManager(branch, bManager);
-                            users.put(bManager.getUserName(), bManager);
-                            System.out.println(" BRANCH MANAGER " + bManager.getName() + " IS SET SUCCESSFULLY!");
-                        }
-                        else
-                            System.err.println(" THERE IS NO BRANCH TO ADD BRANCH MANAGER!");
-                    }
-                    else if(inp.equals("2")){
-                        if(!noworkingBranchManagers.isEmpty()){
-                            int j = 0, ind = 1;
-                    		boolean flag2 = false; 
-                            System.err.println("\n--------------------- Noworking Branch Managers ----------------------");
-                    		System.out.println("----------------------------------------------------------------------");
-                            for (int i = 0; i < noworkingBranchManagers.size(); i++){ 
-                                if(users.containsKey(noworkingBranchManagers.get(i).getUserName())){
-                                    System.out.printf(" %d - %s\n", ++j, noworkingBranchManagers.get(i).getName());
-                                    flag2 = true;
-                                }
-                            }    
-                            if(flag2){
-                                do {
-                                    System.out.print(" Enter A Branch Manager: ");
-                                    String s = input.nextLine();
-                                    try {        
-                                        ind = Integer.parseInt(s);
-                                        if(ind < 1 || ind > j)            
-                                            System.err.println(" INVALID BRANCH MANAGER!");
-                                        else
-                                            break;     
-                                    } catch (Exception e) {
-                                        System.err.println(" INVALID INPUT!");
-                                        continue;
-                                    } 
-                                } while (true);
-                                Branch branch = chooseBranch();
-                                if(branch != null){
-                                    System.out.println(ind);
-                                    BranchManager bManager = noworkingBranchManagers.remove(ind-1);
-                                    administrator.setBranchManager(branch, bManager);
-                                }
-                                else
-                                    System.err.println(" THERE IS NO BRANCH TO ADD BRANCH MANAGER!");
-                            }
-                            else                            
-                                System.out.println(" THERE IS NO REGISTERED NOWORKING BRANCH MANAGER!"); 
-                        }
-                        else
-                            System.out.println(" THERE IS NO NOWORKING BRANCH MANAGER!");        
-                		System.out.println("----------------------------------------------------------------------");
-                    }
-                    else{
-                        System.out.println(" INVALID OPERATION!");
-                        flag = true;
-                    }
-                }while(flag); */                
+                Branch branch = chooseBranch();        
+                if(branch != null){
+                    System.out.println("\n Enter Informations Of Branch Manager:");
+                    User usr = createUser();
+                    BranchManager bManager = new BranchManager(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), branch);
+                    users.remove(branch.getBranchManager().getUserName());
+                    administrator.setBranchManager(branch, bManager);
+                    users.put(bManager.getUserName(), bManager);
+                    System.out.println(" BRANCH MANAGER " + bManager.getName() + " IS SET SUCCESSFULLY!");
+                }
+                else
+                    System.err.println(" THERE IS NO BRANCH TO ADD BRANCH MANAGER!");                
             }
             else if(inp.equals("5"))
                 administrator.displayBranches();
@@ -929,7 +1018,6 @@ public class SCSystem {
 
         System.out.print("\n Enter Brand Name: ");
         brand = input.nextLine();
-
        
         printMenuHeader("products");
         do {
@@ -941,7 +1029,7 @@ public class SCSystem {
                     System.err.println(" INVALID CATEGORY!");
                 else{
                     ProductType[] pTypes = ProductType.values(); 
-                    pType = ProductType.valueOf(pTypes[t-1].toString());
+                    pType = pTypes[t-1];
                     break;
                 }        
             } catch (Exception e) {
