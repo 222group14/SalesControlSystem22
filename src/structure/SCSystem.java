@@ -458,17 +458,14 @@ public class SCSystem {
         System.out.print(" Choice: ");
         String inp = input.nextLine();
         
-        boolean success;
         while(!inp.equals("0")){
             System.out.print("\033[H\033[2J");
             if(inp.equals("1")){
                 System.out.println("\n Enter Branch Employee Name To Add: ");
                 User usr = createUser();
                 BranchEmployee bEmployee = new BranchEmployee(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
-                success = currManager.addBranchEmployee(bEmployee);
-                users.put(bEmployee.getUserName(), bEmployee);
-                if(success) 
-                    System.out.println(" BRANCH EMPLOYEE IS ADDED SUCCESSFULLY.");
+                users.put(bEmployee.getUserName(), bEmployee); 
+                System.out.println(" BRANCH EMPLOYEE IS ADDED SUCCESSFULLY.");
             }
             else if(inp.equals("2")){
                 currManager.displayBranchEmployees();
@@ -504,12 +501,9 @@ public class SCSystem {
                 System.out.println("\n Enter Customer Name To Add: ");
                 User usr = createUser();
                 Customer newCustomer = new Customer(usr.getName(), usr.getAge(), usr.getGender(), usr.getUserName(), usr.getPassword(), currManager.getBranch());
-                success = currManager.addCustomer(newCustomer);
                 users.put(newCustomer.getUserName(), newCustomer);
-                if(success) {
-                    System.out.println(" CUSTOMER IS ADDED SUCCESSFULLY.");
-                    System.out.println(currManager.getBranch().getStringCustomers());
-                }
+                System.out.println(" CUSTOMER IS ADDED SUCCESSFULLY.");
+                System.out.println(currManager.getBranch().getStringCustomers());
             }
             else if(inp.equals("4")){
                 System.out.println(currManager.getBranch().getStringCustomers());
